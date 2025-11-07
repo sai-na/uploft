@@ -8,6 +8,10 @@ import type { StorageData, UserPreferences } from '../types/storage.types.js';
 const DEFAULT_PREFERENCES: UserPreferences = {
   enableNotifications: true,
   enableSound: false,
+  notifyOnComplete: true,
+  notifyOnFailed: true,
+  notifyOnCancelled: false,
+  notifyOnBatchComplete: true,
   uiPosition: 'bottom-right',
   theme: 'auto',
   autoHide: false,
@@ -84,6 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
       enableNotifications:
         enableNotifications?.checked ?? DEFAULT_PREFERENCES.enableNotifications,
       enableSound: enableSound?.checked ?? DEFAULT_PREFERENCES.enableSound,
+      notifyOnComplete: DEFAULT_PREFERENCES.notifyOnComplete,
+      notifyOnFailed: DEFAULT_PREFERENCES.notifyOnFailed,
+      notifyOnCancelled: DEFAULT_PREFERENCES.notifyOnCancelled,
+      notifyOnBatchComplete: DEFAULT_PREFERENCES.notifyOnBatchComplete,
       uiPosition:
         (uiPosition?.value as UserPreferences['uiPosition']) ??
         DEFAULT_PREFERENCES.uiPosition,

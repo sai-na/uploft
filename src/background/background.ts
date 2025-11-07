@@ -3,43 +3,94 @@
  * Handles extension lifecycle and Chrome API interactions
  */
 
+/* eslint-disable no-console */
+
 import type {
   ExtensionMessage,
   MessageResponse,
-  MessageType,
 } from '../types/messages.types.js';
+import { MessageType } from '../types/messages.types.js';
 import type { StorageData, UserPreferences } from '../types/storage.types.js';
+import { NotificationManager } from './notifications.js';
 
 const DEFAULT_PREFERENCES: UserPreferences = {
   enableNotifications: true,
   enableSound: false,
+  notifyOnComplete: true,
+  notifyOnFailed: true,
+  notifyOnCancelled: false,
+  notifyOnBatchComplete: true,
   uiPosition: 'bottom-right',
   theme: 'auto',
   autoHide: false,
 };
 
+// Initialize notification manager
+const notificationManager = new NotificationManager();
+
 // Service worker install event
 chrome.runtime.onInstalled.addListener((details) => {
+  console.log('[Background] Extension installed:', details.reason);
+
   // Initialize default settings on install
   if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
     void chrome.storage.sync.set({
       preferences: DEFAULT_PREFERENCES,
     } satisfies StorageData);
+
+    console.log('[Background] Default preferences set');
   }
+});
+
+// Service worker activate event
+chrome.runtime.onStartup.addListener(() => {
+  console.log('[Background] Extension startup');
 });
 
 // Message handler for communication with content scripts
 chrome.runtime.onMessage.addListener(
   (
     message: ExtensionMessage,
-    _sender: chrome.runtime.MessageSender,
+    sender: chrome.runtime.MessageSender,
     sendResponse: (response: MessageResponse) => void
   ) => {
+    console.log('[Background] Received message:', message.type);
+
+    // Get tab ID from sender
+    const tabId = sender.tab?.id;
+
     // Handle different message types
-    if (message.type === ('UPLOAD_COMPLETE' as MessageType)) {
-      void handleUploadComplete(message.data);
-    } else if (message.type === ('UPLOAD_FAILED' as MessageType)) {
-      void handleUploadFailed(message.data);
+    switch (message.type) {
+      case MessageType.UPLOAD_COMPLETE:
+        void notificationManager.notifyUploadComplete({
+          ...message.data,
+          tabId,
+        });
+        break;
+
+      case MessageType.UPLOAD_FAILED:
+        void notificationManager.notifyUploadFailed({
+          ...message.data,
+          tabId,
+        });
+        break;
+
+      case MessageType.UPLOAD_CANCELLED:
+        void notificationManager.notifyUploadCancelled({
+          ...message.data,
+          tabId,
+        });
+        break;
+
+      case MessageType.BATCH_COMPLETE:
+        void notificationManager.notifyBatchComplete({
+          ...message.data,
+          tabId,
+        });
+        break;
+
+      default:
+        console.warn('[Background] Unknown message type:', message);
     }
 
     // Send response
@@ -47,52 +98,3 @@ chrome.runtime.onMessage.addListener(
     return true; // Keep message channel open for async response
   }
 );
-
-/**
- * Handle upload completion
- */
-async function handleUploadComplete(data: { fileName: string }): Promise<void> {
-  try {
-    const result = (await chrome.storage.sync.get(
-      'preferences'
-    )) as StorageData;
-    const preferences = result['preferences'];
-
-    if (preferences?.enableNotifications) {
-      chrome.notifications.create({
-        type: 'basic',
-        iconUrl: 'icons/icon-128.png',
-        title: 'Upload Complete',
-        message: `${data.fileName} has been uploaded successfully`,
-      });
-    }
-  } catch (error) {
-    console.error('Error handling upload complete:', error);
-  }
-}
-
-/**
- * Handle upload failure
- */
-async function handleUploadFailed(data: {
-  fileName: string;
-  error?: string;
-}): Promise<void> {
-  try {
-    const result = (await chrome.storage.sync.get(
-      'preferences'
-    )) as StorageData;
-    const preferences = result['preferences'];
-
-    if (preferences?.enableNotifications) {
-      chrome.notifications.create({
-        type: 'basic',
-        iconUrl: 'icons/icon-128.png',
-        title: 'Upload Failed',
-        message: `Failed to upload ${data.fileName}${data.error ? `: ${data.error}` : ''}`,
-      });
-    }
-  } catch (error) {
-    console.error('Error handling upload failed:', error);
-  }
-}

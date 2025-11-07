@@ -11,6 +11,11 @@ import { UploadOverlay } from './upload-overlay.js';
 import { UploadControls } from './upload-controls.js';
 import type { UploadInfo, UploadEvent } from '../types/upload.types.js';
 import { UploadEventType } from '../types/upload.types.js';
+import { MessageType } from '../types/messages.types.js';
+import type {
+  ExtensionMessage,
+  MessageResponse,
+} from '../types/messages.types.js';
 
 /**
  * Global upload monitor instance
@@ -85,6 +90,21 @@ function handleUploadUpdates(uploads: UploadInfo[]): void {
 }
 
 /**
+ * Send message to background script
+ */
+async function sendBackgroundMessage(
+  message: ExtensionMessage
+): Promise<MessageResponse | null> {
+  try {
+    const response: unknown = await chrome.runtime.sendMessage(message);
+    return response as MessageResponse;
+  } catch (error) {
+    console.error('[Content] Error sending message to background:', error);
+    return null;
+  }
+}
+
+/**
  * Handle upload events from tracker
  */
 function handleUploadEvent(event: UploadEvent): void {
@@ -98,6 +118,15 @@ function handleUploadEvent(event: UploadEvent): void {
 
     // Remove completed uploads after a delay
     if (event.type === UploadEventType.UPLOAD_COMPLETED) {
+      // Send notification to background
+      void sendBackgroundMessage({
+        type: MessageType.UPLOAD_COMPLETE,
+        data: {
+          fileName: event.upload.fileName,
+          uploadId: event.upload.id,
+        },
+      });
+
       setTimeout(() => {
         if (uploadOverlay) {
           uploadOverlay.removeUpload(event.upload.id);
@@ -106,10 +135,33 @@ function handleUploadEvent(event: UploadEvent): void {
     }
 
     // Remove failed/cancelled uploads after a longer delay
-    if (
-      event.type === UploadEventType.UPLOAD_FAILED ||
-      event.type === UploadEventType.UPLOAD_CANCELLED
-    ) {
+    if (event.type === UploadEventType.UPLOAD_FAILED) {
+      // Send notification to background
+      void sendBackgroundMessage({
+        type: MessageType.UPLOAD_FAILED,
+        data: {
+          fileName: event.upload.fileName,
+          uploadId: event.upload.id,
+        },
+      });
+
+      setTimeout(() => {
+        if (uploadOverlay) {
+          uploadOverlay.removeUpload(event.upload.id);
+        }
+      }, 10000); // Remove after 10 seconds
+    }
+
+    if (event.type === UploadEventType.UPLOAD_CANCELLED) {
+      // Send notification to background
+      void sendBackgroundMessage({
+        type: MessageType.UPLOAD_CANCELLED,
+        data: {
+          fileName: event.upload.fileName,
+          uploadId: event.upload.id,
+        },
+      });
+
       setTimeout(() => {
         if (uploadOverlay) {
           uploadOverlay.removeUpload(event.upload.id);
@@ -117,8 +169,6 @@ function handleUploadEvent(event: UploadEvent): void {
       }, 10000); // Remove after 10 seconds
     }
   }
-
-  // TODO: Send event to background script for notifications
 }
 
 /**
