@@ -8,6 +8,7 @@
 import { UploadMonitor } from './upload-monitor.js';
 import { UploadTracker } from './upload-tracker.js';
 import type { UploadInfo, UploadEvent } from '../types/upload.types.js';
+import { UploadEventType } from '../types/upload.types.js';
 
 /**
  * Global upload monitor instance
@@ -38,18 +39,19 @@ function handleUploadUpdates(uploads: UploadInfo[]): void {
   }
 
   // Sync uploads with state tracker
+  const tracker = uploadTracker; // Local reference for TypeScript
   uploads.forEach((upload) => {
-    const existingUpload = uploadTracker.getUpload(upload.id);
+    const existingUpload = tracker.getUpload(upload.id);
 
     if (!existingUpload) {
       // New upload - add to tracker
-      uploadTracker.addUpload(upload);
+      tracker.addUpload(upload);
       console.log(
         `[Content] New upload tracked: ${upload.fileName} (${upload.progress}%)`
       );
     } else {
       // Existing upload - update state
-      uploadTracker.updateUpload(upload.id, {
+      tracker.updateUpload(upload.id, {
         progress: upload.progress,
         uploadedSize: upload.uploadedSize,
         totalSize: upload.totalSize,
@@ -111,13 +113,34 @@ function setupUploadTracking(): void {
   uploadTracker = new UploadTracker();
 
   // Register event listeners for all upload events
-  uploadTracker.addEventListener('upload_started', handleUploadEvent);
-  uploadTracker.addEventListener('upload_progress', handleUploadEvent);
-  uploadTracker.addEventListener('upload_completed', handleUploadEvent);
-  uploadTracker.addEventListener('upload_failed', handleUploadEvent);
-  uploadTracker.addEventListener('upload_cancelled', handleUploadEvent);
-  uploadTracker.addEventListener('upload_paused', handleUploadEvent);
-  uploadTracker.addEventListener('upload_resumed', handleUploadEvent);
+  uploadTracker.addEventListener(
+    UploadEventType.UPLOAD_STARTED,
+    handleUploadEvent
+  );
+  uploadTracker.addEventListener(
+    UploadEventType.UPLOAD_PROGRESS,
+    handleUploadEvent
+  );
+  uploadTracker.addEventListener(
+    UploadEventType.UPLOAD_COMPLETED,
+    handleUploadEvent
+  );
+  uploadTracker.addEventListener(
+    UploadEventType.UPLOAD_FAILED,
+    handleUploadEvent
+  );
+  uploadTracker.addEventListener(
+    UploadEventType.UPLOAD_CANCELLED,
+    handleUploadEvent
+  );
+  uploadTracker.addEventListener(
+    UploadEventType.UPLOAD_PAUSED,
+    handleUploadEvent
+  );
+  uploadTracker.addEventListener(
+    UploadEventType.UPLOAD_RESUMED,
+    handleUploadEvent
+  );
 
   // Create upload monitor with update callback
   uploadMonitor = new UploadMonitor(handleUploadUpdates);

@@ -9,10 +9,12 @@ import type {
   UploadInfo,
   UploadStatus,
   UploadEvent,
-  UploadEventType,
   UploadEventCallback,
 } from '../types/upload.types.js';
-import { UploadStatus as UploadStatusEnum } from '../types/upload.types.js';
+import {
+  UploadStatus as UploadStatusEnum,
+  UploadEventType,
+} from '../types/upload.types.js';
 
 /**
  * Storage data structure for Chrome Storage API
@@ -164,7 +166,7 @@ export class UploadTracker {
     this.uploadIdToElement.set(upload.id, upload.element);
 
     // Emit event
-    this.emitEvent('upload_started', upload);
+    this.emitEvent(UploadEventType.UPLOAD_STARTED, upload);
 
     // Persist to storage
     void this.saveToStorage();
@@ -207,7 +209,7 @@ export class UploadTracker {
     if (upload.status !== previousStatus) {
       this.emitStatusChangeEvent(upload, previousStatus);
     } else if (upload.progress !== previousProgress) {
-      this.emitEvent('upload_progress', upload);
+      this.emitEvent(UploadEventType.UPLOAD_PROGRESS, upload);
     }
 
     // Persist to storage
@@ -223,20 +225,20 @@ export class UploadTracker {
   ): void {
     switch (upload.status) {
       case UploadStatusEnum.COMPLETE:
-        this.emitEvent('upload_completed', upload);
+        this.emitEvent(UploadEventType.UPLOAD_COMPLETED, upload);
         break;
       case UploadStatusEnum.FAILED:
-        this.emitEvent('upload_failed', upload);
+        this.emitEvent(UploadEventType.UPLOAD_FAILED, upload);
         break;
       case UploadStatusEnum.CANCELLED:
-        this.emitEvent('upload_cancelled', upload);
+        this.emitEvent(UploadEventType.UPLOAD_CANCELLED, upload);
         break;
       case UploadStatusEnum.PAUSED:
-        this.emitEvent('upload_paused', upload);
+        this.emitEvent(UploadEventType.UPLOAD_PAUSED, upload);
         break;
       case UploadStatusEnum.UPLOADING:
         if (previousStatus === UploadStatusEnum.PAUSED) {
-          this.emitEvent('upload_resumed', upload);
+          this.emitEvent(UploadEventType.UPLOAD_RESUMED, upload);
         }
         break;
     }

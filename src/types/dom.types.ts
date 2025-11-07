@@ -130,7 +130,7 @@ export function hasProgressData(
     return false;
   }
 
-  return element.dataset.progress !== undefined;
+  return element.dataset['progress'] !== undefined;
 }
 
 /**
@@ -144,8 +144,8 @@ export function hasFileNameTooltip(
   }
 
   return (
-    element.dataset.tooltip !== undefined &&
-    element.dataset.tooltip.includes('.')
+    element.dataset['tooltip'] !== undefined &&
+    element.dataset['tooltip'].includes('.')
   );
 }
 
@@ -157,7 +157,7 @@ export function hasSpeedData(element: Element | null): element is SpeedElement {
     return false;
   }
 
-  return element.dataset.speed !== undefined;
+  return element.dataset['speed'] !== undefined;
 }
 
 /**
@@ -170,7 +170,7 @@ export function hasTimeRemainingData(
     return false;
   }
 
-  return element.dataset.timeRemaining !== undefined;
+  return element.dataset['timeRemaining'] !== undefined;
 }
 
 /**
@@ -178,7 +178,7 @@ export function hasTimeRemainingData(
  * @returns Progress as number (0-100) or null if invalid
  */
 export function extractProgress(element: ProgressElement): number | null {
-  const progressValue = element.dataset.progress;
+  const progressValue = element.dataset['progress'];
   const progress = parseInt(progressValue, 10);
 
   if (isNaN(progress) || progress < 0 || progress > 100) {
@@ -193,7 +193,7 @@ export function extractProgress(element: ProgressElement): number | null {
  * @returns File name or null if not found
  */
 export function extractFileName(element: FileNameElement): string | null {
-  const tooltip = element.dataset.tooltip;
+  const tooltip = element.dataset['tooltip'];
 
   if (!tooltip || !tooltip.includes('.')) {
     return null;
@@ -207,7 +207,7 @@ export function extractFileName(element: FileNameElement): string | null {
  * @returns Upload speed string or null if not found
  */
 export function extractSpeed(element: SpeedElement): string | null {
-  return element.dataset.speed || null;
+  return element.dataset['speed'] || null;
 }
 
 /**
@@ -217,7 +217,7 @@ export function extractSpeed(element: SpeedElement): string | null {
 export function extractTimeRemaining(
   element: TimeRemainingElement
 ): string | null {
-  return element.dataset.timeRemaining || null;
+  return element.dataset['timeRemaining'] || null;
 }
 
 /**

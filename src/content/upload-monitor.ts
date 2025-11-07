@@ -47,10 +47,14 @@ function debounce<T extends (...args: unknown[]) => void>(
  * Parse file size string to bytes
  * @example "1.77 GB" -> 1770000000
  */
-function parseFileSize(sizeStr: string): number {
+function parseFileSize(sizeStr: string | undefined): number {
+  if (!sizeStr) {
+    return 0;
+  }
+
   const match = sizeStr.match(/^([\d.]+)\s*(B|KB|MB|GB|TB)$/i);
 
-  if (!match) {
+  if (!match || !match[1] || !match[2]) {
     return 0;
   }
 
@@ -71,6 +75,7 @@ function parseFileSize(sizeStr: string): number {
 /**
  * Format bytes to human-readable size (reserved for future use)
  */
+// @ts-expect-error - Reserved for future use
 function _formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 B';
 
@@ -462,8 +467,10 @@ export class UploadMonitor {
 
   /**
    * Extract file sizes from container (Subtask 14.4)
+   * Reserved for future use
    */
-  private extractSizes(container: FileContainerElement): {
+  // @ts-expect-error - Reserved for future use
+  private _extractSizes(container: FileContainerElement): {
     uploadedSize: string;
     totalSize: string;
     uploadedBytes: number;
@@ -480,7 +487,7 @@ export class UploadMonitor {
           const match = ariaLabel.match(
             /(\d+\.?\d*\s*[KMGT]?B)\s*\/\s*(\d+\.?\d*\s*[KMGT]?B)/i
           );
-          if (match) {
+          if (match && match[1] && match[2]) {
             const uploadedSize = match[1];
             const totalSize = match[2];
             const uploadedBytes = parseFileSize(uploadedSize);
@@ -509,8 +516,11 @@ export class UploadMonitor {
   private extractSpeed(container: FileContainerElement): string | null {
     try {
       const speedElement = container.querySelector('[data-speed]');
-      if (speedElement instanceof HTMLElement && speedElement.dataset.speed) {
-        return speedElement.dataset.speed;
+      if (
+        speedElement instanceof HTMLElement &&
+        speedElement.dataset['speed']
+      ) {
+        return speedElement.dataset['speed'];
       }
 
       return null;
@@ -528,9 +538,9 @@ export class UploadMonitor {
       const timeElement = container.querySelector('[data-time-remaining]');
       if (
         timeElement instanceof HTMLElement &&
-        timeElement.dataset.timeRemaining
+        timeElement.dataset['timeRemaining']
       ) {
-        return timeElement.dataset.timeRemaining;
+        return timeElement.dataset['timeRemaining'];
       }
 
       return null;
