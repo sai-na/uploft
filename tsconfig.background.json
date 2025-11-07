@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/background"
+  },
+  "include": ["src/background/**/*", "src/types/**/*", "src/utils/**/*"]
+}

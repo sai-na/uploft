@@ -1,0 +1,7 @@
+node_modules
+dist
+.git
+.taskmaster
+*.log
+package-lock.json
+pnpm-lock.yaml

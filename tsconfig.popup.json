@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/popup"
+  },
+  "include": ["src/popup/**/*", "src/types/**/*", "src/utils/**/*"]
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Tracker for Drive - Settings</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Upload Tracker for Drive</h1>
+      </header>
+
+      <main>
+        <section class="settings-section">
+          <h2>Notification Settings</h2>
+          <div class="setting-item">
+            <label for="enable-notifications">
+              <input type="checkbox" id="enable-notifications" checked />
+              Enable upload completion notifications
+            </label>
+          </div>
+          <div class="setting-item">
+            <label for="enable-sound">
+              <input type="checkbox" id="enable-sound" />
+              Enable notification sound
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <h2>UI Position</h2>
+          <div class="setting-item">
+            <label for="ui-position">Position:</label>
+            <select id="ui-position">
+              <option value="bottom-right" selected>Bottom Right</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="top-right">Top Right</option>
+              <option value="top-left">Top Left</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <h2>Theme</h2>
+          <div class="setting-item">
+            <label for="theme">Theme:</label>
+            <select id="theme">
+              <option value="auto" selected>Auto</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <div class="setting-item">
+            <label for="auto-hide">
+              <input type="checkbox" id="auto-hide" />
+              Auto-hide completed uploads
+            </label>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p class="version">v1.0.0</p>
+      </footer>
+    </div>
+
+    <script src="popup/popup.js" type="module"></script>
+  </body>
+</html>
