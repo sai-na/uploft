@@ -6,12 +6,18 @@
 /* eslint-disable no-console */
 
 import { UploadMonitor } from './upload-monitor.js';
-import type { UploadInfo } from '../types/upload.types.js';
+import { UploadTracker } from './upload-tracker.js';
+import type { UploadInfo, UploadEvent } from '../types/upload.types.js';
 
 /**
  * Global upload monitor instance
  */
 let uploadMonitor: UploadMonitor | null = null;
+
+/**
+ * Global upload tracker instance for state management
+ */
+let uploadTracker: UploadTracker | null = null;
 
 /**
  * Check if we're on a Google Drive page
@@ -21,19 +27,55 @@ function isGoogleDrivePage(): boolean {
 }
 
 /**
- * Handle upload updates
+ * Handle upload updates from monitor
  */
 function handleUploadUpdates(uploads: UploadInfo[]): void {
   console.log(`[Content] Upload updates: ${uploads.length} active uploads`);
 
+  if (!uploadTracker) {
+    console.warn('[Content] Upload tracker not initialized');
+    return;
+  }
+
+  // Sync uploads with state tracker
   uploads.forEach((upload) => {
-    console.log(
-      `[Content] ${upload.fileName}: ${upload.progress}% - ${upload.status}`
-    );
+    const existingUpload = uploadTracker.getUpload(upload.id);
+
+    if (!existingUpload) {
+      // New upload - add to tracker
+      uploadTracker.addUpload(upload);
+      console.log(
+        `[Content] New upload tracked: ${upload.fileName} (${upload.progress}%)`
+      );
+    } else {
+      // Existing upload - update state
+      uploadTracker.updateUpload(upload.id, {
+        progress: upload.progress,
+        uploadedSize: upload.uploadedSize,
+        totalSize: upload.totalSize,
+        uploadedBytes: upload.uploadedBytes,
+        totalBytes: upload.totalBytes,
+        timeRemaining: upload.timeRemaining,
+        uploadSpeed: upload.uploadSpeed,
+        status: upload.status,
+      });
+    }
   });
 
   // TODO: Send updates to background script
   // TODO: Update UI overlay with upload progress
+}
+
+/**
+ * Handle upload events from tracker
+ */
+function handleUploadEvent(event: UploadEvent): void {
+  console.log(
+    `[Content] Upload event: ${event.type} - ${event.upload.fileName}`
+  );
+
+  // TODO: Send event to background script for notifications
+  // TODO: Update UI based on event type
 }
 
 /**
@@ -65,6 +107,18 @@ function initialize(): void {
 function setupUploadTracking(): void {
   console.log('[Content] Setting up upload tracking...');
 
+  // Create upload tracker for state management
+  uploadTracker = new UploadTracker();
+
+  // Register event listeners for all upload events
+  uploadTracker.addEventListener('upload_started', handleUploadEvent);
+  uploadTracker.addEventListener('upload_progress', handleUploadEvent);
+  uploadTracker.addEventListener('upload_completed', handleUploadEvent);
+  uploadTracker.addEventListener('upload_failed', handleUploadEvent);
+  uploadTracker.addEventListener('upload_cancelled', handleUploadEvent);
+  uploadTracker.addEventListener('upload_paused', handleUploadEvent);
+  uploadTracker.addEventListener('upload_resumed', handleUploadEvent);
+
   // Create upload monitor with update callback
   uploadMonitor = new UploadMonitor(handleUploadUpdates);
 
@@ -81,6 +135,11 @@ window.addEventListener('beforeunload', () => {
   if (uploadMonitor) {
     uploadMonitor.dispose();
     uploadMonitor = null;
+  }
+
+  if (uploadTracker) {
+    uploadTracker.dispose();
+    uploadTracker = null;
   }
 });
 
