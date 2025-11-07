@@ -7,6 +7,7 @@
 
 import { UploadMonitor } from './upload-monitor.js';
 import { UploadTracker } from './upload-tracker.js';
+import { UploadOverlay } from './upload-overlay.js';
 import type { UploadInfo, UploadEvent } from '../types/upload.types.js';
 import { UploadEventType } from '../types/upload.types.js';
 
@@ -19,6 +20,11 @@ let uploadMonitor: UploadMonitor | null = null;
  * Global upload tracker instance for state management
  */
 let uploadTracker: UploadTracker | null = null;
+
+/**
+ * Global upload overlay UI instance
+ */
+let uploadOverlay: UploadOverlay | null = null;
 
 /**
  * Check if we're on a Google Drive page
@@ -38,7 +44,7 @@ function handleUploadUpdates(uploads: UploadInfo[]): void {
     return;
   }
 
-  // Sync uploads with state tracker
+  // Sync uploads with state tracker and UI
   const tracker = uploadTracker; // Local reference for TypeScript
   uploads.forEach((upload) => {
     const existingUpload = tracker.getUpload(upload.id);
@@ -62,10 +68,14 @@ function handleUploadUpdates(uploads: UploadInfo[]): void {
         status: upload.status,
       });
     }
+
+    // Update UI overlay
+    if (uploadOverlay) {
+      uploadOverlay.updateUpload(upload);
+    }
   });
 
   // TODO: Send updates to background script
-  // TODO: Update UI overlay with upload progress
 }
 
 /**
@@ -76,8 +86,33 @@ function handleUploadEvent(event: UploadEvent): void {
     `[Content] Upload event: ${event.type} - ${event.upload.fileName}`
   );
 
+  // Update UI overlay based on event type
+  if (uploadOverlay) {
+    uploadOverlay.updateUpload(event.upload);
+
+    // Remove completed uploads after a delay
+    if (event.type === UploadEventType.UPLOAD_COMPLETED) {
+      setTimeout(() => {
+        if (uploadOverlay) {
+          uploadOverlay.removeUpload(event.upload.id);
+        }
+      }, 5000); // Remove after 5 seconds
+    }
+
+    // Remove failed/cancelled uploads after a longer delay
+    if (
+      event.type === UploadEventType.UPLOAD_FAILED ||
+      event.type === UploadEventType.UPLOAD_CANCELLED
+    ) {
+      setTimeout(() => {
+        if (uploadOverlay) {
+          uploadOverlay.removeUpload(event.upload.id);
+        }
+      }, 10000); // Remove after 10 seconds
+    }
+  }
+
   // TODO: Send event to background script for notifications
-  // TODO: Update UI based on event type
 }
 
 /**
@@ -108,6 +143,9 @@ function initialize(): void {
  */
 function setupUploadTracking(): void {
   console.log('[Content] Setting up upload tracking...');
+
+  // Create upload overlay UI
+  uploadOverlay = new UploadOverlay();
 
   // Create upload tracker for state management
   uploadTracker = new UploadTracker();
@@ -163,6 +201,11 @@ window.addEventListener('beforeunload', () => {
   if (uploadTracker) {
     uploadTracker.dispose();
     uploadTracker = null;
+  }
+
+  if (uploadOverlay) {
+    uploadOverlay.dispose();
+    uploadOverlay = null;
   }
 });
 
