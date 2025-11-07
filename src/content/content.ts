@@ -8,6 +8,7 @@
 import { UploadMonitor } from './upload-monitor.js';
 import { UploadTracker } from './upload-tracker.js';
 import { UploadOverlay } from './upload-overlay.js';
+import { UploadControls } from './upload-controls.js';
 import type { UploadInfo, UploadEvent } from '../types/upload.types.js';
 import { UploadEventType } from '../types/upload.types.js';
 
@@ -25,6 +26,11 @@ let uploadTracker: UploadTracker | null = null;
  * Global upload overlay UI instance
  */
 let uploadOverlay: UploadOverlay | null = null;
+
+/**
+ * Global upload controls instance
+ */
+let uploadControls: UploadControls | null = null;
 
 /**
  * Check if we're on a Google Drive page
@@ -144,8 +150,30 @@ function initialize(): void {
 function setupUploadTracking(): void {
   console.log('[Content] Setting up upload tracking...');
 
-  // Create upload overlay UI
-  uploadOverlay = new UploadOverlay();
+  // Create upload controls
+  uploadControls = new UploadControls();
+
+  // Create upload overlay UI with control callbacks
+  uploadOverlay = new UploadOverlay({
+    onCancel: async (upload) => {
+      if (uploadControls) {
+        return await uploadControls.cancelUpload(upload);
+      }
+      return { success: false, message: 'Upload controls not available' };
+    },
+    onRetry: async (upload) => {
+      if (uploadControls) {
+        return await uploadControls.retryUpload(upload);
+      }
+      return { success: false, message: 'Upload controls not available' };
+    },
+    onShowLocation: async (upload) => {
+      if (uploadControls) {
+        return await uploadControls.showFileLocation(upload);
+      }
+      return { success: false, message: 'Upload controls not available' };
+    },
+  });
 
   // Create upload tracker for state management
   uploadTracker = new UploadTracker();
@@ -206,6 +234,11 @@ window.addEventListener('beforeunload', () => {
   if (uploadOverlay) {
     uploadOverlay.dispose();
     uploadOverlay = null;
+  }
+
+  if (uploadControls) {
+    uploadControls.dispose();
+    uploadControls = null;
   }
 });
 

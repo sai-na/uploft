@@ -7,6 +7,7 @@
 
 import type { UploadInfo } from '../types/upload.types.js';
 import { UploadStatus } from '../types/upload.types.js';
+import type { ControlResult } from './upload-controls.js';
 
 /**
  * Overlay position configuration
@@ -24,6 +25,15 @@ interface OverlayPosition {
 interface OverlayState {
   minimized: boolean;
   position: OverlayPosition;
+}
+
+/**
+ * Control action callbacks
+ */
+export interface UploadControlCallbacks {
+  onCancel?: (upload: UploadInfo) => Promise<ControlResult>;
+  onRetry?: (upload: UploadInfo) => Promise<ControlResult>;
+  onShowLocation?: (upload: UploadInfo) => Promise<ControlResult>;
 }
 
 /**
@@ -58,6 +68,9 @@ export class UploadOverlay {
   /** Storage key for state persistence */
   private readonly STORAGE_KEY = 'upload_overlay_state';
 
+  /** Control action callbacks */
+  private controlCallbacks: UploadControlCallbacks = {};
+
   /** CSS class names */
   private readonly CLASSES = {
     container: 'upload-tracker-overlay',
@@ -77,12 +90,18 @@ export class UploadOverlay {
     uploadInfo: 'upload-tracker-overlay__upload-info',
     uploadSpeed: 'upload-tracker-overlay__upload-speed',
     dragHandle: 'upload-tracker-overlay__drag-handle',
+    uploadControls: 'upload-tracker-overlay__upload-controls',
+    controlBtn: 'upload-tracker-overlay__control-btn',
+    controlBtnCancel: 'upload-tracker-overlay__control-btn--cancel',
+    controlBtnRetry: 'upload-tracker-overlay__control-btn--retry',
+    controlBtnLocation: 'upload-tracker-overlay__control-btn--location',
   } as const;
 
   /**
    * Initialize the overlay
    */
-  constructor() {
+  constructor(callbacks?: UploadControlCallbacks) {
+    this.controlCallbacks = callbacks ?? {};
     void this.loadState();
     this.injectStyles();
     this.createOverlay();
@@ -300,6 +319,70 @@ export class UploadOverlay {
         font-weight: 500;
       }
 
+      /* Control buttons */
+      .${this.CLASSES.uploadControls} {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid #e9ecef;
+      }
+
+      .${this.CLASSES.controlBtn} {
+        flex: 1;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 500;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: #e9ecef;
+        color: #495057;
+      }
+
+      .${this.CLASSES.controlBtn}:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .${this.CLASSES.controlBtn}:active {
+        transform: translateY(0);
+      }
+
+      .${this.CLASSES.controlBtn}:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .${this.CLASSES.controlBtnCancel} {
+        background: #dc3545;
+        color: #ffffff;
+      }
+
+      .${this.CLASSES.controlBtnCancel}:hover {
+        background: #c82333;
+      }
+
+      .${this.CLASSES.controlBtnRetry} {
+        background: #ffc107;
+        color: #212529;
+      }
+
+      .${this.CLASSES.controlBtnRetry}:hover {
+        background: #e0a800;
+      }
+
+      .${this.CLASSES.controlBtnLocation} {
+        background: #17a2b8;
+        color: #ffffff;
+      }
+
+      .${this.CLASSES.controlBtnLocation}:hover {
+        background: #138496;
+      }
+
       /* Responsive design (Subtask 16.5) */
       @media (max-width: 768px) {
         .${this.CLASSES.container} {
@@ -378,6 +461,15 @@ export class UploadOverlay {
 
         .${this.CLASSES.uploadList}::-webkit-scrollbar-thumb:hover {
           background: #777;
+        }
+
+        .${this.CLASSES.uploadControls} {
+          border-top-color: #404040;
+        }
+
+        .${this.CLASSES.controlBtn} {
+          background: #404040;
+          color: #e0e0e0;
         }
       }
     `;
@@ -661,13 +753,133 @@ export class UploadOverlay {
       <span>${statusText}</span>
     `;
 
+    // Control buttons
+    const controls = this.createControlButtons(upload);
+
     // Assemble card
     card.appendChild(fileName);
     card.appendChild(progressBar);
     card.appendChild(progressText);
     card.appendChild(uploadInfo);
+    card.appendChild(controls);
 
     return card;
+  }
+
+  /**
+   * Create control buttons for upload card
+   */
+  private createControlButtons(upload: UploadInfo): HTMLElement {
+    const controls = document.createElement('div');
+    controls.className = this.CLASSES.uploadControls;
+
+    // Show buttons based on upload status
+    const isUploading =
+      upload.status === UploadStatus.UPLOADING ||
+      upload.status === UploadStatus.PENDING;
+    const isFailed = upload.status === UploadStatus.FAILED;
+    const isComplete = upload.status === UploadStatus.COMPLETE;
+
+    // Cancel button (show during upload)
+    if (isUploading) {
+      const cancelBtn = document.createElement('button');
+      cancelBtn.className = `${this.CLASSES.controlBtn} ${this.CLASSES.controlBtnCancel}`;
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.dataset['action'] = 'cancel';
+      cancelBtn.dataset['uploadId'] = upload.id;
+      cancelBtn.addEventListener('click', () => {
+        void this.handleControlAction('cancel', upload);
+      });
+      controls.appendChild(cancelBtn);
+    }
+
+    // Retry button (show on failure)
+    if (isFailed) {
+      const retryBtn = document.createElement('button');
+      retryBtn.className = `${this.CLASSES.controlBtn} ${this.CLASSES.controlBtnRetry}`;
+      retryBtn.textContent = 'Retry';
+      retryBtn.dataset['action'] = 'retry';
+      retryBtn.dataset['uploadId'] = upload.id;
+      retryBtn.addEventListener('click', () => {
+        void this.handleControlAction('retry', upload);
+      });
+      controls.appendChild(retryBtn);
+    }
+
+    // Show location button (show when complete)
+    if (isComplete) {
+      const locationBtn = document.createElement('button');
+      locationBtn.className = `${this.CLASSES.controlBtn} ${this.CLASSES.controlBtnLocation}`;
+      locationBtn.textContent = 'Show Location';
+      locationBtn.dataset['action'] = 'location';
+      locationBtn.dataset['uploadId'] = upload.id;
+      locationBtn.addEventListener('click', () => {
+        void this.handleControlAction('location', upload);
+      });
+      controls.appendChild(locationBtn);
+    }
+
+    return controls;
+  }
+
+  /**
+   * Handle control button actions
+   */
+  private async handleControlAction(
+    action: 'cancel' | 'retry' | 'location',
+    upload: UploadInfo
+  ): Promise<void> {
+    try {
+      let result: ControlResult | undefined;
+
+      // Disable button during action
+      const card = this.uploadCards.get(upload.id);
+      const button = card?.querySelector(
+        `[data-action="${action}"]`
+      ) as HTMLButtonElement;
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Processing...';
+      }
+
+      // Execute action
+      switch (action) {
+        case 'cancel':
+          result = await this.controlCallbacks.onCancel?.(upload);
+          break;
+        case 'retry':
+          result = await this.controlCallbacks.onRetry?.(upload);
+          break;
+        case 'location':
+          result = await this.controlCallbacks.onShowLocation?.(upload);
+          break;
+      }
+
+      // Log result
+      if (result) {
+        console.log(
+          `[UploadOverlay] ${action} result:`,
+          result.success ? 'Success' : 'Failed',
+          result.message
+        );
+        if (result.error) {
+          console.error(`[UploadOverlay] ${action} error:`, result.error);
+        }
+      }
+
+      // Re-enable button if failed
+      if (button && result && !result.success) {
+        button.disabled = false;
+        button.textContent =
+          action === 'cancel'
+            ? 'Cancel'
+            : action === 'retry'
+              ? 'Retry'
+              : 'Show Location';
+      }
+    } catch (error) {
+      console.error(`[UploadOverlay] Error executing ${action}:`, error);
+    }
   }
 
   /**
@@ -714,6 +926,17 @@ export class UploadOverlay {
         <span>${timeRemaining}</span>
         <span>${statusText}</span>
       `;
+    }
+
+    // Update control buttons
+    const existingControls = card.querySelector(
+      `.${this.CLASSES.uploadControls}`
+    );
+    const newControls = this.createControlButtons(upload);
+    if (existingControls) {
+      existingControls.replaceWith(newControls);
+    } else {
+      card.appendChild(newControls);
     }
   }
 
