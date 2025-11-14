@@ -18,9 +18,37 @@
           <div class="setting-item">
             <label for="enable-notifications">
               <input type="checkbox" id="enable-notifications" checked />
-              Enable upload completion notifications
+              Enable desktop notifications
             </label>
           </div>
+
+          <div class="notification-types" id="notification-types">
+            <div class="setting-item sub-setting">
+              <label for="notify-on-complete">
+                <input type="checkbox" id="notify-on-complete" checked />
+                Notify when uploads complete
+              </label>
+            </div>
+            <div class="setting-item sub-setting">
+              <label for="notify-on-failed">
+                <input type="checkbox" id="notify-on-failed" checked />
+                Notify when uploads fail
+              </label>
+            </div>
+            <div class="setting-item sub-setting">
+              <label for="notify-on-cancelled">
+                <input type="checkbox" id="notify-on-cancelled" />
+                Notify when uploads are cancelled
+              </label>
+            </div>
+            <div class="setting-item sub-setting">
+              <label for="notify-on-batch-complete">
+                <input type="checkbox" id="notify-on-batch-complete" checked />
+                Notify when all uploads finish
+              </label>
+            </div>
+          </div>
+
           <div class="setting-item">
             <label for="enable-sound">
               <input type="checkbox" id="enable-sound" />
