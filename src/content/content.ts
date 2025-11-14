@@ -16,6 +16,7 @@ import type {
   ExtensionMessage,
   MessageResponse,
 } from '../types/messages.types.js';
+import { logger } from '../utils/logger.js';
 
 /**
  * Global upload monitor instance
@@ -48,10 +49,10 @@ function isGoogleDrivePage(): boolean {
  * Handle upload updates from monitor
  */
 function handleUploadUpdates(uploads: UploadInfo[]): void {
-  console.log(`[Content] Upload updates: ${uploads.length} active uploads`);
+  logger.debug('Content', 'Upload updates', { count: uploads.length });
 
   if (!uploadTracker) {
-    console.warn('[Content] Upload tracker not initialized');
+    logger.warn('Content', 'Upload tracker not initialized');
     return;
   }
 
@@ -63,9 +64,10 @@ function handleUploadUpdates(uploads: UploadInfo[]): void {
     if (!existingUpload) {
       // New upload - add to tracker
       tracker.addUpload(upload);
-      console.log(
-        `[Content] New upload tracked: ${upload.fileName} (${upload.progress}%)`
-      );
+      logger.debug('Content', 'New upload tracked', {
+        fileName: upload.fileName,
+        progress: upload.progress,
+      });
     } else {
       // Existing upload - update state
       tracker.updateUpload(upload.id, {
@@ -99,7 +101,11 @@ async function sendBackgroundMessage(
     const response: unknown = await chrome.runtime.sendMessage(message);
     return response as MessageResponse;
   } catch (error) {
-    console.error('[Content] Error sending message to background:', error);
+    logger.error(
+      'Content',
+      'Error sending message to background',
+      error as Error
+    );
     return null;
   }
 }
@@ -108,9 +114,10 @@ async function sendBackgroundMessage(
  * Handle upload events from tracker
  */
 function handleUploadEvent(event: UploadEvent): void {
-  console.log(
-    `[Content] Upload event: ${event.type} - ${event.upload.fileName}`
-  );
+  logger.debug('Content', 'Upload event', {
+    type: event.type,
+    fileName: event.upload.fileName,
+  });
 
   // Update UI overlay based on event type
   if (uploadOverlay) {
@@ -176,14 +183,16 @@ function handleUploadEvent(event: UploadEvent): void {
  */
 function initialize(): void {
   if (!isGoogleDrivePage()) {
-    console.log(
-      '[Content] Not on Google Drive, upload tracker not initialized'
+    logger.info(
+      'Content',
+      'Not on Google Drive, upload tracker not initialized'
     );
     return;
   }
 
-  console.log(
-    '[Content] Upload Tracker for Drive initialized on Google Drive page'
+  logger.info(
+    'Content',
+    'Upload Tracker for Drive initialized on Google Drive page'
   );
 
   // Wait for DOM to be ready
@@ -198,7 +207,7 @@ function initialize(): void {
  * Set up upload tracking
  */
 function setupUploadTracking(): void {
-  console.log('[Content] Setting up upload tracking...');
+  logger.info('Content', 'Setting up upload tracking');
 
   // Create upload controls
   uploadControls = new UploadControls();
@@ -264,7 +273,7 @@ function setupUploadTracking(): void {
   // Start monitoring
   uploadMonitor.start();
 
-  console.log('[Content] Upload tracking setup complete');
+  logger.info('Content', 'Upload tracking setup complete');
 }
 
 /**

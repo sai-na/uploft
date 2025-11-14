@@ -8,6 +8,8 @@
 import type { UploadInfo } from '../types/upload.types.js';
 import { UploadStatus } from '../types/upload.types.js';
 import type { ControlResult } from './upload-controls.js';
+import { logger } from '../utils/logger.js';
+import { debounce } from '../utils/performance.js';
 
 /**
  * Overlay position configuration
@@ -65,6 +67,13 @@ export class UploadOverlay {
   private dragStartLeft = 0;
   private dragStartTop = 0;
 
+  /** Bound drag handlers for adding/removing event listeners */
+  private boundDragMove: ((e: MouseEvent) => void) | null = null;
+  private boundDragEnd: (() => void) | null = null;
+
+  /** Debounced state save to prevent excessive storage writes */
+  private debouncedSaveState: (() => void) | null = null;
+
   /** Storage key for state persistence */
   private readonly STORAGE_KEY = 'upload_overlay_state';
 
@@ -102,6 +111,16 @@ export class UploadOverlay {
    */
   constructor(callbacks?: UploadControlCallbacks) {
     this.controlCallbacks = callbacks ?? {};
+
+    // Initialize debounced save state (500ms delay to batch rapid changes)
+    this.debouncedSaveState = debounce(() => {
+      void this.saveState();
+    }, 500);
+
+    // Initialize bound drag handlers
+    this.boundDragMove = (e: MouseEvent) => this.handleDragMove(e);
+    this.boundDragEnd = () => this.handleDragEnd();
+
     void this.loadState();
     this.injectStyles();
     this.createOverlay();
@@ -539,7 +558,7 @@ export class UploadOverlay {
     // Append to document body
     document.body.appendChild(this.container);
 
-    console.log('[UploadOverlay] Overlay created and attached to DOM');
+    logger.info('UploadOverlay', 'Overlay created and attached to DOM');
   }
 
   /**
@@ -566,9 +585,8 @@ export class UploadOverlay {
       );
     }
 
-    // Global mouse events for dragging
-    document.addEventListener('mousemove', (e) => this.handleDragMove(e));
-    document.addEventListener('mouseup', () => this.handleDragEnd());
+    // Note: Global mouse events are added dynamically during drag (see handleDragStart)
+    // This prevents 60+ mousemove events per second when not dragging
   }
 
   /**
@@ -593,19 +611,19 @@ export class UploadOverlay {
       minimizeBtn.innerHTML = this.isMinimized ? '▲' : '▼';
     }
 
-    // Save state
-    void this.saveState();
+    // Save state (debounced)
+    if (this.debouncedSaveState) {
+      this.debouncedSaveState();
+    }
 
-    console.log(
-      `[UploadOverlay] ${this.isMinimized ? 'Minimized' : 'Expanded'}`
-    );
+    logger.debug('UploadOverlay', this.isMinimized ? 'Minimized' : 'Expanded');
   }
 
   /**
    * Handle drag start (Subtask 16.4)
    */
   private handleDragStart(e: MouseEvent): void {
-    if (!this.container) {
+    if (!this.container || !this.boundDragMove || !this.boundDragEnd) {
       return;
     }
 
@@ -620,6 +638,10 @@ export class UploadOverlay {
     // Add dragging cursor
     document.body.style.cursor = 'grabbing';
     this.container.style.cursor = 'grabbing';
+
+    // Add global drag event listeners only during drag (performance optimization)
+    document.addEventListener('mousemove', this.boundDragMove);
+    document.addEventListener('mouseup', this.boundDragEnd);
 
     e.preventDefault();
   }
@@ -659,11 +681,20 @@ export class UploadOverlay {
    * Handle drag end (Subtask 16.4)
    */
   private handleDragEnd(): void {
-    if (!this.isDragging || !this.container) {
+    if (
+      !this.isDragging ||
+      !this.container ||
+      !this.boundDragMove ||
+      !this.boundDragEnd
+    ) {
       return;
     }
 
     this.isDragging = false;
+
+    // Remove global drag event listeners (performance optimization)
+    document.removeEventListener('mousemove', this.boundDragMove);
+    document.removeEventListener('mouseup', this.boundDragEnd);
 
     // Remove dragging cursor
     document.body.style.cursor = '';
@@ -676,9 +707,12 @@ export class UploadOverlay {
       top: `${rect.top}px`,
     };
 
-    void this.saveState();
+    // Debounced save to prevent excessive storage writes
+    if (this.debouncedSaveState) {
+      this.debouncedSaveState();
+    }
 
-    console.log('[UploadOverlay] Position saved:', this.position);
+    logger.debug('UploadOverlay', 'Position saved', this.position);
   }
 
   /**
@@ -857,13 +891,12 @@ export class UploadOverlay {
 
       // Log result
       if (result) {
-        console.log(
-          `[UploadOverlay] ${action} result:`,
-          result.success ? 'Success' : 'Failed',
-          result.message
-        );
+        logger.debug('UploadOverlay', `${action} result`, {
+          success: result.success,
+          message: result.message,
+        });
         if (result.error) {
-          console.error(`[UploadOverlay] ${action} error:`, result.error);
+          logger.error('UploadOverlay', `${action} error`, result.error);
         }
       }
 
@@ -878,7 +911,11 @@ export class UploadOverlay {
               : 'Show Location';
       }
     } catch (error) {
-      console.error(`[UploadOverlay] Error executing ${action}:`, error);
+      logger.error(
+        'UploadOverlay',
+        `Error executing ${action}`,
+        error as Error
+      );
     }
   }
 
@@ -986,7 +1023,7 @@ export class UploadOverlay {
 
       await chrome.storage.local.set({ [this.STORAGE_KEY]: state });
     } catch (error) {
-      console.error('[UploadOverlay] Error saving state:', error);
+      logger.error('UploadOverlay', 'Error saving state', error as Error);
     }
   }
 
@@ -1003,7 +1040,7 @@ export class UploadOverlay {
         this.position = state.position ?? { bottom: '20px', right: '20px' };
       }
     } catch (error) {
-      console.error('[UploadOverlay] Error loading state:', error);
+      logger.error('UploadOverlay', 'Error loading state', error as Error);
     }
   }
 
@@ -1011,9 +1048,11 @@ export class UploadOverlay {
    * Dispose of overlay and cleanup
    */
   public dispose(): void {
-    // Remove event listeners
-    document.removeEventListener('mousemove', (e) => this.handleDragMove(e));
-    document.removeEventListener('mouseup', () => this.handleDragEnd());
+    // Remove event listeners (if currently attached during drag)
+    if (this.boundDragMove && this.boundDragEnd) {
+      document.removeEventListener('mousemove', this.boundDragMove);
+      document.removeEventListener('mouseup', this.boundDragEnd);
+    }
 
     // Remove DOM elements
     this.container?.remove();
@@ -1023,7 +1062,10 @@ export class UploadOverlay {
     this.container = null;
     this.header = null;
     this.uploadList = null;
+    this.boundDragMove = null;
+    this.boundDragEnd = null;
+    this.debouncedSaveState = null;
 
-    console.log('[UploadOverlay] Disposed');
+    logger.info('UploadOverlay', 'Disposed');
   }
 }

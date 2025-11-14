@@ -21,27 +21,10 @@ import {
   extractProgress as extractProgressFromElement,
   extractFileName as extractFileNameFromElement,
 } from '../types/dom.types.js';
+import { logger } from '../utils/logger.js';
+import { rafDebounce } from '../utils/performance.js';
 
-/**
- * Debounce utility for performance optimization
- */
-function debounce<T extends (...args: unknown[]) => void>(
-  func: T,
-  wait: number
-): (...args: Parameters<T>) => void {
-  let timeout: ReturnType<typeof setTimeout> | null = null;
-
-  return function (...args: Parameters<T>): void {
-    if (timeout !== null) {
-      clearTimeout(timeout);
-    }
-
-    timeout = setTimeout(() => {
-      func(...args);
-      timeout = null;
-    }, wait);
-  };
-}
+// Removed local debounce - now using rafDebounce from utils/performance.ts
 
 /**
  * Parse file size string to bytes
@@ -105,9 +88,6 @@ export class UploadMonitor {
   /** Debounced update handler */
   private debouncedUpdate: (() => void) | null = null;
 
-  /** Polling interval ID for fallback monitoring */
-  private pollingInterval: ReturnType<typeof setInterval> | null = null;
-
   /** Flag to track if observer is active */
   private isObserving = false;
 
@@ -119,7 +99,8 @@ export class UploadMonitor {
    */
   constructor(onUpdate?: (uploads: UploadInfo[]) => void) {
     this.onUploadUpdate = onUpdate ?? null;
-    this.debouncedUpdate = debounce(() => this.handleUpdate(), 150);
+    // Use RAF-based debouncing for better performance
+    this.debouncedUpdate = rafDebounce(() => this.handleUpdate());
   }
 
   /**
@@ -127,19 +108,35 @@ export class UploadMonitor {
    */
   public start(): void {
     if (this.isObserving) {
-      console.warn('[UploadMonitor] Already monitoring');
+      logger.warn('UploadMonitor', 'Already monitoring');
       return;
     }
 
-    console.log('[UploadMonitor] Starting upload monitoring...');
+    logger.info('UploadMonitor', 'Starting upload monitoring');
 
-    // Create MutationObserver
-    this.observer = new MutationObserver((mutations) => {
-      this.handleMutations(mutations);
+    // Create MutationObserver with debounced handler for performance
+    const debouncedMutationHandler = rafDebounce(() => {
+      // Note: We don't need mutations parameter as we query DOM directly
+      const uploadDialog = this.findUploadDialog();
+      if (uploadDialog) {
+        const hasChanges = this.processUploadDialog(uploadDialog);
+        if (hasChanges && this.debouncedUpdate) {
+          this.debouncedUpdate();
+        }
+      }
     });
 
-    // Start observing
-    this.observer.observe(document.body, {
+    this.observer = new MutationObserver(() => {
+      debouncedMutationHandler();
+    });
+
+    // Optimize: Only observe dialog container area, not entire document.body
+    // First, check if upload dialog exists
+    const uploadDialog = this.findUploadDialog();
+    const targetNode = uploadDialog ?? document.body;
+
+    // Start observing with optimized settings
+    this.observer.observe(targetNode, {
       childList: true,
       subtree: true,
       attributes: true,
@@ -148,10 +145,10 @@ export class UploadMonitor {
 
     this.isObserving = true;
 
-    // Start fallback polling (500ms interval)
-    this.startPolling();
+    // Removed 500ms polling - MutationObserver is sufficient
+    // Polling was causing 2x redundant processing
 
-    console.log('[UploadMonitor] Monitoring started');
+    logger.info('UploadMonitor', 'Monitoring started');
   }
 
   /**
@@ -162,17 +159,17 @@ export class UploadMonitor {
       return;
     }
 
-    console.log('[UploadMonitor] Stopping upload monitoring...');
+    logger.info('UploadMonitor', 'Stopping upload monitoring');
 
     if (this.observer) {
       this.observer.disconnect();
       this.observer = null;
     }
 
-    this.stopPolling();
+    // Removed stopPolling() call - polling no longer used
     this.isObserving = false;
 
-    console.log('[UploadMonitor] Monitoring stopped');
+    logger.info('UploadMonitor', 'Monitoring stopped');
   }
 
   /**
@@ -201,35 +198,6 @@ export class UploadMonitor {
     }
 
     return this.uploadElements.get(element) ?? null;
-  }
-
-  /**
-   * Handle mutation events
-   */
-  private handleMutations(mutations: MutationRecord[]): void {
-    let hasChanges = false;
-
-    for (const mutation of mutations) {
-      // Check for upload dialog additions
-      if (mutation.type === 'childList') {
-        const uploadDialog = this.findUploadDialog();
-        if (uploadDialog) {
-          hasChanges = this.processUploadDialog(uploadDialog) || hasChanges;
-        }
-      }
-
-      // Check for attribute changes (progress updates)
-      if (mutation.type === 'attributes') {
-        const target = mutation.target as HTMLElement;
-        if (this.uploadElements.has(target)) {
-          hasChanges = this.updateUploadElement(target) || hasChanges;
-        }
-      }
-    }
-
-    if (hasChanges && this.debouncedUpdate) {
-      this.debouncedUpdate();
-    }
   }
 
   /**
@@ -272,9 +240,9 @@ export class UploadMonitor {
         this.uploadIdToElement.set(uploadInfo.id, container);
         hasNewUploads = true;
 
-        console.log(
-          `[UploadMonitor] New upload detected: ${uploadInfo.fileName}`
-        );
+        logger.debug('UploadMonitor', 'New upload detected', {
+          fileName: uploadInfo.fileName,
+        });
       }
     }
 
@@ -289,8 +257,9 @@ export class UploadMonitor {
       const domData = this.extractDOMData(container);
 
       if (!domData.fileName) {
-        console.warn(
-          '[UploadMonitor] Could not extract filename from container'
+        logger.warn(
+          'UploadMonitor',
+          'Could not extract filename from container'
         );
         return null;
       }
@@ -314,7 +283,11 @@ export class UploadMonitor {
 
       return uploadInfo;
     } catch (error) {
-      console.error('[UploadMonitor] Error creating upload info:', error);
+      logger.error(
+        'UploadMonitor',
+        'Error creating upload info',
+        error as Error
+      );
       return null;
     }
   }
@@ -356,7 +329,11 @@ export class UploadMonitor {
 
       return true;
     } catch (error) {
-      console.error('[UploadMonitor] Error updating upload element:', error);
+      logger.error(
+        'UploadMonitor',
+        'Error updating upload element',
+        error as Error
+      );
       return false;
     }
   }
@@ -410,7 +387,11 @@ export class UploadMonitor {
 
       return 'Unknown file';
     } catch (error) {
-      console.error('[UploadMonitor] Error extracting filename:', error);
+      logger.error(
+        'UploadMonitor',
+        'Error extracting filename',
+        error as Error
+      );
       return 'Unknown file';
     }
   }
@@ -460,7 +441,11 @@ export class UploadMonitor {
 
       return null;
     } catch (error) {
-      console.error('[UploadMonitor] Error extracting progress:', error);
+      logger.error(
+        'UploadMonitor',
+        'Error extracting progress',
+        error as Error
+      );
       return null;
     }
   }
@@ -505,7 +490,7 @@ export class UploadMonitor {
 
       return null;
     } catch (error) {
-      console.error('[UploadMonitor] Error extracting sizes:', error);
+      logger.error('UploadMonitor', 'Error extracting sizes', error as Error);
       return null;
     }
   }
@@ -525,7 +510,7 @@ export class UploadMonitor {
 
       return null;
     } catch (error) {
-      console.error('[UploadMonitor] Error extracting speed:', error);
+      logger.error('UploadMonitor', 'Error extracting speed', error as Error);
       return null;
     }
   }
@@ -545,7 +530,11 @@ export class UploadMonitor {
 
       return null;
     } catch (error) {
-      console.error('[UploadMonitor] Error extracting time remaining:', error);
+      logger.error(
+        'UploadMonitor',
+        'Error extracting time remaining',
+        error as Error
+      );
       return null;
     }
   }
@@ -560,46 +549,6 @@ export class UploadMonitor {
       return UploadStatus.COMPLETE;
     } else {
       return UploadStatus.UPLOADING;
-    }
-  }
-
-  /**
-   * Start polling fallback (Subtask 14.5)
-   */
-  private startPolling(): void {
-    if (this.pollingInterval !== null) {
-      return;
-    }
-
-    this.pollingInterval = setInterval(() => {
-      this.pollForUploads();
-    }, 500);
-  }
-
-  /**
-   * Stop polling fallback
-   */
-  private stopPolling(): void {
-    if (this.pollingInterval !== null) {
-      clearInterval(this.pollingInterval);
-      this.pollingInterval = null;
-    }
-  }
-
-  /**
-   * Poll for uploads (fallback when MutationObserver fails)
-   */
-  private pollForUploads(): void {
-    try {
-      const uploadDialog = this.findUploadDialog();
-      if (uploadDialog) {
-        const hasChanges = this.processUploadDialog(uploadDialog);
-        if (hasChanges && this.debouncedUpdate) {
-          this.debouncedUpdate();
-        }
-      }
-    } catch (error) {
-      console.error('[UploadMonitor] Polling error:', error);
     }
   }
 

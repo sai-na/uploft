@@ -25,7 +25,7 @@ export interface LogEntry {
  */
 export class Logger {
   private static instance: Logger;
-  private logLevel: LogLevel = LogLevel.INFO;
+  private logLevel: LogLevel = LogLevel.NONE; // Disabled by default for performance
   private logHistory: LogEntry[] = [];
   private readonly MAX_HISTORY = 100;
 
@@ -134,10 +134,12 @@ export class Logger {
       error,
     };
 
-    // Add to history
-    this.logHistory.push(entry);
-    if (this.logHistory.length > this.MAX_HISTORY) {
-      this.logHistory.shift();
+    // Only add to history if not NONE level (performance optimization)
+    if (this.logLevel !== LogLevel.NONE) {
+      this.logHistory.push(entry);
+      if (this.logHistory.length > this.MAX_HISTORY) {
+        this.logHistory.shift();
+      }
     }
 
     // Output to console

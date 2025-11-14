@@ -15,6 +15,8 @@ import {
   UploadStatus as UploadStatusEnum,
   UploadEventType,
 } from '../types/upload.types.js';
+import { logger } from '../utils/logger.js';
+import { debounce } from '../utils/performance.js';
 
 /**
  * Storage data structure for Chrome Storage API
@@ -89,10 +91,18 @@ export class UploadTracker {
   /** Maximum storage entries (to prevent quota issues) */
   private readonly MAX_STORAGE_ENTRIES = 100;
 
+  /** Debounced storage save to prevent excessive writes */
+  private debouncedSaveToStorage: () => void;
+
   /**
    * Initialize the upload tracker
    */
   constructor() {
+    // Create debounced storage saver (500ms delay to batch rapid changes)
+    this.debouncedSaveToStorage = debounce(() => {
+      void this.saveToStorage();
+    }, 500);
+
     // Load persisted state on initialization
     void this.loadFromStorage();
   }
@@ -136,9 +146,10 @@ export class UploadTracker {
         try {
           listener.callback(event);
         } catch (error) {
-          console.error(
-            `[UploadTracker] Error in event listener for ${type}:`,
-            error
+          logger.error(
+            'UploadTracker',
+            `Error in event listener for ${type}`,
+            error as Error
           );
         }
       });
@@ -150,13 +161,13 @@ export class UploadTracker {
   public addUpload(upload: UploadInfo): void {
     // Validate upload data
     if (!upload.id || !upload.fileName) {
-      console.error('[UploadTracker] Invalid upload data:', upload);
+      logger.error('UploadTracker', 'Invalid upload data', undefined, upload);
       return;
     }
 
     // Check if already tracking
     if (this.uploads.has(upload.id)) {
-      console.warn(`[UploadTracker] Upload ${upload.id} already tracked`);
+      logger.warn('UploadTracker', 'Upload already tracked', { id: upload.id });
       return;
     }
 
@@ -168,10 +179,12 @@ export class UploadTracker {
     // Emit event
     this.emitEvent(UploadEventType.UPLOAD_STARTED, upload);
 
-    // Persist to storage
-    void this.saveToStorage();
+    // Persist to storage (debounced)
+    this.debouncedSaveToStorage();
 
-    console.log(`[UploadTracker] Added upload: ${upload.fileName}`);
+    logger.debug('UploadTracker', 'Added upload', {
+      fileName: upload.fileName,
+    });
   }
 
   /**
@@ -183,7 +196,7 @@ export class UploadTracker {
   ): void {
     const upload = this.uploads.get(id);
     if (!upload) {
-      console.warn(`[UploadTracker] Upload ${id} not found for update`);
+      logger.warn('UploadTracker', 'Upload not found for update', { id });
       return;
     }
 
@@ -212,8 +225,8 @@ export class UploadTracker {
       this.emitEvent(UploadEventType.UPLOAD_PROGRESS, upload);
     }
 
-    // Persist to storage
-    void this.saveToStorage();
+    // Persist to storage (debounced)
+    this.debouncedSaveToStorage();
   }
 
   /**
@@ -250,7 +263,7 @@ export class UploadTracker {
   public removeUpload(id: string): void {
     const upload = this.uploads.get(id);
     if (!upload) {
-      console.warn(`[UploadTracker] Upload ${id} not found for removal`);
+      logger.warn('UploadTracker', 'Upload not found for removal', { id });
       return;
     }
 
@@ -259,10 +272,12 @@ export class UploadTracker {
     this.uploadIdToElement.delete(id);
     // WeakMap entry will be garbage collected automatically
 
-    // Persist to storage
-    void this.saveToStorage();
+    // Persist to storage (debounced)
+    this.debouncedSaveToStorage();
 
-    console.log(`[UploadTracker] Removed upload: ${upload.fileName}`);
+    logger.debug('UploadTracker', 'Removed upload', {
+      fileName: upload.fileName,
+    });
   }
 
   /**
@@ -296,9 +311,9 @@ export class UploadTracker {
 
     completedIds.forEach((id) => this.removeUpload(id));
 
-    console.log(
-      `[UploadTracker] Cleared ${completedIds.length} completed uploads`
-    );
+    logger.info('UploadTracker', 'Cleared completed uploads', {
+      count: completedIds.length,
+    });
   }
 
   /**
@@ -349,7 +364,11 @@ export class UploadTracker {
 
       return null;
     } catch (error) {
-      console.error('[UploadTracker] Error detecting upload status:', error);
+      logger.error(
+        'UploadTracker',
+        'Error detecting upload status',
+        error as Error
+      );
       return null;
     }
   }
@@ -401,11 +420,11 @@ export class UploadTracker {
       // Save to Chrome Storage
       await chrome.storage.local.set({ [this.STORAGE_KEY]: storageData });
 
-      console.log(
-        `[UploadTracker] Saved ${uploadsToStore.length} uploads to storage`
-      );
+      logger.debug('UploadTracker', 'Saved uploads to storage', {
+        count: uploadsToStore.length,
+      });
     } catch (error) {
-      console.error('[UploadTracker] Error saving to storage:', error);
+      logger.error('UploadTracker', 'Error saving to storage', error as Error);
     }
   }
 
@@ -420,25 +439,29 @@ export class UploadTracker {
         | undefined;
 
       if (!storageData || !storageData.uploads) {
-        console.log('[UploadTracker] No saved state found');
+        logger.debug('UploadTracker', 'No saved state found');
         return;
       }
 
       // Check if data is stale (older than 24 hours)
       const ONE_DAY = 24 * 60 * 60 * 1000;
       if (Date.now() - storageData.lastUpdate > ONE_DAY) {
-        console.log('[UploadTracker] Saved state is stale, clearing...');
+        logger.debug('UploadTracker', 'Saved state is stale, clearing');
         await this.clearStorage();
         return;
       }
 
       // Note: We cannot restore DOM element references, so we only load
       // the data for informational purposes. New uploads will replace these.
-      console.log(
-        `[UploadTracker] Loaded ${Object.keys(storageData.uploads).length} uploads from storage`
-      );
+      logger.debug('UploadTracker', 'Loaded uploads from storage', {
+        count: Object.keys(storageData.uploads).length,
+      });
     } catch (error) {
-      console.error('[UploadTracker] Error loading from storage:', error);
+      logger.error(
+        'UploadTracker',
+        'Error loading from storage',
+        error as Error
+      );
     }
   }
 
@@ -448,9 +471,9 @@ export class UploadTracker {
   public async clearStorage(): Promise<void> {
     try {
       await chrome.storage.local.remove(this.STORAGE_KEY);
-      console.log('[UploadTracker] Cleared storage');
+      logger.info('UploadTracker', 'Cleared storage');
     } catch (error) {
-      console.error('[UploadTracker] Error clearing storage:', error);
+      logger.error('UploadTracker', 'Error clearing storage', error as Error);
     }
   }
 
@@ -475,7 +498,11 @@ export class UploadTracker {
         uploadCount: storageData ? Object.keys(storageData.uploads).length : 0,
       };
     } catch (error) {
-      console.error('[UploadTracker] Error getting storage stats:', error);
+      logger.error(
+        'UploadTracker',
+        'Error getting storage stats',
+        error as Error
+      );
       return { bytesInUse: 0, uploadCount: 0 };
     }
   }
@@ -516,10 +543,16 @@ export class UploadTracker {
         storageData.uploads = uploads;
         storageData.lastUpdate = Date.now();
         await chrome.storage.local.set({ [this.STORAGE_KEY]: storageData });
-        console.log(`[UploadTracker] Cleaned up ${cleanedCount} old uploads`);
+        logger.info('UploadTracker', 'Cleaned up old uploads', {
+          count: cleanedCount,
+        });
       }
     } catch (error) {
-      console.error('[UploadTracker] Error cleaning up old uploads:', error);
+      logger.error(
+        'UploadTracker',
+        'Error cleaning up old uploads',
+        error as Error
+      );
     }
   }
 
@@ -535,6 +568,6 @@ export class UploadTracker {
     this.uploadIdToElement.clear();
     this.uploadElements = new WeakMap();
 
-    console.log('[UploadTracker] Disposed');
+    logger.info('UploadTracker', 'Disposed');
   }
 }
