@@ -555,6 +555,9 @@ export class UploadOverlay {
       this.container.classList.add(this.CLASSES.minimized);
     }
 
+    // Initially hide overlay (will show when first upload is detected)
+    this.container.style.display = 'none';
+
     // Append to document body
     document.body.appendChild(this.container);
 
