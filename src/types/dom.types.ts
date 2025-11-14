@@ -11,7 +11,7 @@ export const DOM_SELECTORS = {
   UPLOAD_DIALOG: '[role="dialog"][aria-label*="Uploading"]',
 
   /** Individual file upload container */
-  FILE_CONTAINER: '[role="group"][aria-label^="File Upload:"]',
+  FILE_CONTAINER: '[role="group"][aria-label^="File upload:"]',
 
   /** Element containing file name in tooltip */
   FILE_NAME_ELEMENT: '[data-tooltip*="."]',
@@ -116,7 +116,7 @@ export function isFileContainer(
 
   return (
     element.getAttribute('role') === 'group' &&
-    (element.getAttribute('aria-label')?.startsWith('File Upload:') ?? false)
+    (element.getAttribute('aria-label')?.startsWith('File upload:') ?? false)
   );
 }
 

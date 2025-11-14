@@ -370,7 +370,7 @@ export class UploadMonitor {
       // Fallback 1: Parse from container's aria-label
       const ariaLabel = container.getAttribute('aria-label');
       if (ariaLabel) {
-        const match = ariaLabel.match(/File Upload:\s*(.+)/);
+        const match = ariaLabel.match(/File upload:\s*(.+)/);
         if (match?.[1]) {
           return match[1];
         }
