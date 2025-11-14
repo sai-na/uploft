@@ -28,6 +28,19 @@ async function bundle() {
     });
 
     console.log('✓ Bundled content script');
+
+    // Bundle background service worker
+    await esbuild.build({
+      entryPoints: [path.join(rootDir, 'dist/background/background.js')],
+      bundle: true,
+      outfile: path.join(rootDir, 'dist/background/background.bundle.js'),
+      format: 'esm', // ES modules format for service workers
+      platform: 'browser',
+      target: 'es2021',
+      sourcemap: true,
+    });
+
+    console.log('✓ Bundled background service worker');
   } catch (error) {
     console.error('Build failed:', error);
     process.exit(1);
