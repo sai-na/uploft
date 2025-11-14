@@ -14,12 +14,13 @@
     }
   },
   "background": {
-    "service_worker": "background/background.js"
+    "service_worker": "background/background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["https://drive.google.com/*"],
-      "js": ["content/content.js"],
+      "js": ["content/content.bundle.js"],
       "run_at": "document_idle"
     }
   ],

@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "rimraf dist && tsc && node scripts/build.js",
+    "build": "rimraf dist && tsc && node scripts/bundle.js && node scripts/build.js",
     "watch": "tsc --watch",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
@@ -27,6 +27,7 @@
     "@types/chrome": "^0.0.268",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "esbuild": "^0.27.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
