@@ -331,8 +331,7 @@ export class UploadOverlay {
       }
 
       .${this.CLASSES.uploadCardCancelled} {
-        background: #fff3cd;
-        border-color: #ffeaa7;
+        border: 2px solid #FFD04B;
       }
 
       /* File name */
@@ -534,8 +533,7 @@ export class UploadOverlay {
         }
 
         .${this.CLASSES.uploadCardCancelled} {
-          background: #fff3cd;
-          border-color: #ffeaa7;
+          border: 2px solid #FFD04B;
         }
 
         .${this.CLASSES.fileName} {
@@ -643,8 +641,7 @@ export class UploadOverlay {
         }
 
         .${this.CLASSES.uploadCardCancelled} {
-          background: #664d03;
-          border-color: #997404;
+          border: 2px solid #FFD04B;
         }
 
         /* Text colors - uses dt-on-surface and dt-on-surface-secondary */
