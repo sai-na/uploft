@@ -653,15 +653,23 @@ export class UploadMonitor {
    */
   private isCancelled(container: FileContainerElement): boolean {
     // Check for "Upload cancelled" text in tooltips or aria-labels
+    // Note: Using lowercase because Google Drive uses "Upload cancelled"
     const cancelledIndicators = container.querySelectorAll(
-      '[data-tooltip*="cancelled" i], [aria-label*="cancelled" i]'
+      '[data-tooltip*="cancelled"], [aria-label*="cancelled"], [data-tooltip*="Upload cancelled"], [aria-label*="Upload cancelled"]'
     );
-    const isCancelled = cancelledIndicators.length > 0;
+
+    // Also check text content as fallback
+    const textContent = container.textContent?.toLowerCase() ?? '';
+    const hasUploadCancelledText = textContent.includes('upload cancelled');
+
+    const isCancelled =
+      cancelledIndicators.length > 0 || hasUploadCancelledText;
 
     if (isCancelled) {
       console.log('[UploadMonitor] Detected cancelled upload:', {
         fileName: container.getAttribute('aria-label'),
         indicators: cancelledIndicators.length,
+        textContent: hasUploadCancelledText,
       });
     }
 
