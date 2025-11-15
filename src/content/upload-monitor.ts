@@ -122,8 +122,8 @@ export class UploadMonitor {
   private speedTracking: Map<string, { bytes: number; timestamp: number }> =
     new Map();
 
-  /** Speed calculation interval (5 seconds) */
-  private readonly SPEED_CALC_INTERVAL = 5000;
+  /** Speed calculation interval (2 seconds) */
+  private readonly SPEED_CALC_INTERVAL = 2000;
 
   /**
    * Initialize the upload monitor
@@ -252,7 +252,7 @@ export class UploadMonitor {
 
   /**
    * Calculate upload speed based on bytes uploaded over time
-   * Only calculates if at least 5 seconds have passed since last calculation
+   * Only calculates if at least 2 seconds have passed since last calculation
    * @returns Formatted speed string or null if not enough time has passed
    */
   private calculateSpeed(
@@ -270,7 +270,7 @@ export class UploadMonitor {
 
     const timeDelta = now - lastMeasurement.timestamp;
 
-    // Only calculate if at least 5 seconds have passed
+    // Only calculate if at least 2 seconds have passed
     if (timeDelta < this.SPEED_CALC_INTERVAL) {
       return null; // Not enough time has passed
     }
@@ -437,7 +437,7 @@ export class UploadMonitor {
         uploadedBytes: sizeData?.uploadedBytes ?? 0,
         totalBytes: sizeData?.totalBytes ?? 0,
         timeRemaining: null,
-        uploadSpeed: null, // Will be calculated after 5 seconds
+        uploadSpeed: null, // Will be calculated after 2 seconds
         status: this.determineStatus(domData.progress ?? 0, container),
         startTime: Date.now(),
       };
