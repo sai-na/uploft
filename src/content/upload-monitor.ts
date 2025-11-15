@@ -225,10 +225,28 @@ export class UploadMonitor {
    * Find upload dialog in DOM
    */
   private findUploadDialog(): UploadDialogElement | null {
+    // First try: Match dialog with "Upload" in aria-label
     const dialog = document.querySelector(DOM_SELECTORS.UPLOAD_DIALOG);
 
     if (isUploadDialog(dialog)) {
       return dialog;
+    }
+
+    // Fallback: Find any dialog that contains file upload containers
+    // This handles cases where Google Drive changes the dialog's aria-label after cancel
+    const allDialogs = document.querySelectorAll('[role="dialog"]');
+    for (const dlg of allDialogs) {
+      if (dlg instanceof HTMLElement) {
+        const fileContainers = dlg.querySelectorAll(
+          DOM_SELECTORS.FILE_CONTAINER
+        );
+        if (fileContainers.length > 0) {
+          console.log(
+            '[UploadMonitor] Found dialog via fallback (contains file containers)'
+          );
+          return dlg as UploadDialogElement;
+        }
+      }
     }
 
     return null;
