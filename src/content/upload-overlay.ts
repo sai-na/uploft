@@ -92,6 +92,7 @@ export class UploadOverlay {
     uploadCard: 'upload-tracker-overlay__upload-card',
     uploadCardComplete: 'upload-tracker-overlay__upload-card--complete',
     uploadCardFailed: 'upload-tracker-overlay__upload-card--failed',
+    uploadCardCancelled: 'upload-tracker-overlay__upload-card--cancelled',
     fileName: 'upload-tracker-overlay__file-name',
     progressBar: 'upload-tracker-overlay__progress-bar',
     progressFill: 'upload-tracker-overlay__progress-fill',
@@ -271,6 +272,11 @@ export class UploadOverlay {
       .${this.CLASSES.uploadCardFailed} {
         background: #f8d7da;
         border-color: #f5c6cb;
+      }
+
+      .${this.CLASSES.uploadCardCancelled} {
+        background: #fff3cd;
+        border-color: #ffeaa7;
       }
 
       /* File name */
@@ -751,6 +757,8 @@ export class UploadOverlay {
       card.classList.add(this.CLASSES.uploadCardComplete);
     } else if (upload.status === UploadStatus.FAILED) {
       card.classList.add(this.CLASSES.uploadCardFailed);
+    } else if (upload.status === UploadStatus.CANCELLED) {
+      card.classList.add(this.CLASSES.uploadCardCancelled);
     }
 
     // File name
@@ -931,20 +939,29 @@ export class UploadOverlay {
       this.CLASSES.uploadCardComplete
     );
     const hadFailed = card.classList.contains(this.CLASSES.uploadCardFailed);
+    const hadCancelled = card.classList.contains(
+      this.CLASSES.uploadCardCancelled
+    );
     const hasComplete = upload.status === UploadStatus.COMPLETE;
     const hasFailed = upload.status === UploadStatus.FAILED;
+    const hasCancelled = upload.status === UploadStatus.CANCELLED;
     const statusChanged =
-      hadComplete !== hasComplete || hadFailed !== hasFailed;
+      hadComplete !== hasComplete ||
+      hadFailed !== hasFailed ||
+      hadCancelled !== hasCancelled;
 
     // Update status class
     card.classList.remove(
       this.CLASSES.uploadCardComplete,
-      this.CLASSES.uploadCardFailed
+      this.CLASSES.uploadCardFailed,
+      this.CLASSES.uploadCardCancelled
     );
     if (hasComplete) {
       card.classList.add(this.CLASSES.uploadCardComplete);
     } else if (hasFailed) {
       card.classList.add(this.CLASSES.uploadCardFailed);
+    } else if (hasCancelled) {
+      card.classList.add(this.CLASSES.uploadCardCancelled);
     }
 
     // Update progress fill

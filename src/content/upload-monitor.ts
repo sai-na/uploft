@@ -310,7 +310,7 @@ export class UploadMonitor {
         totalBytes: sizeData?.totalBytes ?? 0,
         timeRemaining: null,
         uploadSpeed: domData.speed,
-        status: this.determineStatus(domData.progress ?? 0),
+        status: this.determineStatus(domData.progress ?? 0, container),
         startTime: Date.now(),
       };
 
@@ -336,6 +336,22 @@ export class UploadMonitor {
 
     try {
       const domData = this.extractDOMData(element as FileContainerElement);
+      const container = element as FileContainerElement;
+
+      // Update status (check for cancelled, complete, etc.)
+      const newStatus = this.determineStatus(
+        domData.progress ?? uploadInfo.progress,
+        container
+      );
+      if (newStatus !== uploadInfo.status) {
+        uploadInfo.status = newStatus;
+
+        if (uploadInfo.status === UploadStatus.COMPLETE) {
+          uploadInfo.endTime = Date.now();
+        } else if (uploadInfo.status === UploadStatus.CANCELLED) {
+          uploadInfo.endTime = Date.now();
+        }
+      }
 
       // Update progress
       if (
@@ -343,11 +359,6 @@ export class UploadMonitor {
         domData.progress !== uploadInfo.progress
       ) {
         uploadInfo.progress = domData.progress;
-        uploadInfo.status = this.determineStatus(domData.progress);
-
-        if (uploadInfo.status === UploadStatus.COMPLETE) {
-          uploadInfo.endTime = Date.now();
-        }
       }
 
       // Update file sizes
@@ -580,9 +591,28 @@ export class UploadMonitor {
   }
 
   /**
-   * Determine upload status from progress
+   * Check if upload is cancelled
    */
-  private determineStatus(progress: number): UploadStatus {
+  private isCancelled(container: FileContainerElement): boolean {
+    // Check for "Upload cancelled" text in tooltips or aria-labels
+    const cancelledIndicators = container.querySelectorAll(
+      '[data-tooltip*="cancelled" i], [aria-label*="cancelled" i]'
+    );
+    return cancelledIndicators.length > 0;
+  }
+
+  /**
+   * Determine upload status from progress and container state
+   */
+  private determineStatus(
+    progress: number,
+    container: FileContainerElement
+  ): UploadStatus {
+    // Check for cancelled state first
+    if (this.isCancelled(container)) {
+      return UploadStatus.CANCELLED;
+    }
+
     if (progress === 0) {
       return UploadStatus.PENDING;
     } else if (progress === 100) {
