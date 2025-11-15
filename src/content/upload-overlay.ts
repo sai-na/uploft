@@ -221,7 +221,7 @@ export class UploadOverlay {
         align-items: center;
         justify-content: space-between;
         padding: 16px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #4688F4 0%, #1FA463 50%, #FFD04B 100%);
         color: #ffffff;
         cursor: move;
         user-select: none;
@@ -357,7 +357,7 @@ export class UploadOverlay {
 
       .${this.CLASSES.progressFill} {
         height: 100%;
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(90deg, #4688F4 0%, #1FA463 50%, #FFD04B 100%);
         border-radius: 4px;
         transition: width 0.3s ease;
         position: relative;
@@ -514,7 +514,7 @@ export class UploadOverlay {
         }
 
         .${this.CLASSES.header} {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #4688F4 0%, #1FA463 50%, #FFD04B 100%);
         }
 
         .${this.CLASSES.uploadCard} {
@@ -552,6 +552,10 @@ export class UploadOverlay {
 
         .${this.CLASSES.progressBar} {
           background: #e9ecef;
+        }
+
+        .${this.CLASSES.progressFill} {
+          background: linear-gradient(90deg, #4688F4 0%, #1FA463 50%, #FFD04B 100%);
         }
 
         .${this.CLASSES.uploadList}::-webkit-scrollbar-track {
@@ -659,6 +663,10 @@ export class UploadOverlay {
         /* Progress bar - uses dt-surface-variant */
         .${this.CLASSES.progressBar} {
           background: #444746;
+        }
+
+        .${this.CLASSES.progressFill} {
+          background: linear-gradient(90deg, #4688F4 0%, #1FA463 50%, #FFD04B 100%);
         }
 
         /* Scrollbar - uses dt-surface-container */
