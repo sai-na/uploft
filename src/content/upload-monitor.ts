@@ -344,6 +344,11 @@ export class UploadMonitor {
         container
       );
       if (newStatus !== uploadInfo.status) {
+        console.log('[UploadMonitor] Status changed:', {
+          fileName: uploadInfo.fileName,
+          oldStatus: uploadInfo.status,
+          newStatus: newStatus,
+        });
         uploadInfo.status = newStatus;
 
         if (uploadInfo.status === UploadStatus.COMPLETE) {
@@ -598,7 +603,16 @@ export class UploadMonitor {
     const cancelledIndicators = container.querySelectorAll(
       '[data-tooltip*="cancelled" i], [aria-label*="cancelled" i]'
     );
-    return cancelledIndicators.length > 0;
+    const isCancelled = cancelledIndicators.length > 0;
+
+    if (isCancelled) {
+      console.log('[UploadMonitor] Detected cancelled upload:', {
+        fileName: container.getAttribute('aria-label'),
+        indicators: cancelledIndicators.length,
+      });
+    }
+
+    return isCancelled;
   }
 
   /**
