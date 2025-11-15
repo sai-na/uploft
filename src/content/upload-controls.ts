@@ -3,8 +3,6 @@
  * Handles cancel, retry, and show location functionality
  */
 
-/* eslint-disable no-console */
-
 import type { UploadInfo } from '../types/upload.types.js';
 
 /**
@@ -60,7 +58,7 @@ export class UploadControls {
    * Initialize upload controls
    */
   constructor() {
-    console.log('[UploadControls] Initialized');
+    // Initialization complete
   }
 
   /**
@@ -68,10 +66,6 @@ export class UploadControls {
    */
   public async cancelUpload(upload: UploadInfo): Promise<ControlResult> {
     try {
-      console.log(
-        `[UploadControls] Attempting to cancel upload: ${upload.fileName}`
-      );
-
       // Find cancel button within upload element
       const cancelButton = this.findButton(
         upload.element,
@@ -97,9 +91,6 @@ export class UploadControls {
       const clicked = await this.simulateClick(cancelButton);
 
       if (clicked) {
-        console.log(
-          `[UploadControls] Successfully cancelled: ${upload.fileName}`
-        );
         return {
           success: true,
           message: 'Upload cancelled',
@@ -125,10 +116,6 @@ export class UploadControls {
    */
   public async retryUpload(upload: UploadInfo): Promise<ControlResult> {
     try {
-      console.log(
-        `[UploadControls] Attempting to retry upload: ${upload.fileName}`
-      );
-
       // Check retry attempts
       const retryInfo = this.retryAttempts.get(upload.id);
 
@@ -179,9 +166,6 @@ export class UploadControls {
         // Update retry tracking
         this.updateRetryAttempt(upload.id);
 
-        console.log(
-          `[UploadControls] Successfully retried: ${upload.fileName}`
-        );
         return {
           success: true,
           message: `Upload retried (attempt ${this.retryAttempts.get(upload.id)?.attempts ?? 1}/${this.MAX_RETRY_ATTEMPTS})`,
@@ -207,10 +191,6 @@ export class UploadControls {
    */
   public async showFileLocation(upload: UploadInfo): Promise<ControlResult> {
     try {
-      console.log(
-        `[UploadControls] Attempting to show location: ${upload.fileName}`
-      );
-
       // Find location button within upload element
       const locationButton = this.findButton(
         upload.element,
@@ -236,9 +216,6 @@ export class UploadControls {
       const clicked = await this.simulateClick(locationButton);
 
       if (clicked) {
-        console.log(
-          `[UploadControls] Successfully showed location: ${upload.fileName}`
-        );
         return {
           success: true,
           message: 'Navigated to file location',
@@ -456,6 +433,5 @@ export class UploadControls {
    */
   public dispose(): void {
     this.retryAttempts.clear();
-    console.log('[UploadControls] Disposed');
   }
 }

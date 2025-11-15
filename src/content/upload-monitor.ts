@@ -3,8 +3,6 @@
  * Uses stable selectors (ARIA attributes, role, data attributes) for reliable tracking
  */
 
-/* eslint-disable no-console */
-
 import type { UploadInfo } from '../types/upload.types.js';
 import { UploadStatus } from '../types/upload.types.js';
 import type {
@@ -126,12 +124,9 @@ export class UploadMonitor {
     // Create MutationObserver with debounced handler for performance
     const debouncedMutationHandler = rafDebounce(() => {
       // Note: We don't need mutations parameter as we query DOM directly
-      console.log('[UploadMonitor] MutationObserver fired');
       const uploadDialog = this.findUploadDialog();
-      console.log('[UploadMonitor] Upload dialog found:', !!uploadDialog);
       if (uploadDialog) {
         const hasChanges = this.processUploadDialog(uploadDialog);
-        console.log('[UploadMonitor] Has changes:', hasChanges);
         if (hasChanges && this.debouncedUpdate) {
           this.debouncedUpdate();
         }
@@ -251,9 +246,6 @@ export class UploadMonitor {
           DOM_SELECTORS.FILE_CONTAINER
         );
         if (fileContainers.length > 0) {
-          console.log(
-            '[UploadMonitor] Found dialog via fallback (contains file containers)'
-          );
           return dlg as UploadDialogElement;
         }
       }
@@ -298,18 +290,9 @@ export class UploadMonitor {
     const fileContainers = dialog.querySelectorAll(
       DOM_SELECTORS.FILE_CONTAINER
     );
-    console.log(
-      '[UploadMonitor] File containers found:',
-      fileContainers.length
-    );
     let hasChanges = false;
 
     for (const container of fileContainers) {
-      console.log('[UploadMonitor] Checking container:', {
-        role: container.getAttribute('role'),
-        ariaLabel: container.getAttribute('aria-label'),
-        isValid: isFileContainer(container),
-      });
       if (!isFileContainer(container)) {
         continue;
       }
@@ -425,12 +408,6 @@ export class UploadMonitor {
       this.uploadElements.delete(oldElement);
     }
 
-    console.log('[UploadMonitor] Updated element reference for:', {
-      fileName: uploadInfo.fileName,
-      oldElement: !!oldElement,
-      newElement: !!newContainer,
-    });
-
     // Now update the upload data with the new container
     return this.updateUploadElement(newContainer);
   }
@@ -454,11 +431,6 @@ export class UploadMonitor {
         container
       );
       if (newStatus !== uploadInfo.status) {
-        console.log('[UploadMonitor] Status changed:', {
-          fileName: uploadInfo.fileName,
-          oldStatus: uploadInfo.status,
-          newStatus: newStatus,
-        });
         uploadInfo.status = newStatus;
 
         if (uploadInfo.status === UploadStatus.COMPLETE) {
@@ -719,18 +691,7 @@ export class UploadMonitor {
     const textContent = container.textContent?.toLowerCase() ?? '';
     const hasUploadCancelledText = textContent.includes('upload cancelled');
 
-    const isCancelled =
-      cancelledIndicators.length > 0 || hasUploadCancelledText;
-
-    if (isCancelled) {
-      console.log('[UploadMonitor] Detected cancelled upload:', {
-        fileName: container.getAttribute('aria-label'),
-        indicators: cancelledIndicators.length,
-        textContent: hasUploadCancelledText,
-      });
-    }
-
-    return isCancelled;
+    return cancelledIndicators.length > 0 || hasUploadCancelledText;
   }
 
   /**

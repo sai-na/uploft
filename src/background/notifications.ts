@@ -3,8 +3,6 @@
  * Handles desktop notifications for upload events
  */
 
-/* eslint-disable no-console */
-
 import type { UserPreferences } from '../types/storage.types.js';
 
 /**
@@ -54,7 +52,6 @@ export class NotificationManager {
    */
   constructor() {
     this.setupClickHandlers();
-    console.log('[NotificationManager] Initialized');
   }
 
   /**
@@ -246,8 +243,6 @@ export class NotificationManager {
         requireInteraction: template.requireInteraction,
       });
 
-      console.log(`[NotificationManager] Created notification: ${type}`);
-
       // Auto-clear notification after delay (except for failed uploads)
       if (type !== NotificationType.UPLOAD_FAILED) {
         setTimeout(() => {
@@ -309,8 +304,6 @@ export class NotificationManager {
 
       // Clear the notification
       this.clearNotification(notificationId);
-
-      console.log(`[NotificationManager] Handled click: ${notificationId}`);
     } catch (error) {
       console.error('[NotificationManager] Error handling click:', error);
     }
@@ -330,8 +323,6 @@ export class NotificationManager {
 
         // Activate the tab
         await chrome.tabs.update(tabId, { active: true });
-
-        console.log(`[NotificationManager] Focused tab: ${tabId}`);
       }
     } catch (error) {
       console.error('[NotificationManager] Error focusing tab:', error);
@@ -351,8 +342,6 @@ export class NotificationManager {
     for (const id of notificationIds) {
       this.clearNotification(id);
     }
-
-    console.log('[NotificationManager] Cleared all notifications');
   }
 
   /**
@@ -361,6 +350,5 @@ export class NotificationManager {
   public dispose(): void {
     this.clearAll();
     this.activeNotifications.clear();
-    console.log('[NotificationManager] Disposed');
   }
 }

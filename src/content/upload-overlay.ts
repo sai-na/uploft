@@ -3,8 +3,6 @@
  * Provides floating overlay with progress cards, animations, and drag functionality
  */
 
-/* eslint-disable no-console */
-
 import type { UploadInfo } from '../types/upload.types.js';
 import { UploadStatus } from '../types/upload.types.js';
 import type { ControlResult } from './upload-controls.js';

@@ -3,8 +3,6 @@
  * Handles extension lifecycle and Chrome API interactions
  */
 
-/* eslint-disable no-console */
-
 import type {
   ExtensionMessage,
   MessageResponse,
@@ -30,21 +28,17 @@ const notificationManager = new NotificationManager();
 
 // Service worker install event
 chrome.runtime.onInstalled.addListener((details) => {
-  console.log('[Background] Extension installed:', details.reason);
-
   // Initialize default settings on install
   if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
     void chrome.storage.sync.set({
       preferences: DEFAULT_PREFERENCES,
     } satisfies StorageData);
-
-    console.log('[Background] Default preferences set');
   }
 });
 
 // Service worker activate event
 chrome.runtime.onStartup.addListener(() => {
-  console.log('[Background] Extension startup');
+  // Extension startup complete
 });
 
 // Message handler for communication with content scripts
@@ -54,8 +48,6 @@ chrome.runtime.onMessage.addListener(
     sender: chrome.runtime.MessageSender,
     sendResponse: (response: MessageResponse) => void
   ) => {
-    console.log('[Background] Received message:', message.type);
-
     // Get tab ID from sender
     const tabId = sender.tab?.id;
 

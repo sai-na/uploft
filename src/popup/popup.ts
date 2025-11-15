@@ -3,8 +3,6 @@
  * Handles user settings and preferences
  */
 
-/* eslint-disable no-console */
-
 import type { StorageData, UserPreferences } from '../types/storage.types.js';
 
 const DEFAULT_PREFERENCES: UserPreferences = {
@@ -113,8 +111,6 @@ async function loadSettings(): Promise<void> {
       applyTheme(preferences.theme);
     }
     if (autoHide) autoHide.checked = preferences.autoHide;
-
-    console.log('[Popup] Settings loaded:', preferences);
   } catch (error) {
     console.error('[Popup] Error loading settings:', error);
   }
@@ -126,7 +122,6 @@ async function loadSettings(): Promise<void> {
 async function saveSettings(preferences: UserPreferences): Promise<void> {
   try {
     await chrome.storage.sync.set({ preferences } satisfies StorageData);
-    console.log('[Popup] Settings saved:', preferences);
   } catch (error) {
     console.error('[Popup] Error saving settings:', error);
   }
@@ -233,6 +228,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   autoHide?.addEventListener('change', saveCurrentSettings);
-
-  console.log('[Popup] Event listeners initialized');
 });

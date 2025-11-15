@@ -3,8 +3,6 @@
  * Injected into Google Drive pages to track upload progress
  */
 
-/* eslint-disable no-console */
-
 import { UploadMonitor } from './upload-monitor.js';
 import { UploadTracker } from './upload-tracker.js';
 import { UploadOverlay } from './upload-overlay.js';

@@ -3,8 +3,6 @@
  * Handles state persistence, event emission, and advanced status detection
  */
 
-/* eslint-disable no-console */
-
 import type {
   UploadInfo,
   UploadStatus,
