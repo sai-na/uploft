@@ -68,6 +68,23 @@ function _formatFileSize(bytes: number): string {
 }
 
 /**
+ * Format speed in bytes per second to human-readable format
+ * @example 5242880 -> "5.0 MB/s"
+ */
+function formatSpeed(bytesPerSecond: number): string {
+  if (bytesPerSecond === 0) return '0 B/s';
+
+  const k = 1024;
+  if (bytesPerSecond < k) {
+    return `${bytesPerSecond.toFixed(0)} B/s`;
+  } else if (bytesPerSecond < k * k) {
+    return `${(bytesPerSecond / k).toFixed(1)} KB/s`;
+  } else {
+    return `${(bytesPerSecond / (k * k)).toFixed(1)} MB/s`;
+  }
+}
+
+/**
  * Upload monitor class for tracking Google Drive uploads
  */
 export class UploadMonitor {
@@ -100,6 +117,13 @@ export class UploadMonitor {
 
   /** Global time remaining for all uploads */
   private globalTimeRemaining: string | null = null;
+
+  /** Speed calculation tracking - stores last measurement for each upload */
+  private speedTracking: Map<string, { bytes: number; timestamp: number }> =
+    new Map();
+
+  /** Speed calculation interval (5 seconds) */
+  private readonly SPEED_CALC_INTERVAL = 5000;
 
   /**
    * Initialize the upload monitor
@@ -224,6 +248,47 @@ export class UploadMonitor {
    */
   public getGlobalTimeRemaining(): string | null {
     return this.globalTimeRemaining;
+  }
+
+  /**
+   * Calculate upload speed based on bytes uploaded over time
+   * Only calculates if at least 5 seconds have passed since last calculation
+   * @returns Formatted speed string or null if not enough time has passed
+   */
+  private calculateSpeed(
+    uploadId: string,
+    currentBytes: number
+  ): string | null {
+    const now = Date.now();
+    const lastMeasurement = this.speedTracking.get(uploadId);
+
+    if (!lastMeasurement) {
+      // First measurement - initialize tracking
+      this.speedTracking.set(uploadId, { bytes: currentBytes, timestamp: now });
+      return null;
+    }
+
+    const timeDelta = now - lastMeasurement.timestamp;
+
+    // Only calculate if at least 5 seconds have passed
+    if (timeDelta < this.SPEED_CALC_INTERVAL) {
+      return null; // Not enough time has passed
+    }
+
+    const bytesDelta = currentBytes - lastMeasurement.bytes;
+
+    // Avoid division by zero and negative speeds
+    if (timeDelta <= 0 || bytesDelta < 0) {
+      return null;
+    }
+
+    // Calculate bytes per second
+    const bytesPerSecond = (bytesDelta / timeDelta) * 1000;
+
+    // Update tracking with new measurement
+    this.speedTracking.set(uploadId, { bytes: currentBytes, timestamp: now });
+
+    return formatSpeed(bytesPerSecond);
   }
 
   /**
@@ -372,10 +437,16 @@ export class UploadMonitor {
         uploadedBytes: sizeData?.uploadedBytes ?? 0,
         totalBytes: sizeData?.totalBytes ?? 0,
         timeRemaining: null,
-        uploadSpeed: domData.speed,
+        uploadSpeed: null, // Will be calculated after 5 seconds
         status: this.determineStatus(domData.progress ?? 0, container),
         startTime: Date.now(),
       };
+
+      // Initialize speed tracking
+      this.speedTracking.set(uploadId, {
+        bytes: sizeData?.uploadedBytes ?? 0,
+        timestamp: Date.now(),
+      });
 
       return uploadInfo;
     } catch (error) {
@@ -435,8 +506,16 @@ export class UploadMonitor {
 
         if (uploadInfo.status === UploadStatus.COMPLETE) {
           uploadInfo.endTime = Date.now();
+          // Clean up speed tracking for completed upload
+          this.speedTracking.delete(uploadInfo.id);
         } else if (uploadInfo.status === UploadStatus.CANCELLED) {
           uploadInfo.endTime = Date.now();
+          // Clean up speed tracking for cancelled upload
+          this.speedTracking.delete(uploadInfo.id);
+        } else if (uploadInfo.status === UploadStatus.FAILED) {
+          uploadInfo.endTime = Date.now();
+          // Clean up speed tracking for failed upload
+          this.speedTracking.delete(uploadInfo.id);
         }
       }
 
@@ -455,11 +534,15 @@ export class UploadMonitor {
         uploadInfo.totalSize = sizeData.totalSize;
         uploadInfo.uploadedBytes = sizeData.uploadedBytes;
         uploadInfo.totalBytes = sizeData.totalBytes;
-      }
 
-      // Update speed
-      if (domData.speed !== null) {
-        uploadInfo.uploadSpeed = domData.speed;
+        // Calculate upload speed based on bytes uploaded over time
+        const calculatedSpeed = this.calculateSpeed(
+          uploadInfo.id,
+          sizeData.uploadedBytes
+        );
+        if (calculatedSpeed !== null) {
+          uploadInfo.uploadSpeed = calculatedSpeed;
+        }
       }
 
       // Update time remaining
@@ -733,6 +816,7 @@ export class UploadMonitor {
     this.uploadElements = new WeakMap();
     this.uploadIdToElement.clear();
     this.fileNameToUpload.clear();
+    this.speedTracking.clear();
     this.onUploadUpdate = null;
   }
 }
