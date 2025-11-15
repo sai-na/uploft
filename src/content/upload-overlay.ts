@@ -81,6 +81,12 @@ export class UploadOverlay {
   /** Global time remaining element */
   private globalTimeElement: HTMLElement | null = null;
 
+  /** Current theme */
+  private currentTheme: 'light' | 'dark' = 'light';
+
+  /** Theme media query listener */
+  private themeMediaQuery: MediaQueryList | null = null;
+
   /** CSS class names */
   private readonly CLASSES = {
     container: 'upload-tracker-overlay',
@@ -124,10 +130,50 @@ export class UploadOverlay {
     this.boundDragMove = (e: MouseEvent) => this.handleDragMove(e);
     this.boundDragEnd = () => this.handleDragEnd();
 
+    // Initialize theme detection
+    this.initializeTheme();
+
     void this.loadState();
     this.injectStyles();
     this.createOverlay();
     this.setupEventListeners();
+  }
+
+  /**
+   * Initialize theme detection
+   */
+  private initializeTheme(): void {
+    // Detect initial theme
+    this.currentTheme = this.detectTheme();
+
+    // Setup media query listener for theme changes
+    this.themeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this.themeMediaQuery.addEventListener('change', () => {
+      this.currentTheme = this.detectTheme();
+      this.updateOverlayTheme();
+    });
+  }
+
+  /**
+   * Detect current theme based on system preference
+   */
+  private detectTheme(): 'light' | 'dark' {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
+  /**
+   * Update overlay theme dynamically
+   */
+  private updateOverlayTheme(): void {
+    if (!this.container) {
+      return;
+    }
+
+    // Update container data attribute for CSS targeting
+    this.container.setAttribute('data-theme', this.currentTheme);
   }
 
   /**
@@ -460,51 +506,120 @@ export class UploadOverlay {
         }
       }
 
-      /* Dark theme support */
+      /* Dark theme support - Google Drive colors */
       @media (prefers-color-scheme: dark) {
+        /* Container */
         .${this.CLASSES.container} {
-          background: #1e1e1e;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+          background: #202124;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
         }
 
+        /* Header */
+        .${this.CLASSES.header} {
+          background: #1f1f1f;
+        }
+
+        /* Upload cards */
         .${this.CLASSES.uploadCard} {
-          background: #2d2d2d;
-          border-color: #404040;
-          color: #e0e0e0;
+          background: #292a2d;
+          border-color: #5f6368;
+          color: #e8eaed;
         }
 
+        .${this.CLASSES.uploadCard}:hover {
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Upload card states - Dark mode */
+        .${this.CLASSES.uploadCardComplete} {
+          background: #1e4620;
+          border-color: #2d5a2e;
+        }
+
+        .${this.CLASSES.uploadCardFailed} {
+          background: #5f2120;
+          border-color: #8c2e2d;
+        }
+
+        .${this.CLASSES.uploadCardCancelled} {
+          background: #664d03;
+          border-color: #997404;
+        }
+
+        /* Text colors */
         .${this.CLASSES.fileName} {
-          color: #e0e0e0;
+          color: #e8eaed;
         }
 
-        .${this.CLASSES.progressBar} {
-          background: #404040;
+        .${this.CLASSES.progressText} {
+          color: #9aa0a6;
         }
 
-        .${this.CLASSES.progressText},
         .${this.CLASSES.uploadInfo} {
-          color: #b0b0b0;
+          color: #9aa0a6;
         }
 
+        /* Progress bar */
+        .${this.CLASSES.progressBar} {
+          background: #5f6368;
+        }
+
+        /* Scrollbar */
         .${this.CLASSES.uploadList}::-webkit-scrollbar-track {
-          background: #2d2d2d;
+          background: #292a2d;
         }
 
         .${this.CLASSES.uploadList}::-webkit-scrollbar-thumb {
-          background: #555;
+          background: #5f6368;
         }
 
         .${this.CLASSES.uploadList}::-webkit-scrollbar-thumb:hover {
-          background: #777;
+          background: #80868b;
         }
 
+        /* Control buttons border */
         .${this.CLASSES.uploadControls} {
-          border-top-color: #404040;
+          border-top-color: #5f6368;
         }
 
+        /* Default button */
         .${this.CLASSES.controlBtn} {
-          background: #404040;
-          color: #e0e0e0;
+          background: #5f6368;
+          color: #e8eaed;
+        }
+
+        .${this.CLASSES.controlBtn}:hover {
+          background: #80868b;
+        }
+
+        /* Cancel button - Dark mode */
+        .${this.CLASSES.controlBtnCancel} {
+          background: #b71c1c;
+          color: #ffffff;
+        }
+
+        .${this.CLASSES.controlBtnCancel}:hover {
+          background: #d32f2f;
+        }
+
+        /* Retry button - Dark mode */
+        .${this.CLASSES.controlBtnRetry} {
+          background: #f9a825;
+          color: #000000;
+        }
+
+        .${this.CLASSES.controlBtnRetry}:hover {
+          background: #fbc02d;
+        }
+
+        /* Location button - Dark mode */
+        .${this.CLASSES.controlBtnLocation} {
+          background: #0097a7;
+          color: #ffffff;
+        }
+
+        .${this.CLASSES.controlBtnLocation}:hover {
+          background: #00acc1;
         }
       }
     `;
@@ -519,6 +634,7 @@ export class UploadOverlay {
     // Create container
     this.container = document.createElement('div');
     this.container.className = this.CLASSES.container;
+    this.container.setAttribute('data-theme', this.currentTheme);
 
     // Apply saved position
     if (this.position.bottom)
@@ -1116,6 +1232,15 @@ export class UploadOverlay {
     if (this.boundDragMove && this.boundDragEnd) {
       document.removeEventListener('mousemove', this.boundDragMove);
       document.removeEventListener('mouseup', this.boundDragEnd);
+    }
+
+    // Remove theme change listener
+    if (this.themeMediaQuery) {
+      this.themeMediaQuery.removeEventListener('change', () => {
+        this.currentTheme = this.detectTheme();
+        this.updateOverlayTheme();
+      });
+      this.themeMediaQuery = null;
     }
 
     // Remove DOM elements
