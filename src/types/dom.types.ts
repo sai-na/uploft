@@ -7,8 +7,8 @@
  * Stable selectors for Google Drive upload UI elements
  */
 export const DOM_SELECTORS = {
-  /** Upload dialog container */
-  UPLOAD_DIALOG: '[role="dialog"][aria-label*="Uploading"]',
+  /** Upload dialog container - matches dialogs with "Upload" or "Uploading" in aria-label */
+  UPLOAD_DIALOG: '[role="dialog"][aria-label*="Upload"]',
 
   /** Individual file upload container */
   FILE_CONTAINER: '[role="group"][aria-label^="File upload:"]',
@@ -100,7 +100,7 @@ export function isUploadDialog(
 
   return (
     element.getAttribute('role') === 'dialog' &&
-    (element.getAttribute('aria-label')?.includes('Uploading') ?? false)
+    (element.getAttribute('aria-label')?.includes('Upload') ?? false)
   );
 }
 
