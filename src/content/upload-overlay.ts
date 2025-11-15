@@ -603,28 +603,28 @@ export class UploadOverlay {
         }
       }
 
-      /* Dark theme support - Google Drive colors */
+      /* Dark theme support - Google Drive actual colors */
       @media (prefers-color-scheme: dark) {
-        /* Container */
+        /* Container - uses dt-background */
         .${this.CLASSES.container} {
-          background: #202124;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
+          background: #131314;
+          box-shadow: 0 8px 10px -6px rgba(0, 0, 0, 0.2), 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12);
         }
 
-        /* Header */
+        /* Header - uses dt-surface-container-low */
         .${this.CLASSES.header} {
-          background: #1f1f1f;
+          background: #1b1b1b;
         }
 
-        /* Upload cards */
+        /* Upload cards - uses dt-surface-container-high */
         .${this.CLASSES.uploadCard} {
-          background: #292a2d;
-          border-color: #5f6368;
-          color: #e8eaed;
+          background: #282a2c;
+          border-color: #444746;
+          color: #e3e3e3;
         }
 
         .${this.CLASSES.uploadCard}:hover {
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0px rgba(0, 0, 0, 0.14), 0 1px 10px 0px rgba(0, 0, 0, 0.12);
         }
 
         /* Upload card states - Dark mode */
@@ -643,50 +643,50 @@ export class UploadOverlay {
           border-color: #997404;
         }
 
-        /* Text colors */
+        /* Text colors - uses dt-on-surface and dt-on-surface-secondary */
         .${this.CLASSES.fileName} {
-          color: #e8eaed;
+          color: #e3e3e3;
         }
 
         .${this.CLASSES.progressText} {
-          color: #9aa0a6;
+          color: #ababab;
         }
 
         .${this.CLASSES.uploadInfo} {
-          color: #9aa0a6;
+          color: #ababab;
         }
 
-        /* Progress bar */
+        /* Progress bar - uses dt-surface-variant */
         .${this.CLASSES.progressBar} {
-          background: #5f6368;
+          background: #444746;
         }
 
-        /* Scrollbar */
+        /* Scrollbar - uses dt-surface-container */
         .${this.CLASSES.uploadList}::-webkit-scrollbar-track {
-          background: #292a2d;
+          background: #1e1f20;
         }
 
         .${this.CLASSES.uploadList}::-webkit-scrollbar-thumb {
-          background: #5f6368;
+          background: #444746;
         }
 
         .${this.CLASSES.uploadList}::-webkit-scrollbar-thumb:hover {
-          background: #80868b;
-        }
-
-        /* Control buttons border */
-        .${this.CLASSES.uploadControls} {
-          border-top-color: #5f6368;
-        }
-
-        /* Default button */
-        .${this.CLASSES.controlBtn} {
           background: #5f6368;
-          color: #e8eaed;
+        }
+
+        /* Control buttons border - uses dt-surface-variant */
+        .${this.CLASSES.uploadControls} {
+          border-top-color: #444746;
+        }
+
+        /* Default button - uses dt-surface-variant */
+        .${this.CLASSES.controlBtn} {
+          background: #444746;
+          color: #e3e3e3;
         }
 
         .${this.CLASSES.controlBtn}:hover {
-          background: #80868b;
+          background: #5f6368;
         }
 
         /* Cancel button - Dark mode */
