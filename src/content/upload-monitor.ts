@@ -85,6 +85,9 @@ export class UploadMonitor {
   /** Map of upload IDs to their elements for reverse lookup */
   private uploadIdToElement: Map<string, HTMLElement> = new Map();
 
+  /** Map of filenames to upload info for matching across element replacements */
+  private fileNameToUpload: Map<string, UploadInfo> = new Map();
+
   /** Debounced update handler */
   private debouncedUpdate: (() => void) | null = null;
 
@@ -254,9 +257,20 @@ export class UploadMonitor {
         continue;
       }
 
-      // Update existing upload or create new one
-      if (this.uploadElements.has(container)) {
-        const updated = this.updateUploadElement(container);
+      // Extract filename to check if this is an existing upload with replaced element
+      const fileName = this.extractFileName(container);
+      if (!fileName) {
+        continue;
+      }
+
+      // Check if we're already tracking this upload by filename
+      const existingUpload = this.fileNameToUpload.get(fileName);
+      if (existingUpload) {
+        // Update existing upload with new element reference
+        const updated = this.updateUploadWithNewElement(
+          existingUpload,
+          container
+        );
         if (updated) {
           hasChanges = true;
         }
@@ -268,6 +282,7 @@ export class UploadMonitor {
       if (uploadInfo) {
         this.uploadElements.set(container, uploadInfo);
         this.uploadIdToElement.set(uploadInfo.id, container);
+        this.fileNameToUpload.set(uploadInfo.fileName, uploadInfo);
         hasChanges = true;
 
         logger.debug('UploadMonitor', 'New upload detected', {
@@ -323,6 +338,36 @@ export class UploadMonitor {
       );
       return null;
     }
+  }
+
+  /**
+   * Update existing upload with new element reference (for replaced DOM elements)
+   */
+  private updateUploadWithNewElement(
+    uploadInfo: UploadInfo,
+    newContainer: FileContainerElement
+  ): boolean {
+    // Update element references
+    const oldElement = uploadInfo.element;
+    uploadInfo.element = newContainer;
+
+    // Update WeakMap and ID map with new element
+    this.uploadElements.set(newContainer, uploadInfo);
+    this.uploadIdToElement.set(uploadInfo.id, newContainer);
+
+    // Remove old element from WeakMap (it will be garbage collected)
+    if (oldElement) {
+      this.uploadElements.delete(oldElement);
+    }
+
+    console.log('[UploadMonitor] Updated element reference for:', {
+      fileName: uploadInfo.fileName,
+      oldElement: !!oldElement,
+      newElement: !!newContainer,
+    });
+
+    // Now update the upload data with the new container
+    return this.updateUploadElement(newContainer);
   }
 
   /**
@@ -653,6 +698,7 @@ export class UploadMonitor {
     this.stop();
     this.uploadElements = new WeakMap();
     this.uploadIdToElement.clear();
+    this.fileNameToUpload.clear();
     this.onUploadUpdate = null;
   }
 }
