@@ -506,6 +506,103 @@ export class UploadOverlay {
         }
       }
 
+      /* Light theme explicit styles */
+      @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+        .${this.CLASSES.container} {
+          background: #ffffff;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .${this.CLASSES.header} {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .${this.CLASSES.uploadCard} {
+          background: #f8f9fa;
+          border-color: #e9ecef;
+          color: #212529;
+        }
+
+        .${this.CLASSES.uploadCardComplete} {
+          background: #d4edda;
+          border-color: #c3e6cb;
+        }
+
+        .${this.CLASSES.uploadCardFailed} {
+          background: #f8d7da;
+          border-color: #f5c6cb;
+        }
+
+        .${this.CLASSES.uploadCardCancelled} {
+          background: #fff3cd;
+          border-color: #ffeaa7;
+        }
+
+        .${this.CLASSES.fileName} {
+          color: #212529;
+        }
+
+        .${this.CLASSES.progressText} {
+          color: #6c757d;
+        }
+
+        .${this.CLASSES.uploadInfo} {
+          color: #868e96;
+        }
+
+        .${this.CLASSES.progressBar} {
+          background: #e9ecef;
+        }
+
+        .${this.CLASSES.uploadList}::-webkit-scrollbar-track {
+          background: #f1f1f1;
+        }
+
+        .${this.CLASSES.uploadList}::-webkit-scrollbar-thumb {
+          background: #888;
+        }
+
+        .${this.CLASSES.uploadList}::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+
+        .${this.CLASSES.uploadControls} {
+          border-top-color: #e9ecef;
+        }
+
+        .${this.CLASSES.controlBtn} {
+          background: #e9ecef;
+          color: #495057;
+        }
+
+        .${this.CLASSES.controlBtnCancel} {
+          background: #dc3545;
+          color: #ffffff;
+        }
+
+        .${this.CLASSES.controlBtnCancel}:hover {
+          background: #c82333;
+        }
+
+        .${this.CLASSES.controlBtnRetry} {
+          background: #ffc107;
+          color: #212529;
+        }
+
+        .${this.CLASSES.controlBtnRetry}:hover {
+          background: #e0a800;
+        }
+
+        .${this.CLASSES.controlBtnLocation} {
+          background: #17a2b8;
+          color: #ffffff;
+        }
+
+        .${this.CLASSES.controlBtnLocation}:hover {
+          background: #138496;
+        }
+      }
+
       /* Dark theme support - Google Drive colors */
       @media (prefers-color-scheme: dark) {
         /* Container */
