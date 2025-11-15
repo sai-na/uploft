@@ -926,14 +926,24 @@ export class UploadOverlay {
    * Update existing upload card (Subtask 16.2)
    */
   private updateUploadCard(card: HTMLElement, upload: UploadInfo): void {
+    // Check if status changed by comparing classes
+    const hadComplete = card.classList.contains(
+      this.CLASSES.uploadCardComplete
+    );
+    const hadFailed = card.classList.contains(this.CLASSES.uploadCardFailed);
+    const hasComplete = upload.status === UploadStatus.COMPLETE;
+    const hasFailed = upload.status === UploadStatus.FAILED;
+    const statusChanged =
+      hadComplete !== hasComplete || hadFailed !== hasFailed;
+
     // Update status class
     card.classList.remove(
       this.CLASSES.uploadCardComplete,
       this.CLASSES.uploadCardFailed
     );
-    if (upload.status === UploadStatus.COMPLETE) {
+    if (hasComplete) {
       card.classList.add(this.CLASSES.uploadCardComplete);
-    } else if (upload.status === UploadStatus.FAILED) {
+    } else if (hasFailed) {
       card.classList.add(this.CLASSES.uploadCardFailed);
     }
 
@@ -968,15 +978,17 @@ export class UploadOverlay {
       `;
     }
 
-    // Update control buttons
-    const existingControls = card.querySelector(
-      `.${this.CLASSES.uploadControls}`
-    );
-    const newControls = this.createControlButtons(upload);
-    if (existingControls) {
-      existingControls.replaceWith(newControls);
-    } else {
-      card.appendChild(newControls);
+    // Only update control buttons if status changed (to preserve event listeners and hover state)
+    if (statusChanged) {
+      const existingControls = card.querySelector(
+        `.${this.CLASSES.uploadControls}`
+      );
+      const newControls = this.createControlButtons(upload);
+      if (existingControls) {
+        existingControls.replaceWith(newControls);
+      } else {
+        card.appendChild(newControls);
+      }
     }
   }
 
