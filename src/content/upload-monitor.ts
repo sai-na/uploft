@@ -257,16 +257,24 @@ export class UploadMonitor {
         continue;
       }
 
-      // Extract filename to check if this is an existing upload with replaced element
+      // FIRST: Check if we're already tracking this exact element (normal update path)
+      if (this.uploadElements.has(container)) {
+        const updated = this.updateUploadElement(container);
+        if (updated) {
+          hasChanges = true;
+        }
+        continue;
+      }
+
+      // SECOND: Element not in WeakMap - check if this is a replaced element by filename
       const fileName = this.extractFileName(container);
       if (!fileName) {
         continue;
       }
 
-      // Check if we're already tracking this upload by filename
       const existingUpload = this.fileNameToUpload.get(fileName);
       if (existingUpload) {
-        // Update existing upload with new element reference
+        // Update existing upload with new element reference (element was replaced)
         const updated = this.updateUploadWithNewElement(
           existingUpload,
           container
@@ -277,7 +285,7 @@ export class UploadMonitor {
         continue;
       }
 
-      // Create new upload tracking entry
+      // THIRD: New upload - create tracking entry
       const uploadInfo = this.createUploadInfo(container);
       if (uploadInfo) {
         this.uploadElements.set(container, uploadInfo);
