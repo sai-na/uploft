@@ -100,6 +100,9 @@ export class UploadMonitor {
   /** Polling interval for periodic updates */
   private pollingInterval: number | null = null;
 
+  /** Global time remaining for all uploads */
+  private globalTimeRemaining: string | null = null;
+
   /**
    * Initialize the upload monitor
    */
@@ -222,6 +225,13 @@ export class UploadMonitor {
   }
 
   /**
+   * Get global time remaining for all uploads
+   */
+  public getGlobalTimeRemaining(): string | null {
+    return this.globalTimeRemaining;
+  }
+
+  /**
    * Find upload dialog in DOM
    */
   private findUploadDialog(): UploadDialogElement | null {
@@ -253,9 +263,38 @@ export class UploadMonitor {
   }
 
   /**
+   * Extract global time remaining from dialog
+   */
+  private extractGlobalTimeRemaining(
+    dialog: UploadDialogElement
+  ): string | null {
+    try {
+      const timeElement = dialog.querySelector(
+        DOM_SELECTORS.GLOBAL_TIME_REMAINING
+      );
+      if (timeElement instanceof HTMLElement) {
+        const ariaLabel = timeElement.getAttribute('aria-label');
+        if (ariaLabel) {
+          return ariaLabel;
+        }
+        return timeElement.textContent?.trim() ?? null;
+      }
+      return null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  /**
    * Process upload dialog and extract file containers
    */
   private processUploadDialog(dialog: UploadDialogElement): boolean {
+    // Extract global time remaining
+    const newGlobalTime = this.extractGlobalTimeRemaining(dialog);
+    if (newGlobalTime !== this.globalTimeRemaining) {
+      this.globalTimeRemaining = newGlobalTime;
+    }
+
     const fileContainers = dialog.querySelectorAll(
       DOM_SELECTORS.FILE_CONTAINER
     );

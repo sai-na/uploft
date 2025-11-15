@@ -24,6 +24,9 @@ export const DOM_SELECTORS = {
 
   /** Time remaining element */
   TIME_REMAINING_ELEMENT: '[data-time-remaining]',
+
+  /** Global time remaining for all uploads */
+  GLOBAL_TIME_REMAINING: '.le-Ba-la-r[aria-label*="left"]',
 } as const;
 
 /**

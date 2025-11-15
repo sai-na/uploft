@@ -80,12 +80,16 @@ export class UploadOverlay {
   /** Control action callbacks */
   private controlCallbacks: UploadControlCallbacks = {};
 
+  /** Global time remaining element */
+  private globalTimeElement: HTMLElement | null = null;
+
   /** CSS class names */
   private readonly CLASSES = {
     container: 'upload-tracker-overlay',
     minimized: 'upload-tracker-overlay--minimized',
     header: 'upload-tracker-overlay__header',
     title: 'upload-tracker-overlay__title',
+    globalTime: 'upload-tracker-overlay__global-time',
     controls: 'upload-tracker-overlay__controls',
     minimizeBtn: 'upload-tracker-overlay__minimize-btn',
     uploadList: 'upload-tracker-overlay__upload-list',
@@ -191,6 +195,14 @@ export class UploadOverlay {
         font-size: 16px;
         font-weight: 600;
         margin: 0;
+      }
+
+      .${this.CLASSES.globalTime} {
+        font-size: 13px;
+        font-weight: 400;
+        margin-top: 4px;
+        opacity: 0.95;
+        color: #ffffff;
       }
 
       .${this.CLASSES.controls} {
@@ -531,6 +543,12 @@ export class UploadOverlay {
     title.textContent = '📤 Uploads';
 
     dragHandle.appendChild(title);
+
+    // Global time remaining
+    this.globalTimeElement = document.createElement('div');
+    this.globalTimeElement.className = this.CLASSES.globalTime;
+    this.globalTimeElement.style.display = 'none'; // Hidden by default
+    dragHandle.appendChild(this.globalTimeElement);
 
     // Controls
     const controls = document.createElement('div');
@@ -1040,6 +1058,22 @@ export class UploadOverlay {
   public hide(): void {
     if (this.container) {
       this.container.style.display = 'none';
+    }
+  }
+
+  /**
+   * Set global time remaining for all uploads
+   */
+  public setGlobalTimeRemaining(timeRemaining: string | null): void {
+    if (!this.globalTimeElement) {
+      return;
+    }
+
+    if (timeRemaining) {
+      this.globalTimeElement.textContent = `⏱️ ${timeRemaining}`;
+      this.globalTimeElement.style.display = 'block';
+    } else {
+      this.globalTimeElement.style.display = 'none';
     }
   }
 

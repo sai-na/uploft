@@ -88,6 +88,14 @@ function handleUploadUpdates(uploads: UploadInfo[]): void {
     }
   });
 
+  // Update global time remaining in overlay
+  if (uploadOverlay && uploadMonitor) {
+    const globalTimeRemaining = uploadMonitor.getGlobalTimeRemaining();
+    if (globalTimeRemaining) {
+      uploadOverlay.setGlobalTimeRemaining(globalTimeRemaining);
+    }
+  }
+
   // TODO: Send updates to background script
 }
 
