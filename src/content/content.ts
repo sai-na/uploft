@@ -37,6 +37,12 @@ let uploadOverlay: UploadOverlay | null = null;
 let uploadControls: UploadControls | null = null;
 
 /**
+ * Track recently cancelled uploads for batch notification
+ */
+const cancelledUploads: Set<string> = new Set();
+let cancelledNotificationTimeout: ReturnType<typeof setTimeout> | null = null;
+
+/**
  * Check if we're on a Google Drive page
  */
 function isGoogleDrivePage(): boolean {
@@ -117,6 +123,16 @@ async function sendBackgroundMessage(
 }
 
 /**
+ * Update global time remaining based on active uploads
+ */
+function updateGlobalTimeRemaining(): void {
+  if (uploadOverlay && uploadMonitor) {
+    const globalTimeRemaining = uploadMonitor.getGlobalTimeRemaining();
+    uploadOverlay.setGlobalTimeRemaining(globalTimeRemaining);
+  }
+}
+
+/**
  * Handle upload events from tracker
  */
 function handleUploadEvent(event: UploadEvent): void {
@@ -140,6 +156,9 @@ function handleUploadEvent(event: UploadEvent): void {
         },
       });
 
+      // Update global time remaining
+      updateGlobalTimeRemaining();
+
       setTimeout(() => {
         if (uploadOverlay) {
           uploadOverlay.removeUpload(event.upload.id);
@@ -158,6 +177,9 @@ function handleUploadEvent(event: UploadEvent): void {
         },
       });
 
+      // Update global time remaining
+      updateGlobalTimeRemaining();
+
       setTimeout(() => {
         if (uploadOverlay) {
           uploadOverlay.removeUpload(event.upload.id);
@@ -174,6 +196,26 @@ function handleUploadEvent(event: UploadEvent): void {
           uploadId: event.upload.id,
         },
       });
+
+      // Track cancelled upload for batch notification
+      cancelledUploads.add(event.upload.id);
+
+      // Clear existing timeout if any
+      if (cancelledNotificationTimeout) {
+        clearTimeout(cancelledNotificationTimeout);
+      }
+
+      // Show cancelled message after short delay to batch multiple cancellations
+      cancelledNotificationTimeout = setTimeout(() => {
+        if (uploadOverlay && cancelledUploads.size > 0) {
+          uploadOverlay.showCancelledMessage(cancelledUploads.size);
+          cancelledUploads.clear();
+        }
+        cancelledNotificationTimeout = null;
+      }, 500); // Wait 500ms to batch multiple cancellations
+
+      // Update global time remaining
+      updateGlobalTimeRemaining();
 
       setTimeout(() => {
         if (uploadOverlay) {
@@ -286,6 +328,13 @@ function setupUploadTracking(): void {
  * Cleanup on page unload
  */
 window.addEventListener('beforeunload', () => {
+  // Clear cancelled notification timeout
+  if (cancelledNotificationTimeout) {
+    clearTimeout(cancelledNotificationTimeout);
+    cancelledNotificationTimeout = null;
+  }
+  cancelledUploads.clear();
+
   if (uploadMonitor) {
     uploadMonitor.dispose();
     uploadMonitor = null;

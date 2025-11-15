@@ -81,6 +81,9 @@ export class UploadOverlay {
   /** Global time remaining element */
   private globalTimeElement: HTMLElement | null = null;
 
+  /** Cancelled message element */
+  private cancelledMessageElement: HTMLElement | null = null;
+
   /** Current theme */
   private currentTheme: 'light' | 'dark' = 'light';
 
@@ -94,6 +97,7 @@ export class UploadOverlay {
     header: 'upload-tracker-overlay__header',
     title: 'upload-tracker-overlay__title',
     globalTime: 'upload-tracker-overlay__global-time',
+    cancelledMessage: 'upload-tracker-overlay__cancelled-message',
     controls: 'upload-tracker-overlay__controls',
     minimizeBtn: 'upload-tracker-overlay__minimize-btn',
     uploadList: 'upload-tracker-overlay__upload-list',
@@ -247,6 +251,30 @@ export class UploadOverlay {
         margin-top: 4px;
         opacity: 0.95;
         color: #ffffff;
+      }
+
+      .${this.CLASSES.cancelledMessage} {
+        font-size: 13px;
+        font-weight: 500;
+        margin-top: 6px;
+        padding: 6px 12px;
+        background: rgba(255, 208, 75, 0.2);
+        border: 1px solid #FFD04B;
+        border-radius: 6px;
+        color: #ffffff;
+        display: none;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .${this.CLASSES.controls} {
@@ -765,6 +793,12 @@ export class UploadOverlay {
     this.globalTimeElement.className = this.CLASSES.globalTime;
     this.globalTimeElement.style.display = 'none'; // Hidden by default
     dragHandle.appendChild(this.globalTimeElement);
+
+    // Cancelled message
+    this.cancelledMessageElement = document.createElement('div');
+    this.cancelledMessageElement.className = this.CLASSES.cancelledMessage;
+    this.cancelledMessageElement.style.display = 'none'; // Hidden by default
+    dragHandle.appendChild(this.cancelledMessageElement);
 
     // Controls
     const controls = document.createElement('div');
@@ -1291,6 +1325,27 @@ export class UploadOverlay {
     } else {
       this.globalTimeElement.style.display = 'none';
     }
+  }
+
+  /**
+   * Show cancelled uploads message
+   */
+  public showCancelledMessage(count: number): void {
+    if (!this.cancelledMessageElement) {
+      return;
+    }
+
+    // Set message text
+    const fileText = count === 1 ? 'upload' : 'uploads';
+    this.cancelledMessageElement.textContent = `⚠️ ${count} ${fileText} cancelled`;
+    this.cancelledMessageElement.style.display = 'block';
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      if (this.cancelledMessageElement) {
+        this.cancelledMessageElement.style.display = 'none';
+      }
+    }, 5000);
   }
 
   /**
