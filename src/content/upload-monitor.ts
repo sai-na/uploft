@@ -94,6 +94,9 @@ export class UploadMonitor {
   /** Callback for upload updates */
   private onUploadUpdate: ((uploads: UploadInfo[]) => void) | null = null;
 
+  /** Polling interval for periodic updates */
+  private pollingInterval: number | null = null;
+
   /**
    * Initialize the upload monitor
    */
@@ -117,9 +120,12 @@ export class UploadMonitor {
     // Create MutationObserver with debounced handler for performance
     const debouncedMutationHandler = rafDebounce(() => {
       // Note: We don't need mutations parameter as we query DOM directly
+      console.log('[UploadMonitor] MutationObserver fired');
       const uploadDialog = this.findUploadDialog();
+      console.log('[UploadMonitor] Upload dialog found:', !!uploadDialog);
       if (uploadDialog) {
         const hasChanges = this.processUploadDialog(uploadDialog);
+        console.log('[UploadMonitor] Has changes:', hasChanges);
         if (hasChanges && this.debouncedUpdate) {
           this.debouncedUpdate();
         }
@@ -145,8 +151,16 @@ export class UploadMonitor {
 
     this.isObserving = true;
 
-    // Removed 500ms polling - MutationObserver is sufficient
-    // Polling was causing 2x redundant processing
+    // Start 1-second polling for periodic updates
+    this.pollingInterval = window.setInterval(() => {
+      const uploadDialog = this.findUploadDialog();
+      if (uploadDialog) {
+        this.processUploadDialog(uploadDialog);
+        if (this.debouncedUpdate) {
+          this.debouncedUpdate();
+        }
+      }
+    }, 1000);
 
     logger.info('UploadMonitor', 'Monitoring started');
   }
@@ -166,7 +180,11 @@ export class UploadMonitor {
       this.observer = null;
     }
 
-    // Removed stopPolling() call - polling no longer used
+    if (this.pollingInterval !== null) {
+      clearInterval(this.pollingInterval);
+      this.pollingInterval = null;
+    }
+
     this.isObserving = false;
 
     logger.info('UploadMonitor', 'Monitoring stopped');
@@ -220,16 +238,28 @@ export class UploadMonitor {
     const fileContainers = dialog.querySelectorAll(
       DOM_SELECTORS.FILE_CONTAINER
     );
-    let hasNewUploads = false;
+    console.log(
+      '[UploadMonitor] File containers found:',
+      fileContainers.length
+    );
+    let hasChanges = false;
 
     for (const container of fileContainers) {
+      console.log('[UploadMonitor] Checking container:', {
+        role: container.getAttribute('role'),
+        ariaLabel: container.getAttribute('aria-label'),
+        isValid: isFileContainer(container),
+      });
       if (!isFileContainer(container)) {
         continue;
       }
 
-      // Skip if already tracking this element
+      // Update existing upload or create new one
       if (this.uploadElements.has(container)) {
-        this.updateUploadElement(container);
+        const updated = this.updateUploadElement(container);
+        if (updated) {
+          hasChanges = true;
+        }
         continue;
       }
 
@@ -238,7 +268,7 @@ export class UploadMonitor {
       if (uploadInfo) {
         this.uploadElements.set(container, uploadInfo);
         this.uploadIdToElement.set(uploadInfo.id, container);
-        hasNewUploads = true;
+        hasChanges = true;
 
         logger.debug('UploadMonitor', 'New upload detected', {
           fileName: uploadInfo.fileName,
@@ -246,7 +276,7 @@ export class UploadMonitor {
       }
     }
 
-    return hasNewUploads;
+    return hasChanges;
   }
 
   /**
@@ -266,15 +296,18 @@ export class UploadMonitor {
 
       const uploadId = `upload-${++this.uploadIdCounter}`;
 
+      // Extract file sizes
+      const sizeData = this.extractSizes(container);
+
       const uploadInfo: UploadInfo = {
         id: uploadId,
         element: container,
         fileName: domData.fileName,
         progress: domData.progress ?? 0,
-        uploadedSize: '0 B',
-        totalSize: '0 B',
-        uploadedBytes: 0,
-        totalBytes: 0,
+        uploadedSize: sizeData?.uploadedSize ?? '0 B',
+        totalSize: sizeData?.totalSize ?? '0 B',
+        uploadedBytes: sizeData?.uploadedBytes ?? 0,
+        totalBytes: sizeData?.totalBytes ?? 0,
         timeRemaining: null,
         uploadSpeed: domData.speed,
         status: this.determineStatus(domData.progress ?? 0),
@@ -315,6 +348,15 @@ export class UploadMonitor {
         if (uploadInfo.status === UploadStatus.COMPLETE) {
           uploadInfo.endTime = Date.now();
         }
+      }
+
+      // Update file sizes
+      const sizeData = this.extractSizes(element as FileContainerElement);
+      if (sizeData) {
+        uploadInfo.uploadedSize = sizeData.uploadedSize;
+        uploadInfo.totalSize = sizeData.totalSize;
+        uploadInfo.uploadedBytes = sizeData.uploadedBytes;
+        uploadInfo.totalBytes = sizeData.totalBytes;
       }
 
       // Update speed
@@ -452,10 +494,8 @@ export class UploadMonitor {
 
   /**
    * Extract file sizes from container (Subtask 14.4)
-   * Reserved for future use
    */
-  // @ts-expect-error - Reserved for future use
-  private _extractSizes(container: FileContainerElement): {
+  private extractSizes(container: FileContainerElement): {
     uploadedSize: string;
     totalSize: string;
     uploadedBytes: number;
