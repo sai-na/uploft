@@ -3,124 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload Tracker for Drive - Settings</title>
+    <title>Upload Tracker for Drive</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Upload Tracker for Drive</h1>
-      </header>
+    <header class="top-bar">
+      <img src="icons/icon-48.png" alt="" width="28" height="28" />
+      <h1>Upload Tracker</h1>
+    </header>
 
-      <main>
-        <section class="upload-cta">
-          <button type="button" id="open-uploader" class="primary-button">
-            Upload files to Drive
-          </button>
-          <p class="hint">
-            Several files at a time, and resumes after network drops
-          </p>
-        </section>
+    <main>
+      <section class="upload-cta">
+        <button type="button" id="open-uploader" class="primary-button">
+          <span class="icon icon-upload" aria-hidden="true"></span>
+          Upload files to Drive
+        </button>
+        <p class="hint">
+          Several files at once. Resumes after the connection drops.
+        </p>
+      </section>
 
-        <section class="settings-section">
-          <h2>Reliability</h2>
-          <div class="setting-item">
-            <label for="keep-awake">
-              <input type="checkbox" id="keep-awake" checked />
-              Keep the computer awake while uploading
+      <section class="group" aria-labelledby="while-uploading">
+        <h2 id="while-uploading">While uploading</h2>
+        <div class="card">
+          <label class="row" for="keep-awake">
+            <span class="icon icon-awake" aria-hidden="true"></span>
+            <span class="row-text">
+              <span class="row-title">Keep the computer awake</span>
+              <span class="row-detail">Until every upload has finished</span>
+            </span>
+            <input type="checkbox" role="switch" id="keep-awake" checked />
+          </label>
+          <label class="row" for="auto-retry">
+            <span class="icon icon-retry" aria-hidden="true"></span>
+            <span class="row-text">
+              <span class="row-title">Retry failed Drive uploads</span>
+              <span class="row-detail"
+                >Clicks Drive's Retry button for you</span
+              >
+            </span>
+            <input type="checkbox" role="switch" id="auto-retry" checked />
+          </label>
+        </div>
+      </section>
+
+      <section class="group" aria-labelledby="notifications">
+        <h2 id="notifications">Notifications</h2>
+        <div class="card">
+          <label class="row" for="enable-notifications">
+            <span class="icon icon-bell" aria-hidden="true"></span>
+            <span class="row-text">
+              <span class="row-title">Desktop notifications</span>
+              <span class="row-detail">Shown even when the tab is hidden</span>
+            </span>
+            <input
+              type="checkbox"
+              role="switch"
+              id="enable-notifications"
+              checked
+            />
+          </label>
+          <fieldset class="chips" id="notification-types">
+            <legend>Tell me when</legend>
+            <label class="chip">
+              <input type="checkbox" id="notify-on-complete" checked />
+              A file finishes
             </label>
-          </div>
-          <div class="setting-item">
-            <label for="auto-retry">
-              <input type="checkbox" id="auto-retry" checked />
-              Retry failed Drive uploads automatically
+            <label class="chip">
+              <input type="checkbox" id="notify-on-failed" checked />
+              A file fails
             </label>
-          </div>
-        </section>
-
-        <section class="settings-section">
-          <h2>Notification Settings</h2>
-          <div class="setting-item">
-            <label for="enable-notifications">
-              <input type="checkbox" id="enable-notifications" checked />
-              Enable desktop notifications
+            <label class="chip">
+              <input type="checkbox" id="notify-on-batch-complete" checked />
+              All are done
             </label>
-          </div>
-
-          <div class="notification-types" id="notification-types">
-            <div class="setting-item sub-setting">
-              <label for="notify-on-complete">
-                <input type="checkbox" id="notify-on-complete" checked />
-                Notify when uploads complete
-              </label>
-            </div>
-            <div class="setting-item sub-setting">
-              <label for="notify-on-failed">
-                <input type="checkbox" id="notify-on-failed" checked />
-                Notify when uploads fail
-              </label>
-            </div>
-            <div class="setting-item sub-setting">
-              <label for="notify-on-cancelled">
-                <input type="checkbox" id="notify-on-cancelled" />
-                Notify when uploads are cancelled
-              </label>
-            </div>
-            <div class="setting-item sub-setting">
-              <label for="notify-on-batch-complete">
-                <input type="checkbox" id="notify-on-batch-complete" checked />
-                Notify when all uploads finish
-              </label>
-            </div>
-          </div>
-
-          <div class="setting-item">
-            <label for="enable-sound">
-              <input type="checkbox" id="enable-sound" />
-              Enable notification sound
+            <label class="chip">
+              <input type="checkbox" id="notify-on-cancelled" />
+              One is cancelled
             </label>
-          </div>
-        </section>
+          </fieldset>
+        </div>
+      </section>
 
-        <section class="settings-section">
-          <h2>UI Position</h2>
-          <div class="setting-item">
-            <label for="ui-position">Position:</label>
-            <select id="ui-position">
-              <option value="bottom-right" selected>Bottom Right</option>
-              <option value="bottom-left">Bottom Left</option>
-              <option value="top-right">Top Right</option>
-              <option value="top-left">Top Left</option>
-            </select>
-          </div>
-        </section>
+      <section class="group" aria-labelledby="appearance">
+        <h2 id="appearance">Appearance</h2>
+        <div class="segmented" role="radiogroup" aria-labelledby="appearance">
+          <label>
+            <input type="radio" name="theme" value="auto" checked />
+            <span>Device</span>
+          </label>
+          <label>
+            <input type="radio" name="theme" value="light" />
+            <span>Light</span>
+          </label>
+          <label>
+            <input type="radio" name="theme" value="dark" />
+            <span>Dark</span>
+          </label>
+        </div>
+      </section>
+    </main>
 
-        <section class="settings-section">
-          <h2>Theme</h2>
-          <div class="setting-item">
-            <label for="theme">Theme:</label>
-            <select id="theme">
-              <option value="auto" selected>Auto</option>
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-            </select>
-          </div>
-        </section>
-
-        <section class="settings-section">
-          <div class="setting-item">
-            <label for="auto-hide">
-              <input type="checkbox" id="auto-hide" />
-              Auto-hide completed uploads
-            </label>
-          </div>
-        </section>
-      </main>
-
-      <footer>
-        <p class="version" id="version"></p>
-      </footer>
-    </div>
+    <footer>
+      <a
+        href="https://sai-na.github.io/upload-tracker-for-drive/"
+        target="_blank"
+        rel="noopener"
+        >Help</a
+      >
+      <a
+        href="https://sai-na.github.io/upload-tracker-for-drive/privacy.html"
+        target="_blank"
+        rel="noopener"
+        >Privacy</a
+      >
+      <span class="version" id="version"></span>
+    </footer>
 
     <script src="popup/popup.js" type="module"></script>
   </body>

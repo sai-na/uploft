@@ -1,6 +1,6 @@
 /**
  * Popup script for Upload Tracker for Drive
- * Handles user settings and preferences
+ * Opens the uploader and edits the settings that apply everywhere
  */
 
 import type { StorageData, UserPreferences } from '../types/storage.types.js';
@@ -8,6 +8,19 @@ import {
   DEFAULT_PREFERENCES,
   loadPreferences,
 } from '../types/storage.types.js';
+
+/** Switches and chips, by element ID */
+const TOGGLES = {
+  'keep-awake': 'keepAwake',
+  'auto-retry': 'autoRetry',
+  'enable-notifications': 'enableNotifications',
+  'notify-on-complete': 'notifyOnComplete',
+  'notify-on-failed': 'notifyOnFailed',
+  'notify-on-cancelled': 'notifyOnCancelled',
+  'notify-on-batch-complete': 'notifyOnBatchComplete',
+} as const satisfies Record<string, keyof UserPreferences>;
+
+type ToggleId = keyof typeof TOGGLES;
 
 /**
  * Open the uploader, or focus it if it's already open. When the current tab is
@@ -40,44 +53,33 @@ async function openUploader(): Promise<void> {
   window.close();
 }
 
+function toggle(id: ToggleId): HTMLInputElement | null {
+  return document.getElementById(id) as HTMLInputElement | null;
+}
+
+function themeInputs(): HTMLInputElement[] {
+  return [
+    ...document.querySelectorAll<HTMLInputElement>('input[name="theme"]'),
+  ];
+}
+
 /**
- * Apply theme to document
+ * Apply theme to the popup; auto follows the device
  */
 function applyTheme(theme: UserPreferences['theme']): void {
   if (theme === 'auto') {
-    // Remove data-theme attribute to use system preference
-    document.body.removeAttribute('data-theme');
+    document.documentElement.removeAttribute('data-theme');
   } else {
-    document.body.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
   }
 }
 
 /**
- * Toggle notification type inputs based on master toggle
+ * Show which notifications to send only while notifications are on
  */
 function toggleNotificationTypes(enabled: boolean): void {
-  const notifyOnComplete = document.getElementById(
-    'notify-on-complete'
-  ) as HTMLInputElement;
-  const notifyOnFailed = document.getElementById(
-    'notify-on-failed'
-  ) as HTMLInputElement;
-  const notifyOnCancelled = document.getElementById(
-    'notify-on-cancelled'
-  ) as HTMLInputElement;
-  const notifyOnBatchComplete = document.getElementById(
-    'notify-on-batch-complete'
-  ) as HTMLInputElement;
-
-  if (notifyOnComplete) notifyOnComplete.disabled = !enabled;
-  if (notifyOnFailed) notifyOnFailed.disabled = !enabled;
-  if (notifyOnCancelled) notifyOnCancelled.disabled = !enabled;
-  if (notifyOnBatchComplete) notifyOnBatchComplete.disabled = !enabled;
-
-  const typesContainer = document.getElementById('notification-types');
-  if (typesContainer) {
-    typesContainer.style.opacity = enabled ? '1' : '0.5';
-  }
+  const types = document.getElementById('notification-types');
+  if (types) types.hidden = !enabled;
 }
 
 /**
@@ -87,53 +89,16 @@ async function loadSettings(): Promise<void> {
   try {
     const preferences = await loadPreferences();
 
-    // Update UI elements
-    const enableNotifications = document.getElementById(
-      'enable-notifications'
-    ) as HTMLInputElement;
-    const enableSound = document.getElementById(
-      'enable-sound'
-    ) as HTMLInputElement;
-    const notifyOnComplete = document.getElementById(
-      'notify-on-complete'
-    ) as HTMLInputElement;
-    const notifyOnFailed = document.getElementById(
-      'notify-on-failed'
-    ) as HTMLInputElement;
-    const notifyOnCancelled = document.getElementById(
-      'notify-on-cancelled'
-    ) as HTMLInputElement;
-    const notifyOnBatchComplete = document.getElementById(
-      'notify-on-batch-complete'
-    ) as HTMLInputElement;
-    const uiPosition = document.getElementById(
-      'ui-position'
-    ) as HTMLSelectElement;
-    const theme = document.getElementById('theme') as HTMLSelectElement;
-    const autoHide = document.getElementById('auto-hide') as HTMLInputElement;
-    const keepAwake = document.getElementById('keep-awake') as HTMLInputElement;
-    const autoRetry = document.getElementById('auto-retry') as HTMLInputElement;
+    for (const [id, key] of Object.entries(TOGGLES)) {
+      const input = toggle(id as ToggleId);
+      if (input) input.checked = preferences[key];
+    }
+    toggleNotificationTypes(preferences.enableNotifications);
 
-    if (keepAwake) keepAwake.checked = preferences.keepAwake;
-    if (autoRetry) autoRetry.checked = preferences.autoRetry;
-    if (enableNotifications) {
-      enableNotifications.checked = preferences.enableNotifications;
-      toggleNotificationTypes(preferences.enableNotifications);
+    for (const input of themeInputs()) {
+      input.checked = input.value === preferences.theme;
     }
-    if (enableSound) enableSound.checked = preferences.enableSound;
-    if (notifyOnComplete)
-      notifyOnComplete.checked = preferences.notifyOnComplete;
-    if (notifyOnFailed) notifyOnFailed.checked = preferences.notifyOnFailed;
-    if (notifyOnCancelled)
-      notifyOnCancelled.checked = preferences.notifyOnCancelled;
-    if (notifyOnBatchComplete)
-      notifyOnBatchComplete.checked = preferences.notifyOnBatchComplete;
-    if (uiPosition) uiPosition.value = preferences.uiPosition;
-    if (theme) {
-      theme.value = preferences.theme;
-      applyTheme(preferences.theme);
-    }
-    if (autoHide) autoHide.checked = preferences.autoHide;
+    applyTheme(preferences.theme);
   } catch (error) {
     console.error('[Popup] Error loading settings:', error);
   }
@@ -163,7 +128,9 @@ function validatePreferences(preferences: UserPreferences): UserPreferences {
     notifyOnCancelled: Boolean(preferences.notifyOnCancelled),
     notifyOnBatchComplete: Boolean(preferences.notifyOnBatchComplete),
     uiPosition: preferences.uiPosition || DEFAULT_PREFERENCES.uiPosition,
-    theme: preferences.theme || DEFAULT_PREFERENCES.theme,
+    theme: ['auto', 'light', 'dark'].includes(preferences.theme)
+      ? preferences.theme
+      : DEFAULT_PREFERENCES.theme,
     autoHide: Boolean(preferences.autoHide),
     keepAwake: Boolean(preferences.keepAwake),
     autoRetry: Boolean(preferences.autoRetry),
@@ -179,10 +146,24 @@ function validatePreferences(preferences: UserPreferences): UserPreferences {
 }
 
 /**
+ * Collect and save current settings, keeping ones set in the uploader
+ */
+async function saveCurrentSettings(): Promise<void> {
+  const preferences: UserPreferences = { ...(await loadPreferences()) };
+  for (const [id, key] of Object.entries(TOGGLES)) {
+    const input = toggle(id as ToggleId);
+    if (input) preferences[key] = input.checked;
+  }
+  const theme = themeInputs().find((input) => input.checked)?.value;
+  if (theme) preferences.theme = theme as UserPreferences['theme'];
+
+  await saveSettings(validatePreferences(preferences));
+}
+
+/**
  * Initialize popup
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Load initial settings
   void loadSettings();
 
   const version = document.getElementById('version');
@@ -192,89 +173,19 @@ document.addEventListener('DOMContentLoaded', () => {
     void openUploader();
   });
 
-  // Get all UI elements
-  const enableNotifications = document.getElementById(
-    'enable-notifications'
-  ) as HTMLInputElement;
-  const enableSound = document.getElementById(
-    'enable-sound'
-  ) as HTMLInputElement;
-  const notifyOnComplete = document.getElementById(
-    'notify-on-complete'
-  ) as HTMLInputElement;
-  const notifyOnFailed = document.getElementById(
-    'notify-on-failed'
-  ) as HTMLInputElement;
-  const notifyOnCancelled = document.getElementById(
-    'notify-on-cancelled'
-  ) as HTMLInputElement;
-  const notifyOnBatchComplete = document.getElementById(
-    'notify-on-batch-complete'
-  ) as HTMLInputElement;
-  const uiPosition = document.getElementById(
-    'ui-position'
-  ) as HTMLSelectElement;
-  const theme = document.getElementById('theme') as HTMLSelectElement;
-  const autoHide = document.getElementById('auto-hide') as HTMLInputElement;
-  const keepAwake = document.getElementById('keep-awake') as HTMLInputElement;
-  const autoRetry = document.getElementById('auto-retry') as HTMLInputElement;
+  for (const id of Object.keys(TOGGLES) as ToggleId[]) {
+    toggle(id)?.addEventListener('change', () => {
+      if (id === 'enable-notifications') {
+        toggleNotificationTypes(toggle(id)?.checked ?? true);
+      }
+      void saveCurrentSettings();
+    });
+  }
 
-  /**
-   * Collect and save current settings, keeping ones set in the uploader
-   */
-  const saveCurrentSettings = async (): Promise<void> => {
-    const current = await loadPreferences();
-    const preferences: UserPreferences = {
-      ...current,
-      keepAwake: keepAwake?.checked ?? DEFAULT_PREFERENCES.keepAwake,
-      autoRetry: autoRetry?.checked ?? DEFAULT_PREFERENCES.autoRetry,
-      enableNotifications:
-        enableNotifications?.checked ?? DEFAULT_PREFERENCES.enableNotifications,
-      enableSound: enableSound?.checked ?? DEFAULT_PREFERENCES.enableSound,
-      notifyOnComplete:
-        notifyOnComplete?.checked ?? DEFAULT_PREFERENCES.notifyOnComplete,
-      notifyOnFailed:
-        notifyOnFailed?.checked ?? DEFAULT_PREFERENCES.notifyOnFailed,
-      notifyOnCancelled:
-        notifyOnCancelled?.checked ?? DEFAULT_PREFERENCES.notifyOnCancelled,
-      notifyOnBatchComplete:
-        notifyOnBatchComplete?.checked ??
-        DEFAULT_PREFERENCES.notifyOnBatchComplete,
-      uiPosition:
-        (uiPosition?.value as UserPreferences['uiPosition']) ??
-        DEFAULT_PREFERENCES.uiPosition,
-      theme:
-        (theme?.value as UserPreferences['theme']) ?? DEFAULT_PREFERENCES.theme,
-      autoHide: autoHide?.checked ?? DEFAULT_PREFERENCES.autoHide,
-    };
-
-    const validated = validatePreferences(preferences);
-    await saveSettings(validated);
-  };
-  const saveOnChange = (): void => void saveCurrentSettings();
-
-  // Add event listeners for all settings
-  enableNotifications?.addEventListener('change', (e) => {
-    const enabled = (e.target as HTMLInputElement).checked;
-    toggleNotificationTypes(enabled);
-    saveOnChange();
-  });
-
-  enableSound?.addEventListener('change', saveOnChange);
-  notifyOnComplete?.addEventListener('change', saveOnChange);
-  notifyOnFailed?.addEventListener('change', saveOnChange);
-  notifyOnCancelled?.addEventListener('change', saveOnChange);
-  notifyOnBatchComplete?.addEventListener('change', saveOnChange);
-  uiPosition?.addEventListener('change', saveOnChange);
-
-  theme?.addEventListener('change', (e) => {
-    const selectedTheme = (e.target as HTMLSelectElement)
-      .value as UserPreferences['theme'];
-    applyTheme(selectedTheme);
-    saveOnChange();
-  });
-
-  autoHide?.addEventListener('change', saveOnChange);
-  keepAwake?.addEventListener('change', saveOnChange);
-  autoRetry?.addEventListener('change', saveOnChange);
+  for (const input of themeInputs()) {
+    input.addEventListener('change', () => {
+      applyTheme(input.value as UserPreferences['theme']);
+      void saveCurrentSettings();
+    });
+  }
 });
