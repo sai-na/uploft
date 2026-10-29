@@ -462,6 +462,31 @@ test('lowering "at a time" sends the extra uploads back to waiting', async () =>
   }
 });
 
+test('a row waiting to retry shows what Drive confirmed, not what was sent', async () => {
+  const drive = new FakeDrive();
+  // Half of the second 8 MiB piece is sent (and reported), then the connection drops
+  drive.chunkFault = (_name, chunk) =>
+    chunk === 2 ? { type: 'partial', fraction: 0.5 } : null;
+  const engine = makeEngine(drive);
+  const shown: number[] = [];
+  engine.onChange(() => {
+    const job = engine.list()[0];
+    if (job?.status === 'retrying') shown.push(job.uploadedBytes);
+  });
+
+  const done = idle(engine);
+  const file = makeFile('a.bin', 20 * MB);
+  engine.add([{ file, relativePath: 'a.bin' }], 'root');
+  const [job] = await done;
+
+  assert.ok(shown.length > 0, 'it retried');
+  assert.ok(
+    shown.every((bytes) => bytes === 8 * MB),
+    `retrying rows showed ${shown.join(', ')}`
+  );
+  await assertStored(drive, file, job!);
+});
+
 test('pause and resume continue the same session', async () => {
   const drive = new FakeDrive();
   drive.chunkDelay = 20;

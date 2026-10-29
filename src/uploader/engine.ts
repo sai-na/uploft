@@ -120,6 +120,8 @@ interface Job extends StoredJob {
   controller?: AbortController;
   chunkSize: number;
   attempts: number;
+  /** Bytes Drive has confirmed; progress events run ahead of it during a chunk */
+  confirmedBytes: number;
 }
 
 export class UploadEngine {
@@ -182,7 +184,11 @@ export class UploadEngine {
     );
     for (const job of running.slice(this.concurrency)) {
       job.controller?.abort();
-      this.update(job, { status: 'queued', retryAt: undefined });
+      this.update(job, {
+        status: 'queued',
+        retryAt: undefined,
+        uploadedBytes: job.confirmedBytes,
+      });
     }
     this.pump();
   }
@@ -225,6 +231,7 @@ export class UploadEngine {
         file: source.file,
         chunkSize: START_CHUNK,
         attempts: 0,
+        confirmedBytes: 0,
       };
       if (source.handle) {
         job.handle = source.handle;
@@ -252,6 +259,7 @@ export class UploadEngine {
         status: 'needs-file',
         chunkSize: START_CHUNK,
         attempts: 0,
+        confirmedBytes: record.uploadedBytes,
       };
       delete job.retryAt;
       this.jobs.set(job.id, job);
@@ -292,7 +300,7 @@ export class UploadEngine {
       return;
     }
     job.controller?.abort();
-    this.update(job, { status: 'paused' });
+    this.update(job, { status: 'paused', uploadedBytes: job.confirmedBytes });
   }
 
   public resume(id: string): void {
@@ -470,10 +478,18 @@ export class UploadEngine {
               : isNetworkError(error);
           if (retryable && !this.isOnline()) {
             // Waiting for the network doesn't use up attempts
-            this.update(job, { status: 'offline', error: undefined });
+            this.update(job, {
+              status: 'offline',
+              error: undefined,
+              uploadedBytes: job.confirmedBytes,
+            });
             await this.waitForOnline(signal);
           } else if (!retryable || ++job.attempts >= MAX_ATTEMPTS) {
-            this.update(job, { status: 'failed', error: describeError(error) });
+            this.update(job, {
+              status: 'failed',
+              error: describeError(error),
+              uploadedBytes: job.confirmedBytes,
+            });
             return;
           } else {
             const delay = backoff(job.attempts);
@@ -481,6 +497,7 @@ export class UploadEngine {
               status: 'retrying',
               retryAt: this.now() + delay,
               error: describeError(error),
+              uploadedBytes: job.confirmedBytes,
             });
             await this.sleep(delay, signal);
           }
@@ -542,6 +559,7 @@ export class UploadEngine {
 
       while (state.kind === 'incomplete') {
         const offset = state.offset;
+        job.confirmedBytes = offset;
         this.update(job, {
           status: 'uploading',
           uploadedBytes: offset,
@@ -580,6 +598,7 @@ export class UploadEngine {
       }
 
       // Session expired (Drive keeps them about a week): start over
+      job.confirmedBytes = 0;
       this.update(job, { sessionUri: undefined, uploadedBytes: 0 });
     }
   }
@@ -782,6 +801,7 @@ function toPublic(job: Job): UploadJob {
     controller: _controller,
     chunkSize: _chunk,
     attempts: _attempts,
+    confirmedBytes: _confirmed,
     ...rest
   } = job;
   return { ...rest };
