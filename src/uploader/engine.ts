@@ -134,7 +134,7 @@ export class UploadEngine {
 
   private jobs: Map<string, Job> = new Map();
   private running: Set<string> = new Set();
-  private concurrency = 3;
+  private concurrency = 4;
   /** Strictly increasing, so files added together keep their order after a restart */
   private lastAddedAt = 0;
   private existingFiles: ExistingFiles = 'skip';

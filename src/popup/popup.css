@@ -275,13 +275,35 @@ input[role='switch']:focus-visible {
 }
 
 .chips legend {
+  display: flex;
   float: left;
+  justify-content: space-between;
   width: 100%;
   margin-bottom: 2px;
   padding: 0;
   color: var(--subtle);
   font-size: 12px;
   line-height: 16px;
+}
+
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.link-button:disabled {
+  color: var(--subtle);
+  cursor: default;
+  text-decoration: none;
 }
 
 .chip {

@@ -13,25 +13,40 @@
         <img src="icons/icon-48.png" alt="" width="32" height="32" />
         <span>Upload Tracker</span>
       </div>
-      <div class="account" id="account" hidden>
-        <img
-          class="avatar"
-          id="account-photo"
-          alt=""
-          width="32"
-          height="32"
-          referrerpolicy="no-referrer"
-        />
-        <span
-          class="avatar avatar-initial"
-          id="account-initial"
-          aria-hidden="true"
-        ></span>
-        <div class="account-text">
-          <span id="account-name"></span>
-          <span class="muted" id="account-email"></span>
+      <div class="topbar-end">
+        <a
+          class="coffee-button"
+          href="https://buymeacoffee.com/sai.nath"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="icons/bmc-button.png"
+            alt="Buy me a coffee"
+            width="143"
+            height="40"
+          />
+        </a>
+        <div class="account" id="account" hidden>
+          <img
+            class="avatar"
+            id="account-photo"
+            alt=""
+            width="32"
+            height="32"
+            referrerpolicy="no-referrer"
+          />
+          <span
+            class="avatar avatar-initial"
+            id="account-initial"
+            aria-hidden="true"
+          ></span>
+          <div class="account-text">
+            <span id="account-name"></span>
+            <span class="muted" id="account-email"></span>
+          </div>
         </div>
-        <button class="outlined-button" id="sign-out" type="button">
+        <button class="outlined-button" id="sign-out" type="button" hidden>
           Sign out
         </button>
       </div>
@@ -139,9 +154,11 @@
           <p class="dropzone-title">Drag files or folders here</p>
           <div class="dropzone-actions">
             <button class="filled-button" id="choose-files" type="button">
+              <span class="icon icon-upload-file" aria-hidden="true"></span>
               Choose files
             </button>
             <button class="outlined-button" id="choose-folder" type="button">
+              <span class="icon icon-upload-folder" aria-hidden="true"></span>
               Choose folder
             </button>
           </div>
@@ -188,15 +205,6 @@
       <div class="summary-text">
         <strong id="summary-title"></strong>
         <span class="muted" id="summary-detail"></span>
-        <a
-          class="support-link"
-          id="support-link"
-          href="https://buymeacoffee.com/sai.nath"
-          target="_blank"
-          rel="noopener"
-          hidden
-          >Enjoying it? Buy me a coffee</a
-        >
       </div>
     </footer>
 

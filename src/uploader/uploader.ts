@@ -64,6 +64,7 @@ function showView(view: 'setup' | 'signin' | 'main'): void {
 
 function showAccount(account: DriveAccount | null): void {
   byId('account').hidden = !account;
+  byId('sign-out').hidden = !account;
   if (!account) {
     return;
   }
@@ -115,20 +116,35 @@ async function openPicker(start: { folder?: string } = {}): Promise<void> {
   });
 }
 
+/** When the profile was last read from Google */
+let accountLoadedAt = 0;
+
+/** Re-read the profile when the tab comes back after this long */
+const ACCOUNT_REFRESH_MS = 5 * 60 * 1000;
+
+/**
+ * Show the Google profile as it is now, so a changed name or photo shows up
+ */
+async function loadAccount(): Promise<void> {
+  const account = await drive.getAccount();
+  const previous = await auth.getAccount();
+  if (previous && previous.email !== account.email) {
+    // Folders belong to the other account
+    destination = null;
+    await chrome.storage.local.remove(DESTINATION_KEY);
+    showDestination();
+  }
+  await auth.setAccount(account);
+  showAccount(account);
+  accountLoadedAt = Date.now();
+}
+
 async function signIn(): Promise<void> {
   const error = byId('sign-in-error');
   error.hidden = true;
   try {
     await auth.signIn();
-    const account = await drive.getAccount();
-    const previous = await auth.getAccount();
-    if (previous && previous.email !== account.email) {
-      // Folders belong to the other account
-      destination = null;
-      await chrome.storage.local.remove(DESTINATION_KEY);
-    }
-    await auth.setAccount(account);
-    showAccount(account);
+    await loadAccount();
     byId('reauth-banner').hidden = true;
     showView('main');
     await ensureDestination();
@@ -446,7 +462,6 @@ function renderSummary(): void {
     if (stats.secondsLeft !== null)
       parts.push(`about ${formatDuration(stats.secondsLeft)} left`);
     byId('summary-detail').textContent = parts.join(' · ');
-    byId('support-link').hidden = true;
   } else {
     byId('summary-title').textContent = stats.failed
       ? `${stats.failed} upload${stats.failed === 1 ? '' : 's'} failed`
@@ -455,8 +470,6 @@ function renderSummary(): void {
     if (stats.skipped) parts.push(`${stats.skipped} already in Drive`);
     if (stats.waiting) parts.push(`${stats.waiting} paused`);
     byId('summary-detail').textContent = parts.join(' · ');
-    // Only after a batch that went well
-    byId('support-link').hidden = stats.failed > 0 || stats.done === 0;
   }
 }
 
@@ -716,8 +729,18 @@ async function init(): Promise<void> {
   offerOpenedFolder();
   render();
 
-  // Check the sign-in still works before anything is dropped
-  auth.getToken().catch(handleAuthError);
+  // Check the sign-in still works before anything is dropped, and pick up
+  // any change to the Google profile since last time
+  loadAccount().catch(handleAuthError);
+  document.addEventListener('visibilitychange', () => {
+    if (
+      document.visibilityState === 'visible' &&
+      !byId('account').hidden &&
+      Date.now() - accountLoadedAt > ACCOUNT_REFRESH_MS
+    ) {
+      loadAccount().catch(handleAuthError);
+    }
+  });
 }
 
 void init();

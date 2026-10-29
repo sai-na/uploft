@@ -83,6 +83,39 @@ function toggleNotificationTypes(enabled: boolean): void {
 }
 
 /**
+ * Show a notification now, so the user can check their computer lets
+ * Chrome show them
+ */
+async function sendTestNotification(button: HTMLButtonElement): Promise<void> {
+  button.disabled = true;
+  try {
+    await new Promise<void>((resolve, reject) => {
+      chrome.notifications.create(
+        {
+          type: 'basic',
+          iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
+          title: 'Notifications are working',
+          message: "You'll get one like this when your uploads finish.",
+        },
+        () => {
+          const error = chrome.runtime.lastError;
+          if (error) reject(new Error(error.message));
+          else resolve();
+        }
+      );
+    });
+    button.textContent = 'Sent';
+  } catch (error) {
+    console.error('[Popup] Test notification failed:', error);
+    button.textContent = "Couldn't send";
+  }
+  setTimeout(() => {
+    button.textContent = 'Send a test';
+    button.disabled = false;
+  }, 3000);
+}
+
+/**
  * Load settings from Chrome storage
  */
 async function loadSettings(): Promise<void> {
@@ -171,6 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('open-uploader')?.addEventListener('click', () => {
     void openUploader();
+  });
+
+  const testButton = document.getElementById(
+    'test-notification'
+  ) as HTMLButtonElement | null;
+  testButton?.addEventListener('click', () => {
+    void sendTestNotification(testButton);
   });
 
   for (const id of Object.keys(TOGGLES) as ToggleId[]) {

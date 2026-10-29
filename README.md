@@ -29,7 +29,7 @@ Click the toolbar icon, then **Upload files to Drive**.
   queue is saved in IndexedDB. After a dropped connection, a closed tab or a
   Chrome restart it asks Drive how much it already has and carries on from
   there.
-- **Several files at once.** 1–6 files go up side by side (3 by default). One
+- **Several files at once.** 1–6 files go up side by side (4 by default). One
   file's pieces must go in order, so this speeds up batches, not a single huge
   file.
 - **Adaptive pieces.** Big files go up in 8 MB pieces that grow to 64 MB on fast
@@ -91,5 +91,6 @@ analytics and no tracking. See the
 
 ## Support
 
-The extension is free. If it saved you a long upload, you can
-[buy me a coffee](https://buymeacoffee.com/sai.nath).
+The extension is free. If it saved you a long upload, you can buy me a coffee.
+
+<a href="https://buymeacoffee.com/sai.nath"><img src="icons/bmc-button.png" alt="Buy me a coffee" height="48" /></a>

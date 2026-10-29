@@ -3,7 +3,7 @@
  * Handles desktop notifications for upload events
  */
 
-import type { UserPreferences } from '../types/storage.types.js';
+import { loadPreferences } from '../types/storage.types.js';
 
 /** Full URL: a relative one resolves against background/, where there is no icon */
 const NOTIFICATION_ICON = chrome.runtime.getURL('icons/icon-128.png');
@@ -62,9 +62,7 @@ export class NotificationManager {
    */
   public async isEnabled(): Promise<boolean> {
     try {
-      const result = await chrome.storage.sync.get('preferences');
-      const preferences = result['preferences'] as UserPreferences | undefined;
-      return preferences?.enableNotifications ?? true;
+      return (await loadPreferences()).enableNotifications;
     } catch (error) {
       console.error('[NotificationManager] Error checking preferences:', error);
       return false;
@@ -78,22 +76,22 @@ export class NotificationManager {
     type: NotificationType
   ): Promise<boolean> {
     try {
-      const result = await chrome.storage.sync.get('preferences');
-      const preferences = result['preferences'] as UserPreferences | undefined;
+      // Defaults fill in anything not saved yet
+      const preferences = await loadPreferences();
 
-      if (!preferences?.enableNotifications) {
+      if (!preferences.enableNotifications) {
         return false;
       }
 
       switch (type) {
         case NotificationType.UPLOAD_COMPLETE:
-          return preferences.notifyOnComplete ?? true;
+          return preferences.notifyOnComplete;
         case NotificationType.UPLOAD_FAILED:
-          return preferences.notifyOnFailed ?? true;
+          return preferences.notifyOnFailed;
         case NotificationType.UPLOAD_CANCELLED:
-          return preferences.notifyOnCancelled ?? false;
+          return preferences.notifyOnCancelled;
         case NotificationType.BATCH_COMPLETE:
-          return preferences.notifyOnBatchComplete ?? true;
+          return preferences.notifyOnBatchComplete;
         default:
           return true;
       }
@@ -246,8 +244,13 @@ export class NotificationManager {
         requireInteraction: template.requireInteraction,
       });
 
-      // Auto-clear notification after delay (except for failed uploads)
-      if (type !== NotificationType.UPLOAD_FAILED) {
+      // Per-file messages clear themselves so they don't pile up. Failures and
+      // the end of a batch stay in the notification centre for whoever comes
+      // back to the computer later
+      if (
+        type === NotificationType.UPLOAD_COMPLETE ||
+        type === NotificationType.UPLOAD_CANCELLED
+      ) {
         setTimeout(() => {
           this.clearNotification(notificationId);
         }, 5000);

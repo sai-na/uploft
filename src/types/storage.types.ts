@@ -41,7 +41,7 @@ export const DEFAULT_PREFERENCES: UserPreferences = {
   autoHide: false,
   keepAwake: true,
   autoRetry: true,
-  parallelUploads: 3,
+  parallelUploads: 4,
   existingFiles: 'skip',
 };
 
