@@ -88,3 +88,8 @@ sign-in screen branding are in [docs/STORE_LISTING.md](docs/STORE_LISTING.md).
 Files go straight from your browser to Google, with no server in between, no
 analytics and no tracking. See the
 [privacy policy](https://sai-na.github.io/upload-tracker-for-drive/privacy.html).
+
+## Support
+
+The extension is free. If it saved you a long upload, you can
+[buy me a coffee](https://buymeacoffee.com/sai.nath).

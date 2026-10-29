@@ -631,6 +631,16 @@ main {
   padding: 14px 16px 16px;
 }
 
+.support-link {
+  margin-left: auto;
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.support-link:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 600px) {
   .account-text,
   .brand span {

@@ -446,6 +446,7 @@ function renderSummary(): void {
     if (stats.secondsLeft !== null)
       parts.push(`about ${formatDuration(stats.secondsLeft)} left`);
     byId('summary-detail').textContent = parts.join(' · ');
+    byId('support-link').hidden = true;
   } else {
     byId('summary-title').textContent = stats.failed
       ? `${stats.failed} upload${stats.failed === 1 ? '' : 's'} failed`
@@ -454,6 +455,8 @@ function renderSummary(): void {
     if (stats.skipped) parts.push(`${stats.skipped} already in Drive`);
     if (stats.waiting) parts.push(`${stats.waiting} paused`);
     byId('summary-detail').textContent = parts.join(' · ');
+    // Only after a batch that went well
+    byId('support-link').hidden = stats.failed > 0 || stats.done === 0;
   }
 }
 

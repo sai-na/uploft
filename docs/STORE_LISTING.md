@@ -56,6 +56,8 @@ HOW TO USE
 3. Drop in files or folders. They go into an "Upload Tracker" folder in My Drive, or any folder you choose.
 
 Privacy policy: https://sai-na.github.io/upload-tracker-for-drive/privacy.html
+
+Free, made by Sai Nath. If it saved you a long upload, you can buy me a coffee: https://buymeacoffee.com/sai.nath
 ```
 
 **Category**: Productivity → Tools
