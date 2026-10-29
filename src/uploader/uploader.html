@@ -31,7 +31,7 @@
           <span id="account-name"></span>
           <span class="muted" id="account-email"></span>
         </div>
-        <button class="text-button" id="sign-out" type="button">
+        <button class="outlined-button" id="sign-out" type="button">
           Sign out
         </button>
       </div>
@@ -72,7 +72,7 @@
             >Your Google sign-in expired. Uploads continue after you sign in
             again.</span
           >
-          <button class="tonal-button" id="reauth" type="button">
+          <button class="filled-button" id="reauth" type="button">
             Sign in again
           </button>
         </div>
@@ -122,14 +122,14 @@
             <strong id="opened-folder-name">the folder you had open</strong> in
             Drive?</span
           >
-          <button class="tonal-button" id="use-opened-folder" type="button">
+          <button class="filled-button" id="use-opened-folder" type="button">
             Use that folder
           </button>
         </div>
 
         <div class="banner" id="interrupted-banner" hidden>
           <span id="interrupted-text"></span>
-          <button class="tonal-button" id="resume-interrupted" type="button">
+          <button class="filled-button" id="resume-interrupted" type="button">
             Resume
           </button>
         </div>
@@ -138,10 +138,10 @@
           <div class="dropzone-icon" aria-hidden="true"></div>
           <p class="dropzone-title">Drag files or folders here</p>
           <div class="dropzone-actions">
-            <button class="tonal-button" id="choose-files" type="button">
+            <button class="filled-button" id="choose-files" type="button">
               Choose files
             </button>
-            <button class="tonal-button" id="choose-folder" type="button">
+            <button class="outlined-button" id="choose-folder" type="button">
               Choose folder
             </button>
           </div>
@@ -153,13 +153,25 @@
           <div class="queue-header">
             <h2>Uploads</h2>
             <div class="queue-actions">
-              <button class="text-button" id="pause-all" type="button">
+              <button
+                class="outlined-button small"
+                id="pause-all"
+                type="button"
+              >
                 Pause all
               </button>
-              <button class="text-button" id="resume-all" type="button">
+              <button
+                class="outlined-button small"
+                id="resume-all"
+                type="button"
+              >
                 Resume all
               </button>
-              <button class="text-button" id="clear-finished" type="button">
+              <button
+                class="outlined-button small"
+                id="clear-finished"
+                type="button"
+              >
                 Clear finished
               </button>
             </div>
