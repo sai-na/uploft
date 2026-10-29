@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Tracker</title>
+    <link rel="icon" href="icons/icon-32.png" />
+    <link rel="stylesheet" href="uploader.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img src="icons/icon-48.png" alt="" width="32" height="32" />
+        <span>Upload Tracker</span>
+      </div>
+      <div class="account" id="account" hidden>
+        <img
+          class="avatar"
+          id="account-photo"
+          alt=""
+          width="32"
+          height="32"
+          referrerpolicy="no-referrer"
+        />
+        <span
+          class="avatar avatar-initial"
+          id="account-initial"
+          aria-hidden="true"
+        ></span>
+        <div class="account-text">
+          <span id="account-name"></span>
+          <span class="muted" id="account-email"></span>
+        </div>
+        <button class="text-button" id="sign-out" type="button">
+          Sign out
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Shown when the build has no OAuth client ID -->
+      <section class="empty-state" id="view-setup" hidden>
+        <h1>Uploader isn't set up yet</h1>
+        <p>
+          Add a Google OAuth client ID to
+          <code>src/uploader/config.ts</code> and rebuild. The steps are in
+          <code>docs/SETUP.md</code>.
+        </p>
+      </section>
+
+      <section class="empty-state" id="view-signin" hidden>
+        <div class="hero-icon" aria-hidden="true"></div>
+        <h1>Upload to Google Drive, reliably</h1>
+        <ul class="benefits">
+          <li>Several files upload at the same time</li>
+          <li>Network drops resume from the last byte, not from zero</li>
+          <li>Interrupted uploads carry on after you reopen Chrome</li>
+        </ul>
+        <button class="filled-button" id="sign-in" type="button">
+          Sign in with Google
+        </button>
+        <p class="muted small">
+          Upload Tracker can only see files it uploads and folders you choose
+          for it.
+        </p>
+        <p class="error-text" id="sign-in-error" hidden></p>
+      </section>
+
+      <section id="view-main" hidden>
+        <div class="banner" id="reauth-banner" hidden>
+          <span
+            >Your Google sign-in expired. Uploads continue after you sign in
+            again.</span
+          >
+          <button class="tonal-button" id="reauth" type="button">
+            Sign in again
+          </button>
+        </div>
+
+        <div class="toolbar">
+          <div class="destination">
+            <span class="label">Upload to</span>
+            <button
+              class="chip"
+              id="destination"
+              type="button"
+              title="Choose the Drive folder to upload into"
+            >
+              <span class="icon icon-folder" aria-hidden="true"></span>
+              <span id="destination-name">My Drive</span>
+            </button>
+          </div>
+          <div class="options">
+            <label class="select-field">
+              <span>At a time</span>
+              <select id="parallel">
+                <option value="1">1 file</option>
+                <option value="2">2 files</option>
+                <option value="3">3 files</option>
+                <option value="4">4 files</option>
+                <option value="5">5 files</option>
+                <option value="6">6 files</option>
+              </select>
+            </label>
+            <label
+              class="select-field"
+              title="For a file with the same name in the folder. Replace uploads a new version of it: its link and sharing stay, and Drive keeps the old one under Manage versions."
+            >
+              <span>If already in Drive</span>
+              <select id="existing-files">
+                <option value="skip">Skip it</option>
+                <option value="replace">Replace it</option>
+                <option value="keep">Keep both</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="banner" id="opened-folder-banner" hidden>
+          <span
+            >Upload into
+            <strong id="opened-folder-name">the folder you had open</strong> in
+            Drive?</span
+          >
+          <button class="tonal-button" id="use-opened-folder" type="button">
+            Use that folder
+          </button>
+        </div>
+
+        <div class="banner" id="interrupted-banner" hidden>
+          <span id="interrupted-text"></span>
+          <button class="tonal-button" id="resume-interrupted" type="button">
+            Resume
+          </button>
+        </div>
+
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-icon" aria-hidden="true"></div>
+          <p class="dropzone-title">Drag files or folders here</p>
+          <div class="dropzone-actions">
+            <button class="tonal-button" id="choose-files" type="button">
+              Choose files
+            </button>
+            <button class="tonal-button" id="choose-folder" type="button">
+              Choose folder
+            </button>
+          </div>
+          <input type="file" id="file-input" multiple hidden />
+          <input type="file" id="folder-input" webkitdirectory hidden />
+        </div>
+
+        <section class="queue" id="queue" hidden>
+          <div class="queue-header">
+            <h2>Uploads</h2>
+            <div class="queue-actions">
+              <button class="text-button" id="pause-all" type="button">
+                Pause all
+              </button>
+              <button class="text-button" id="resume-all" type="button">
+                Resume all
+              </button>
+              <button class="text-button" id="clear-finished" type="button">
+                Clear finished
+              </button>
+            </div>
+          </div>
+          <ul class="rows" id="rows"></ul>
+        </section>
+      </section>
+    </main>
+
+    <footer class="summary" id="summary" hidden>
+      <div class="summary-bar">
+        <div class="summary-fill" id="summary-fill"></div>
+      </div>
+      <div class="summary-text">
+        <strong id="summary-title"></strong>
+        <span class="muted" id="summary-detail"></span>
+      </div>
+    </footer>
+
+    <script src="uploader/uploader.bundle.js" type="module"></script>
+  </body>
+</html>

@@ -39,6 +39,7 @@ gdrive_progress_prd.md
 
 # Build output
 dist/
+release/
 *.tsbuildinfo
 
 # TypeScript

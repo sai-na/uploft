@@ -13,6 +13,31 @@
       </header>
 
       <main>
+        <section class="upload-cta">
+          <button type="button" id="open-uploader" class="primary-button">
+            Upload files to Drive
+          </button>
+          <p class="hint">
+            Several files at a time, and resumes after network drops
+          </p>
+        </section>
+
+        <section class="settings-section">
+          <h2>Reliability</h2>
+          <div class="setting-item">
+            <label for="keep-awake">
+              <input type="checkbox" id="keep-awake" checked />
+              Keep the computer awake while uploading
+            </label>
+          </div>
+          <div class="setting-item">
+            <label for="auto-retry">
+              <input type="checkbox" id="auto-retry" checked />
+              Retry failed Drive uploads automatically
+            </label>
+          </div>
+        </section>
+
         <section class="settings-section">
           <h2>Notification Settings</h2>
           <div class="setting-item">
@@ -93,7 +118,7 @@
       </main>
 
       <footer>
-        <p class="version">v1.0.0</p>
+        <p class="version" id="version"></p>
       </footer>
     </div>
 

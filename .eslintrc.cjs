@@ -10,7 +10,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
-    project: './tsconfig.json',
+    project: './tsconfig.eslint.json',
   },
   extends: [
     'eslint:recommended',
@@ -57,5 +57,16 @@ module.exports = {
     'no-var': 'error',
     eqeqeq: ['error', 'always'],
   },
+  overrides: [
+    {
+      // node:test runs each test() itself, and fakes keep async signatures
+      files: ['test/**/*.ts'],
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/require-await': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+      },
+    },
+  ],
   ignorePatterns: ['dist', 'node_modules', 'scripts/*.js', '.eslintrc.cjs'],
 };

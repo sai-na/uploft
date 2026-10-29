@@ -52,6 +52,15 @@ if (fs.existsSync(popupCss)) {
   console.log('✓ Copied popup.css');
 }
 
+// Copy uploader page
+for (const file of ['uploader.html', 'uploader.css']) {
+  const source = path.join(rootDir, 'src', 'uploader', file);
+  if (fs.existsSync(source)) {
+    fs.copyFileSync(source, path.join(distDir, file));
+    console.log(`✓ Copied ${file}`);
+  }
+}
+
 // TypeScript compilation already handled by tsc command
 // No need to copy JS files - they're already in dist/
 

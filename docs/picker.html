@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose a folder · Upload Tracker</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f8fafd;
+        --text: #1f1f1f;
+        --muted: #444746;
+        --error: #b3261e;
+        font-family:
+          'Google Sans Text',
+          Roboto,
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #131314;
+          --text: #e3e3e3;
+          --muted: #c4c7c5;
+          --error: #f2b8b5;
+        }
+      }
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 14px;
+        text-align: center;
+      }
+      p {
+        max-width: 420px;
+        margin: 8px 16px;
+        color: var(--muted);
+      }
+      .error {
+        color: var(--error);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p id="status">Opening Google Drive…</p>
+    </main>
+
+    <!--
+      Google Picker for the Upload Tracker for Drive extension. The extension opens
+      this page with ?ext=<extension id>, optionally &folder=<id> (offer that folder)
+      or &parent=<id> (start browsing there), hands it a drive.file
+      token, and receives the folder the user picks. Picking a folder is what lets
+      an app with drive.file access upload into it.
+    -->
+    <script>
+      const params = new URLSearchParams(location.search);
+      const extensionId = params.get('ext');
+      const parentId = params.get('parent');
+      const focusId = params.get('folder');
+      const status = document.getElementById('status');
+
+      function fail(message) {
+        status.textContent = message;
+        status.className = 'error';
+      }
+
+      function send(message) {
+        return new Promise((resolve) => {
+          chrome.runtime.sendMessage(extensionId, message, (response) => {
+            resolve(chrome.runtime.lastError ? null : response);
+          });
+        });
+      }
+
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.onload = resolve;
+          script.onerror = () =>
+            reject(new Error('Could not load Google Picker'));
+          document.head.append(script);
+        });
+      }
+
+      async function start() {
+        if (!extensionId || !window.chrome?.runtime?.sendMessage) {
+          fail('Open this page from the Upload Tracker for Drive extension.');
+          return;
+        }
+
+        const init = await send({ type: 'PICKER_INIT' });
+        if (!init?.ok) {
+          fail(
+            init?.error ??
+              'Upload Tracker for Drive did not respond. Is the extension installed?'
+          );
+          return;
+        }
+
+        await loadScript('https://apis.google.com/js/api.js');
+        await new Promise((resolve) => gapi.load('picker', resolve));
+        const { picker } = google;
+
+        const folderView = () =>
+          new picker.DocsView(picker.ViewId.FOLDERS)
+            .setIncludeFolders(true)
+            .setSelectFolderEnabled(true)
+            .setMimeTypes('application/vnd.google-apps.folder');
+
+        const views = [];
+        const folders = folderView();
+        if (focusId && typeof folders.setFileIds === 'function') {
+          // Just the folder that was open in Drive, so it's one click to choose
+          views.push(folderView().setFileIds(focusId));
+        } else if (focusId || parentId) {
+          folders.setParent(focusId || parentId);
+        }
+        views.push(folders);
+
+        const sharedDrives = new picker.DocsView(picker.ViewId.FOLDERS)
+          .setEnableDrives(true)
+          .setIncludeFolders(true)
+          .setSelectFolderEnabled(true)
+          .setMimeTypes('application/vnd.google-apps.folder');
+
+        const builder = new picker.PickerBuilder().setTitle(
+          'Choose a folder to upload into'
+        );
+        [...views, sharedDrives].forEach((view) => builder.addView(view));
+        builder
+          .enableFeature(picker.Feature.SUPPORT_DRIVES)
+          .setOAuthToken(init.token)
+          .setDeveloperKey(init.apiKey)
+          .setAppId(init.appId)
+          .setOrigin(location.origin)
+          .setSize(
+            Math.min(1051, innerWidth - 24),
+            Math.min(650, innerHeight - 24)
+          )
+          .setCallback(async (data) => {
+            if (data.action === picker.Action.PICKED) {
+              const folder = data.docs[0];
+              status.textContent = `Uploading into “${folder.name}”. You can close this window.`;
+              await send({
+                type: 'PICKER_RESULT',
+                folder: { id: folder.id, name: folder.name },
+              });
+            } else if (data.action === picker.Action.CANCEL) {
+              status.textContent =
+                'No folder chosen. You can close this window.';
+              await send({ type: 'PICKER_CANCEL' });
+            }
+          })
+          .build()
+          .setVisible(true);
+        status.textContent = '';
+      }
+
+      start().catch((error) => fail(error.message));
+    </script>
+  </body>
+</html>

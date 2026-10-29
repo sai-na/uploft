@@ -7,6 +7,7 @@ export enum MessageType {
   UPLOAD_FAILED = 'UPLOAD_FAILED',
   UPLOAD_CANCELLED = 'UPLOAD_CANCELLED',
   BATCH_COMPLETE = 'BATCH_COMPLETE',
+  UPLOAD_ACTIVITY = 'UPLOAD_ACTIVITY',
 }
 
 export interface UploadCompleteMessage {
@@ -45,11 +46,22 @@ export interface BatchCompleteMessage {
   };
 }
 
+/**
+ * Sent whenever a tab starts or stops having uploads in flight
+ */
+export interface UploadActivityMessage {
+  type: MessageType.UPLOAD_ACTIVITY;
+  data: {
+    active: boolean;
+  };
+}
+
 export type ExtensionMessage =
   | UploadCompleteMessage
   | UploadFailedMessage
   | UploadCancelledMessage
-  | BatchCompleteMessage;
+  | BatchCompleteMessage
+  | UploadActivityMessage;
 
 export interface MessageResponse {
   success: boolean;

@@ -41,6 +41,19 @@ async function bundle() {
     });
 
     console.log('✓ Bundled background service worker');
+
+    // Bundle uploader page
+    await esbuild.build({
+      entryPoints: [path.join(rootDir, 'dist/uploader/uploader.js')],
+      bundle: true,
+      outfile: path.join(rootDir, 'dist/uploader/uploader.bundle.js'),
+      format: 'esm',
+      platform: 'browser',
+      target: 'es2021',
+      sourcemap: true,
+    });
+
+    console.log('✓ Bundled uploader page');
   } catch (error) {
     console.error('Build failed:', error);
     process.exit(1);

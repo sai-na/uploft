@@ -4,18 +4,41 @@
  */
 
 import type { StorageData, UserPreferences } from '../types/storage.types.js';
+import {
+  DEFAULT_PREFERENCES,
+  loadPreferences,
+} from '../types/storage.types.js';
 
-const DEFAULT_PREFERENCES: UserPreferences = {
-  enableNotifications: true,
-  enableSound: false,
-  notifyOnComplete: true,
-  notifyOnFailed: true,
-  notifyOnCancelled: false,
-  notifyOnBatchComplete: true,
-  uiPosition: 'bottom-right',
-  theme: 'auto',
-  autoHide: false,
-};
+/**
+ * Open the uploader, or focus it if it's already open. When the current tab is
+ * a Drive folder, the uploader offers to upload there.
+ */
+async function openUploader(): Promise<void> {
+  const uploaderUrl = chrome.runtime.getURL('uploader.html');
+  const [existing] = await chrome.runtime.getContexts({
+    contextTypes: [chrome.runtime.ContextType.TAB],
+    documentUrls: [uploaderUrl, `${uploaderUrl}?*`],
+  });
+  if (existing && existing.tabId !== -1) {
+    await chrome.tabs.update(existing.tabId, { active: true });
+    await chrome.windows.update(existing.windowId, { focused: true });
+    window.close();
+    return;
+  }
+
+  const [activeTab] = await chrome.tabs.query({
+    active: true,
+    currentWindow: true,
+  });
+  const folderId =
+    /drive\.google\.com\/drive\/(?:u\/\d+\/)?folders\/([\w-]+)/.exec(
+      activeTab?.url ?? ''
+    )?.[1];
+  await chrome.tabs.create({
+    url: folderId ? `${uploaderUrl}?folder=${folderId}` : uploaderUrl,
+  });
+  window.close();
+}
 
 /**
  * Apply theme to document
@@ -62,11 +85,7 @@ function toggleNotificationTypes(enabled: boolean): void {
  */
 async function loadSettings(): Promise<void> {
   try {
-    const result = (await chrome.storage.sync.get(
-      'preferences'
-    )) as StorageData;
-    const preferences: UserPreferences =
-      result['preferences'] || DEFAULT_PREFERENCES;
+    const preferences = await loadPreferences();
 
     // Update UI elements
     const enableNotifications = document.getElementById(
@@ -92,7 +111,11 @@ async function loadSettings(): Promise<void> {
     ) as HTMLSelectElement;
     const theme = document.getElementById('theme') as HTMLSelectElement;
     const autoHide = document.getElementById('auto-hide') as HTMLInputElement;
+    const keepAwake = document.getElementById('keep-awake') as HTMLInputElement;
+    const autoRetry = document.getElementById('auto-retry') as HTMLInputElement;
 
+    if (keepAwake) keepAwake.checked = preferences.keepAwake;
+    if (autoRetry) autoRetry.checked = preferences.autoRetry;
     if (enableNotifications) {
       enableNotifications.checked = preferences.enableNotifications;
       toggleNotificationTypes(preferences.enableNotifications);
@@ -142,6 +165,16 @@ function validatePreferences(preferences: UserPreferences): UserPreferences {
     uiPosition: preferences.uiPosition || DEFAULT_PREFERENCES.uiPosition,
     theme: preferences.theme || DEFAULT_PREFERENCES.theme,
     autoHide: Boolean(preferences.autoHide),
+    keepAwake: Boolean(preferences.keepAwake),
+    autoRetry: Boolean(preferences.autoRetry),
+    parallelUploads:
+      Number(preferences.parallelUploads) ||
+      DEFAULT_PREFERENCES.parallelUploads,
+    existingFiles: ['skip', 'replace', 'keep'].includes(
+      preferences.existingFiles
+    )
+      ? preferences.existingFiles
+      : DEFAULT_PREFERENCES.existingFiles,
   };
 }
 
@@ -151,6 +184,13 @@ function validatePreferences(preferences: UserPreferences): UserPreferences {
 document.addEventListener('DOMContentLoaded', () => {
   // Load initial settings
   void loadSettings();
+
+  const version = document.getElementById('version');
+  if (version) version.textContent = `v${chrome.runtime.getManifest().version}`;
+
+  document.getElementById('open-uploader')?.addEventListener('click', () => {
+    void openUploader();
+  });
 
   // Get all UI elements
   const enableNotifications = document.getElementById(
@@ -176,12 +216,18 @@ document.addEventListener('DOMContentLoaded', () => {
   ) as HTMLSelectElement;
   const theme = document.getElementById('theme') as HTMLSelectElement;
   const autoHide = document.getElementById('auto-hide') as HTMLInputElement;
+  const keepAwake = document.getElementById('keep-awake') as HTMLInputElement;
+  const autoRetry = document.getElementById('auto-retry') as HTMLInputElement;
 
   /**
-   * Collect and save current settings
+   * Collect and save current settings, keeping ones set in the uploader
    */
-  const saveCurrentSettings = (): void => {
+  const saveCurrentSettings = async (): Promise<void> => {
+    const current = await loadPreferences();
     const preferences: UserPreferences = {
+      ...current,
+      keepAwake: keepAwake?.checked ?? DEFAULT_PREFERENCES.keepAwake,
+      autoRetry: autoRetry?.checked ?? DEFAULT_PREFERENCES.autoRetry,
       enableNotifications:
         enableNotifications?.checked ?? DEFAULT_PREFERENCES.enableNotifications,
       enableSound: enableSound?.checked ?? DEFAULT_PREFERENCES.enableSound,
@@ -203,29 +249,32 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const validated = validatePreferences(preferences);
-    void saveSettings(validated);
+    await saveSettings(validated);
   };
+  const saveOnChange = (): void => void saveCurrentSettings();
 
   // Add event listeners for all settings
   enableNotifications?.addEventListener('change', (e) => {
     const enabled = (e.target as HTMLInputElement).checked;
     toggleNotificationTypes(enabled);
-    saveCurrentSettings();
+    saveOnChange();
   });
 
-  enableSound?.addEventListener('change', saveCurrentSettings);
-  notifyOnComplete?.addEventListener('change', saveCurrentSettings);
-  notifyOnFailed?.addEventListener('change', saveCurrentSettings);
-  notifyOnCancelled?.addEventListener('change', saveCurrentSettings);
-  notifyOnBatchComplete?.addEventListener('change', saveCurrentSettings);
-  uiPosition?.addEventListener('change', saveCurrentSettings);
+  enableSound?.addEventListener('change', saveOnChange);
+  notifyOnComplete?.addEventListener('change', saveOnChange);
+  notifyOnFailed?.addEventListener('change', saveOnChange);
+  notifyOnCancelled?.addEventListener('change', saveOnChange);
+  notifyOnBatchComplete?.addEventListener('change', saveOnChange);
+  uiPosition?.addEventListener('change', saveOnChange);
 
   theme?.addEventListener('change', (e) => {
     const selectedTheme = (e.target as HTMLSelectElement)
       .value as UserPreferences['theme'];
     applyTheme(selectedTheme);
-    saveCurrentSettings();
+    saveOnChange();
   });
 
-  autoHide?.addEventListener('change', saveCurrentSettings);
+  autoHide?.addEventListener('change', saveOnChange);
+  keepAwake?.addEventListener('change', saveOnChange);
+  autoRetry?.addEventListener('change', saveOnChange);
 });
