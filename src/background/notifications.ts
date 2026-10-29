@@ -5,6 +5,9 @@
 
 import type { UserPreferences } from '../types/storage.types.js';
 
+/** Full URL: a relative one resolves against background/, where there is no icon */
+const NOTIFICATION_ICON = chrome.runtime.getURL('icons/icon-128.png');
+
 /**
  * Notification type enum
  */
@@ -169,7 +172,7 @@ export class NotificationManager {
     switch (type) {
       case NotificationType.UPLOAD_COMPLETE:
         return {
-          iconUrl: 'icons/icon-128.png',
+          iconUrl: NOTIFICATION_ICON,
           title: '✅ Upload Complete',
           message: data.fileName
             ? `${data.fileName} has been uploaded successfully`
@@ -179,7 +182,7 @@ export class NotificationManager {
 
       case NotificationType.UPLOAD_FAILED:
         return {
-          iconUrl: 'icons/icon-128.png',
+          iconUrl: NOTIFICATION_ICON,
           title: '❌ Upload Failed',
           message: data.fileName
             ? `Failed to upload ${data.fileName}${data.error ? `: ${data.error}` : ''}`
@@ -190,7 +193,7 @@ export class NotificationManager {
 
       case NotificationType.UPLOAD_CANCELLED:
         return {
-          iconUrl: 'icons/icon-128.png',
+          iconUrl: NOTIFICATION_ICON,
           title: '⚠️ Upload Cancelled',
           message: data.fileName
             ? `Upload cancelled: ${data.fileName}`
@@ -200,7 +203,7 @@ export class NotificationManager {
 
       case NotificationType.BATCH_COMPLETE:
         return {
-          iconUrl: 'icons/icon-128.png',
+          iconUrl: NOTIFICATION_ICON,
           title: '✅ All Uploads Complete',
           message: data.fileCount
             ? `Successfully uploaded ${data.fileCount} file${data.fileCount > 1 ? 's' : ''}`
@@ -210,7 +213,7 @@ export class NotificationManager {
 
       default:
         return {
-          iconUrl: 'icons/icon-128.png',
+          iconUrl: NOTIFICATION_ICON,
           title: 'Upload Tracker',
           message: 'Upload event',
           priority: 0,
