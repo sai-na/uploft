@@ -101,16 +101,11 @@ async function ensureDestination(): Promise<DriveFolder> {
  * Open the hosted Google Picker; it reports the chosen folder to the background
  * script, which saves it to storage (picked up by the storage listener below)
  */
-async function openPicker(start: {
-  parent?: string | undefined;
-  folder?: string;
-}): Promise<void> {
+async function openPicker(start: { folder?: string } = {}): Promise<void> {
   await auth.getToken();
   const params = new URLSearchParams({ ext: chrome.runtime.id });
   if (start.folder) {
     params.set('folder', start.folder);
-  } else if (start.parent) {
-    params.set('parent', start.parent);
   }
   await chrome.windows.create({
     url: `${PICKER_URL}?${params.toString()}`,
@@ -554,7 +549,7 @@ function bindEvents(): void {
   byId('sign-out').addEventListener('click', () => void signOut());
   byId('destination').addEventListener(
     'click',
-    () => void openPicker({ parent: destination?.id }).catch(handleAuthError)
+    () => void openPicker().catch(handleAuthError)
   );
   byId('use-opened-folder').addEventListener('click', () => {
     if (openedFolderId) {

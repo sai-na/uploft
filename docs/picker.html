@@ -53,15 +53,14 @@
 
     <!--
       Google Picker for the Upload Tracker for Drive extension. The extension opens
-      this page with ?ext=<extension id>, optionally &folder=<id> (offer that folder)
-      or &parent=<id> (start browsing there), hands it a drive.file
-      token, and receives the folder the user picks. Picking a folder is what lets
+      this page with ?ext=<extension id>, optionally &folder=<id> (the folder open
+      in Drive, offered first), hands it a drive.file token, and receives the
+      folder the user picks. Browsing starts at the top of My Drive. Picking a folder is what lets
       an app with drive.file access upload into it.
     -->
     <script>
       const params = new URLSearchParams(location.search);
       const extensionId = params.get('ext');
-      const parentId = params.get('parent');
       const focusId = params.get('folder');
       const status = document.getElementById('status');
 
@@ -108,32 +107,34 @@
         await new Promise((resolve) => gapi.load('picker', resolve));
         const { picker } = google;
 
-        const folderView = () =>
-          new picker.DocsView(picker.ViewId.FOLDERS)
+        // Folders only, as a list, opening into subfolders like Drive does.
+        // List mode: drive.file access can't show thumbnails anyway
+        const folderView = (label) => {
+          const view = new picker.DocsView(picker.ViewId.FOLDERS)
             .setIncludeFolders(true)
             .setSelectFolderEnabled(true)
-            .setMimeTypes('application/vnd.google-apps.folder');
+            .setMimeTypes('application/vnd.google-apps.folder')
+            .setMode(picker.DocsViewMode.LIST);
+          // setLabel is deprecated; Google names the tab itself without it
+          if (typeof view.setLabel === 'function') view.setLabel(label);
+          return view;
+        };
 
         const views = [];
-        const folders = folderView();
-        if (focusId && typeof folders.setFileIds === 'function') {
-          // Just the folder that was open in Drive, so it's one click to choose
-          views.push(folderView().setFileIds(focusId));
-        } else if (focusId || parentId) {
-          folders.setParent(focusId || parentId);
+        if (focusId) {
+          // The folder that was open in Drive, so it's one click to choose
+          views.push(folderView('Open in Drive').setFileIds(focusId));
         }
-        views.push(folders);
-
-        const sharedDrives = new picker.DocsView(picker.ViewId.FOLDERS)
-          .setEnableDrives(true)
-          .setIncludeFolders(true)
-          .setSelectFolderEnabled(true)
-          .setMimeTypes('application/vnd.google-apps.folder');
+        // setParent returns a plain View, so it goes last in the chain
+        views.push(folderView('My Drive').setParent('root'));
+        views.push(folderView('Shared with me').setOwnedByMe(false));
+        views.push(folderView('Starred').setStarred(true));
+        views.push(folderView('Shared drives').setEnableDrives(true));
 
         const builder = new picker.PickerBuilder().setTitle(
           'Choose a folder to upload into'
         );
-        [...views, sharedDrives].forEach((view) => builder.addView(view));
+        views.forEach((view) => builder.addView(view));
         builder
           .enableFeature(picker.Feature.SUPPORT_DRIVES)
           .setOAuthToken(init.token)
