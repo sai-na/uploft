@@ -426,6 +426,42 @@ test('clearing finished uploads forgets failed ones in storage too', async () =>
   assert.equal(engine.list().length, 0);
 });
 
+test('lowering "at a time" sends the extra uploads back to waiting', async () => {
+  const drive = new FakeDrive();
+  drive.chunkDelay = 5;
+  const engine = makeEngine(drive);
+  const files = ['a.bin', 'b.bin', 'c.bin'].map((name, i) =>
+    makeFile(name, 40 * MB, i)
+  );
+
+  const done = idle(engine);
+  engine.add(
+    files.map((file) => ({ file, relativePath: file.name })),
+    'root'
+  );
+  const uploading = (): number =>
+    engine.list().filter((job) => job.status === 'uploading').length;
+  while (uploading() < 3) await new Promise((r) => setTimeout(r, 1));
+
+  engine.setConcurrency(1);
+
+  assert.deepEqual(
+    engine.list().map((job) => job.status),
+    ['uploading', 'queued', 'queued']
+  );
+  // Let the stopped chunks settle, then nothing may run beside the first file
+  await new Promise((r) => setTimeout(r, 20));
+  drive.maxInFlight = drive.inFlight;
+  const jobs = await done;
+
+  assert.equal(drive.maxInFlight, 1);
+  assert.equal(drive.sessionsStarted, 3, 'waiting uploads kept their sessions');
+  for (const [index, file] of files.entries()) {
+    assert.equal(jobs[index]!.status, 'done');
+    await assertStored(drive, file, jobs[index]!);
+  }
+});
+
 test('pause and resume continue the same session', async () => {
   const drive = new FakeDrive();
   drive.chunkDelay = 20;

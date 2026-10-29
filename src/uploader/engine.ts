@@ -175,6 +175,15 @@ export class UploadEngine {
 
   public setConcurrency(count: number): void {
     this.concurrency = Math.min(6, Math.max(1, Math.round(count)));
+    // Fewer at a time: the extra uploads go back to waiting, keeping their
+    // sessions, so they continue from what Drive has when their turn comes
+    const running = [...this.jobs.values()].filter(
+      (job) => this.running.has(job.id) && job.status !== 'queued'
+    );
+    for (const job of running.slice(this.concurrency)) {
+      job.controller?.abort();
+      this.update(job, { status: 'queued', retryAt: undefined });
+    }
     this.pump();
   }
 
