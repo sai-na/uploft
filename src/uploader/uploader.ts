@@ -36,7 +36,7 @@ import { MessageType } from '../types/messages.types.js';
 import type { ExtensionMessage } from '../types/messages.types.js';
 
 /** Default destination: a folder the app creates in My Drive */
-const APP_FOLDER_NAME = 'Upload Tracker';
+const APP_FOLDER_NAME = 'Uploft';
 
 const auth = new GoogleAuth();
 const drive = new DriveApi(auth);

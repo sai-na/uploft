@@ -2,7 +2,7 @@
 
 /**
  * Package script: zips the files the extension actually loads from dist/ into
- * release/upload-tracker-for-drive-<version>.zip for the Chrome Web Store.
+ * release/uploft-<version>.zip for the Chrome Web Store.
  *
  * Starts from manifest.json and follows every reference (HTML tags, CSS url(),
  * ES module imports, chrome.runtime.getURL, notification icons), so tsc output
@@ -182,7 +182,7 @@ if (
 
 // Copy into a staging folder, dropping sourceMappingURL comments for the
 // .map files that aren't shipped
-const zipName = `upload-tracker-for-drive-${manifest.version}.zip`;
+const zipName = `uploft-${manifest.version}.zip`;
 const zipPath = path.join(releaseDir, zipName);
 const stagingDir = path.join(releaseDir, `.staging-${manifest.version}`);
 fs.rmSync(stagingDir, { recursive: true, force: true });

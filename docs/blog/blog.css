@@ -1,0 +1,535 @@
+/* Upload guides (docs/blog) and the about page. Load after ../assets/site.css: the colour tokens, type, top bar,
+   footer and .pill buttons come from there (light and dark). These rules only add what articles need: the answer
+   capsule, prose, tables, the "On this page" list, the side rail, previous/next links and the index tiles. */
+
+/* Article frame */
+.page {
+  padding: clamp(28px, 4vw, 48px) 0 0;
+}
+.post {
+  width: min(1320px, calc(100% - 2 * var(--gutter, 16px)));
+  margin: 0 auto;
+}
+.post-head {
+  margin: 0 0 8px;
+}
+.crumbs {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.crumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+.crumbs a:hover {
+  color: var(--on-surface);
+  text-decoration: underline;
+}
+.page h1 {
+  margin: 0 0 12px;
+  font-size: clamp(30px, 3.6vw, 40px);
+  line-height: 1.12;
+}
+.updated {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Article body */
+.prose-card {
+  max-width: 760px;
+  min-width: 0;
+  margin: 0 auto;
+}
+.answer {
+  margin: 0 0 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--outline-soft);
+  border-left: 3px solid var(--primary);
+  border-radius: 12px;
+  background: var(--surface-variant);
+  font-size: 18px;
+  line-height: 1.6;
+}
+.disclosure {
+  margin: 0 0 8px;
+  color: var(--faint, var(--muted));
+  font-size: 14px;
+  line-height: 1.55;
+}
+.prose h2 {
+  margin: 48px 0 12px;
+  font-size: clamp(23px, 2.4vw, 27px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.prose h3 {
+  margin: 26px 0 8px;
+  font-size: 19px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.prose ol,
+.prose ul {
+  margin: 0 0 1em;
+  padding-left: 1.4em;
+}
+.prose li {
+  margin-bottom: 6px;
+}
+.prose figure {
+  margin: 26px 0 30px;
+}
+.prose figure img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--outline-soft);
+  border-radius: 12px;
+  box-shadow: var(--shot-shadow, none);
+}
+.prose figcaption {
+  margin-top: 10px;
+  color: var(--faint, var(--muted));
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Tables: hairline rows and columns. On phones they fit the screen (smaller type, or rows stacked), never wider. */
+.table-wrap {
+  max-width: 100%;
+  margin: 12px 0 20px;
+  overflow-x: auto;
+  border: 1px solid var(--outline-soft);
+  border-radius: 12px;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.prose th,
+.prose td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--outline-soft);
+  text-align: left;
+  vertical-align: top;
+}
+.prose table :is(th, td) + :is(th, td) {
+  border-left: 1px solid var(--outline-soft);
+}
+.prose thead th {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+.prose tbody th {
+  font-weight: 600;
+}
+.prose tr:last-child > * {
+  border-bottom: 0;
+}
+table.numbers td {
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .prose table {
+    font-size: 13px;
+  }
+  .prose th,
+  .prose td {
+    padding: 8px 7px;
+  }
+  table.numbers td {
+    white-space: normal;
+  }
+  table.stack,
+  table.stack tbody,
+  table.stack tr,
+  table.stack th,
+  table.stack td {
+    display: block;
+    width: 100%;
+  }
+  table.stack thead {
+    display: none;
+  }
+  table.stack tr {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--outline-soft);
+  }
+  table.stack tr:last-child {
+    border-bottom: 0;
+  }
+  table.stack :is(th, td) {
+    padding: 4px 12px;
+    border: 0 !important;
+  }
+  table.stack td[data-label]::before {
+    content: attr(data-label) ': ';
+    font-weight: 600;
+  }
+}
+
+/* "Try it" box, sources, related */
+.try {
+  margin: 32px 0 8px;
+  padding: 20px 22px;
+  border: 1px solid var(--outline-soft);
+  border-radius: 14px;
+}
+.try p {
+  margin: 0 0 14px;
+}
+.try p:last-child {
+  margin: 0;
+}
+.sources li {
+  font-size: 15px;
+}
+.related {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--outline-soft);
+}
+.related h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+.related ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Previous / next (scripts/link_series.py) */
+.series {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 40px 0 0;
+}
+.series a {
+  display: block;
+  padding: 14px 16px;
+  border: 1px solid var(--outline-soft);
+  border-radius: 12px;
+  color: var(--on-surface);
+  line-height: 1.4;
+  text-decoration: none;
+}
+.series a:hover {
+  border-color: var(--on-surface);
+}
+.series a span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.series .series-next {
+  text-align: right;
+}
+
+/* Numbered sections, "On this page" from 1100 px, the side rail from 1440 px (scripts/page_nav.py) */
+.post-grid > .toc,
+.post-grid > .rail {
+  display: none;
+}
+.has-toc {
+  counter-reset: sec;
+}
+.has-toc .prose h2[id]::before {
+  counter-increment: sec;
+  content: counter(sec) '  ';
+  color: var(--primary);
+}
+h2[id] {
+  scroll-margin-top: 24px;
+}
+.toc ol {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: toc;
+}
+.toc li {
+  counter-increment: toc;
+}
+.toc a {
+  display: grid;
+  grid-template-columns: 1.6em 1fr;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.35;
+  text-decoration: none;
+}
+.toc a::before {
+  content: counter(toc);
+  color: var(--primary);
+  font-weight: 600;
+}
+.toc a:hover,
+.toc a[aria-current] {
+  color: var(--on-surface);
+}
+.toc a[aria-current] {
+  background: var(--surface-variant);
+}
+.toc-title,
+.rail-head {
+  margin: 0 0 8px;
+  color: var(--on-surface);
+  font-size: 13px;
+  font-weight: 600;
+}
+.rail {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+.rail-card {
+  padding: 18px;
+  border: 1px solid var(--outline-soft);
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.rail-card p {
+  margin: 0 0 10px;
+}
+.rail-card p:last-child {
+  margin: 0;
+}
+.rail-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 1100px) {
+  .post-grid.has-toc {
+    display: grid;
+    grid-template: 'toc main' / 200px minmax(0, 760px);
+    column-gap: 40px;
+    justify-content: center;
+    align-items: start;
+  }
+  .post-grid > .toc {
+    display: block;
+    grid-area: toc;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding-top: 110px;
+  }
+}
+@media (min-width: 1440px) {
+  .post-grid {
+    display: grid;
+    grid-template: 'main rail' / minmax(0, 760px) 260px;
+    column-gap: 40px;
+    justify-content: center;
+    align-items: start;
+  }
+  .post-grid.has-toc {
+    grid-template: 'toc main rail' / 200px minmax(0, 760px) 260px;
+  }
+  .post-grid > .rail {
+    display: grid;
+    grid-area: rail;
+    position: sticky;
+    top: 24px;
+    padding-top: 110px;
+  }
+}
+.post-grid > :not(.toc):not(.rail) {
+  grid-area: main;
+}
+
+/* Guides index (scripts/index_nav.py): numbered topic tiles with the extension's own icons */
+.index-head,
+.index-body {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.index-head .lede {
+  margin: 0 0 28px;
+}
+body.blog-index {
+  counter-reset: topic-h;
+}
+.topics ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+  margin: 0 0 40px;
+  padding: 0;
+  list-style: none;
+  counter-reset: topic;
+}
+.topics li {
+  counter-increment: topic;
+}
+.topics a {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: center;
+  height: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--outline-soft);
+  border-radius: 14px;
+  color: var(--on-surface);
+  text-decoration: none;
+}
+.topics a:hover {
+  border-color: var(--on-surface);
+}
+.topic-icon,
+.cluster-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--surface-variant);
+  color: var(--primary);
+}
+.topic-icon {
+  grid-row: span 2;
+  width: 42px;
+  height: 42px;
+}
+.topic-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.topic-icon::after,
+.cluster-icon::after {
+  position: absolute;
+  top: -7px;
+  left: -7px;
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 20px;
+}
+.topic-icon::after {
+  content: counter(topic);
+}
+.topic-count {
+  color: var(--muted);
+  font-size: 13px;
+}
+.blog-index section:has(> h2.cluster) {
+  counter-increment: topic-h;
+  scroll-margin-top: 24px;
+}
+h2.cluster {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 48px 0 16px;
+  font-size: clamp(22px, 2.4vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+section:first-of-type > h2.cluster {
+  margin-top: 8px;
+  padding-top: 0;
+  border-top: 0;
+}
+.cluster-icon {
+  width: 44px;
+  height: 44px;
+}
+.cluster-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.cluster-icon::after {
+  content: counter(topic-h);
+}
+.posts {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.posts li {
+  padding: 16px 0;
+  border-top: 1px solid var(--outline-soft);
+}
+.posts li:last-child {
+  border-bottom: 1px solid var(--outline-soft);
+}
+.posts h3 {
+  margin: 0 0 4px;
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+.posts h3 a {
+  color: var(--on-surface);
+  text-decoration: none;
+}
+.posts h3 a:hover {
+  text-decoration: underline;
+}
+.posts p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .answer {
+    padding: 14px 16px;
+    font-size: 17px;
+  }
+}
+
+/* Screenshot still to be taken (see seo/screenshots.md): no gap on the page */
+figure[data-todo]:empty {
+  display: none;
+}
+
+/* Long API names in tables (e.g. storageQuotaExceeded) wrap instead of widening the page */
+.prose td code {
+  overflow-wrap: anywhere;
+}
+
+/* Topic tiles without their own icon: the number fills the icon box, the name keeps the wide column */
+.topics a:not(:has(.topic-icon))::before {
+  content: counter(topic);
+  display: grid;
+  grid-row: span 2;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--surface-variant);
+  color: var(--primary);
+  font-weight: 700;
+}

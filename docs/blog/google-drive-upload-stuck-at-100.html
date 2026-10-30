@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive upload stuck at 100%: what to do</title>
+    <meta
+      name="description"
+      content="A Google Drive upload stuck at 100% usually means the bytes are sent but Drive has not confirmed the file. How to check it arrived, and when to retry."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-at-100.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive upload stuck at 100%: what to do"
+    />
+    <meta
+      property="og:description"
+      content="A Google Drive upload stuck at 100% usually means the bytes are sent but Drive has not confirmed the file. How to check it arrived, and when to retry."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-at-100.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Why is my Google Drive upload stuck at 100%?",
+            "description": "A Google Drive upload stuck at 100% usually means the bytes are sent but Drive has not confirmed the file. How to check it arrived, and when to retry.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {"@type": "Person","name": "Sai Nath","url": "https://sai-na.github.io/uploft/about.html"},
+            "publisher": {"@type": "Organization","name": "Meru Apps"},
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-at-100.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {"@type": "SoftwareApplication","name": "Uploft","applicationCategory": "BrowserApplication","operatingSystem": "Chrome 116 or later","url": "https://sai-na.github.io/uploft/"}
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem","position": 1,"name": "Uploft","item": "https://sai-na.github.io/uploft/"},
+              {"@type": "ListItem","position": 2,"name": "Guides","item": "https://sai-na.github.io/uploft/blog/"},
+              {"@type": "ListItem","position": 3,"name": "Why is my Google Drive upload stuck at 100%?"}
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#what-does-100-mean">What does 100% mean?</a></li>
+              <li><a href="#how-do-i-check-the-file-really-arrived">How do I check the file really arrived?</a></li>
+              <li><a href="#will-retrying-make-a-duplicate">Will retrying make a duplicate?</a></li>
+              <li><a href="#when-drive-is-still-processing">When Drive is still processing</a></li>
+              <li><a href="#what-does-uploft-do-at-100">What does Uploft do at 100%?</a></li>
+              <li><a href="#what-can-t-it-fix">What can&#x27;t it fix?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Why is my Google Drive upload stuck at 100%?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              An upload stuck at 100% usually means every byte has been sent but
+              Google Drive has not yet confirmed the file. Wait a few minutes,
+              then open the destination folder in a new tab. If the file is
+              there, the upload worked. If it is not and nothing moves, click
+              Retry in Drive's upload panel.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's behaviour links to
+              Google's own pages, checked on 29 October 2026; what the extension
+              does comes from its source code. Google does not document the
+              "stuck at 100%" state itself, so the explanation of it here is
+              how Drive's upload protocol works, not a Google statement about
+              this symptom.
+            </p>
+
+            <div class="prose">
+              <h2 id="what-does-100-mean">What does 100% mean?</h2>
+              <p>
+                It means your computer has sent the last byte, not that Drive
+                has finished. Google's Drive API documentation describes the
+                end of an upload as a final response: when the upload finishes,
+                the client "receives a 200 OK or 201 Created response" with the
+                file's details. Until that reply arrives, a progress bar that
+                counts bytes sent can sit at 100%.
+              </p>
+              <p>
+                So "stuck at 100%" is a wait for Drive's answer. Either the
+                answer is slow, or it was lost on the way back, for example when
+                the connection dropped just after the last piece went out. The
+                file may already be saved either way, which is why the next
+                step is to look, not to start again.
+              </p>
+
+              <h2 id="how-do-i-check-the-file-really-arrived">
+                How do I check the file really arrived?
+              </h2>
+              <p>
+                Open the destination folder in a second Drive tab and look for
+                the file. Leave the stuck upload alone while you do.
+              </p>
+              <ol>
+                <li>
+                  Open drive.google.com in a new tab and go to the folder you
+                  uploaded to. For files from Uploft's own
+                  uploader with no folder chosen, that is the
+                  <strong>Uploft</strong> folder in My Drive.
+                </li>
+                <li>
+                  Reload the folder if the file is missing, then search for the
+                  file name.
+                </li>
+                <li>
+                  Compare the size with the file on your computer. A smaller
+                  file means the upload did not finish.
+                </li>
+                <li>
+                  Open it. A photo or PDF that previews is saved; a video may
+                  need longer (see below).
+                </li>
+              </ol>
+              <p>
+                If the file is there at the right size, the upload worked and
+                the stuck bar is only a display problem. Close the stuck upload
+                and carry on. If it is missing or short, the upload did not
+                finish: retry it.
+              </p>
+              <figure data-todo="Drive's upload panel on drive.google.com with one file at 100% and no tick, next to the same folder in a second tab showing the file present, real account (owner to take; hide other file names)"></figure>
+
+              <h2 id="will-retrying-make-a-duplicate">
+                Will retrying make a duplicate?
+              </h2>
+              <p>
+                It can. A retry that starts a new upload is a new file, and
+                the Google pages checked do not say what Drive does with a
+                second file of the same name, so look in the folder first, as
+                above, and delete the extra copy if two appear. A retry that
+                continues the same upload session adds nothing, because the
+                session targets one file.
+              </p>
+              <p>
+                Uploft works the second way. Its uploader
+                sends each file as one Drive resumable upload and keeps that
+                session's address. When a connection problem hits, it asks
+                Drive how much of the session arrived and continues from there,
+                so a retry at 100% does not start a second file. If you choose
+                the same file again later, the uploader asks what to do about a
+                file already in Drive: <strong>Skip it</strong>,
+                <strong>Replace it</strong> or <strong>Keep both</strong>. It
+                only sees files it uploaded itself.
+              </p>
+
+              <h2 id="when-drive-is-still-processing">
+                When Drive is still processing
+              </h2>
+              <p>
+                Some files, videos above all, may be processed by Google after
+                the upload, so a preview might not play at once. No Google help
+                page found gives how long this takes or ties it to the upload
+                bar, so treat any time quoted elsewhere as unconfirmed. What can
+                be said: a file that shows in the folder at its full size has
+                been uploaded, whether or not it plays yet.
+              </p>
+              <p>
+                Also rule out the account limits, which fail an upload
+                outright rather than leaving it at 100%: Google says that once
+                storage is full "you won't be able to upload or create files in
+                Drive", and a Google Workspace user can upload and copy 750 GB
+                to Drive in 24 hours. Both are covered in
+                <a href="./google-drive-upload-failed.html"
+                  >Why is my Google Drive upload failing or stuck?</a
+                >
+              </p>
+
+              <h2 id="what-does-uploft-do-at-100">
+                What does Uploft do at 100%?
+              </h2>
+              <p>
+                Uploft is a free Chrome extension (Chrome 116
+                or later). In its own uploader, a file counts as
+                <strong>Uploaded</strong> only when Drive returns the finished
+                file, and not when the last byte leaves.
+              </p>
+              <ul>
+                <li>
+                  <strong>It waits for Drive's answer.</strong> Once a piece is
+                  fully sent, Drive gets 5 minutes to reply. A row can read, for
+                  example, "6.3 GB of 6.3 GB" for a while before it changes to
+                  "Uploaded".
+                </li>
+                <li>
+                  <strong>It asks, not guesses.</strong> If no answer comes,
+                  the piece is treated as a stalled connection and retried. The
+                  retry begins by asking Drive how much of the file it has.
+                </li>
+                <li>
+                  <strong>It keeps going after a restart.</strong> Closing the
+                  uploader tab or restarting Chrome does not discard the
+                  session; see
+                  <a href="./resume-google-drive-upload.html"
+                    >how resuming a Drive upload works</a
+                  >.
+                </li>
+                <li>
+                  <strong>On drive.google.com,</strong> it shows its own
+                  progress panel and clicks Drive's <strong>Retry</strong>
+                  button after 5, 20 and 60 seconds when an upload fails. It
+                  does not change what Drive does after Retry.
+                </li>
+              </ul>
+
+              <h2 id="what-can-t-it-fix">What can&#x27;t it fix?</h2>
+              <ul>
+                <li>
+                  A slow reply from Google. The extension waits and re-asks; it
+                  cannot make Drive confirm sooner.
+                </li>
+                <li>
+                  An upload in Drive's own tab still ends if you close that tab.
+                  Only the extension's uploader picks up after a closed tab.
+                </li>
+                <li>
+                  Video processing after the upload, and full storage or the
+                  750 GB daily limit. Those are Google's.
+                </li>
+                <li>
+                  It runs in Chrome on a computer, not on phones, and it isn't
+                  on the Chrome Web Store yet.
+                </li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Manage uploads</a> (resumable uploads, final 200 or 201 response, session status check, one-week session life).</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your storage in Drive, Gmail &amp; Photos</a>.</li>
+                <li>Google Workspace Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (upload engine and Drive client).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Stuck uploads">
+        <a class="series-previous" href="./google-drive-upload-stuck-at-0.html"><span>Previous</span> Why is my Google Drive upload stuck at 0% or on &#x27;Starting upload&#x27;?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-stuck.html"><span>Guide</span> Why is my Google Drive upload stuck, and what do I do?</a>
+        <a class="series-next" href="./google-drive-upload-stuck-on-waiting.html"><span>Next</span> Why does my Google Drive upload say &#x27;Waiting&#x27; and never start?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./why-is-google-drive-upload-stuck.html">Why is my Google Drive upload stuck, and what do I do?</a></li>
+                  <li><a href="./google-drive-upload-skip-duplicates.html">How do I skip duplicates when uploading to Google Drive?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

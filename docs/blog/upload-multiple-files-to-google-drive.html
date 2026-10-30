@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Upload multiple files to Google Drive at once</title>
+    <meta
+      name="description"
+      content="Select several files and drag them into Drive, or queue them in Uploft and run 1 to 6 at a time. Includes what a failed file does."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/upload-multiple-files-to-google-drive.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Upload multiple files to Google Drive at once"
+    />
+    <meta
+      property="og:description"
+      content="Select several files and drag them into Drive, or queue them in Uploft and run 1 to 6 at a time. Includes what a failed file does."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/upload-multiple-files-to-google-drive.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-dark.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I upload multiple files to Google Drive at once?",
+            "description": "Select several files and drag them into Drive, or queue them in Uploft and run 1 to 6 at a time. Includes what a failed file does.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/upload-multiple-files-to-google-drive.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-dark.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I upload multiple files to Google Drive at once?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#how-to-upload-multiple-files-to-google-drive">How to upload multiple files to Google Drive</a></li>
+              <li><a href="#how-many-files-can-you-upload-at-once">How many files can you upload at once?</a></li>
+              <li><a href="#does-the-extension-upload-only-one-file-at-a-time">Does it upload only one file at a time?</a></li>
+              <li><a href="#what-about-thousands-of-small-files">What about thousands of small files?</a></li>
+              <li><a href="#what-happens-when-one-file-fails">What happens when one file fails?</a></li>
+              <li><a href="#limits-to-know">Limits to know</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How do I upload multiple files to Google Drive at once?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Select the files on your computer and drag them into the Drive
+              window, or use New ▸ File upload on drive.google.com. Uploft adds a queue: it
+              runs 1 to 6 files at a time (4 by default), keeps the rest waiting
+              and retries a file that hits a network error on its own.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's steps link to Google's
+              own pages and were checked on 29 October 2026; what the extension
+              does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="how-to-upload-multiple-files-to-google-drive">How to upload multiple files to Google Drive</h2>
+              <ol>
+                <li>On your computer, open the folder with your files and select them all (Ctrl+A on Windows, Cmd+A on a Mac, or click and drag a box around them).</li>
+                <li>On drive.google.com, open the Drive folder you want them in.</li>
+                <li>Drag the selected files into the Drive window. Or click <strong>New</strong>, then <strong>File upload</strong>, and choose the files in the window that opens.</li>
+                <li>Keep the tab open until Drive's upload panel says it has finished.</li>
+              </ol>
+              <p>
+                Google's help page,
+                <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>,
+                gives the New menu and drag-and-drop routes, and says to open or create the destination folder first. It doesn't say how many files you can send in one go, and doesn't list a limit on the number of files. Uploaded files count against your Drive storage.
+              </p>
+              <p>
+                To upload in the background without a browser tab, Google's own option is
+                <a href="https://support.google.com/drive/answer/10838124">Drive for desktop</a>:
+                it lets you work with your Drive files in a "Google Drive" folder on your computer, and changes sync automatically.
+              </p>
+
+              <h2 id="how-many-files-can-you-upload-at-once">How many files can you upload at once?</h2>
+              <p>
+                In Uploft, the <strong>At a time</strong>
+                setting sets how many files upload side by side: 1 to 6, and 3
+                by default. Files beyond that limit wait as queued, and the next one starts when a running
+                file finishes.
+              </p>
+              <figure>
+                <img
+                  src="../assets/blog/uploading.webp"
+                  alt="The Uploft uploader page with four files uploading at once and a summary line reading 0 of 6 files uploaded, 16.6 GB of 75.4 GB, 106 MB/s, about 9 min left"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The uploader sending four files at a time with two more waiting. Screenshot from a demo account, so the files and the
+                  speed are examples.
+                </figcaption>
+              </figure>
+              <p>
+                Setting it higher doesn't raise your connection's speed. If one
+                file already uses your whole upload speed, six at once share the
+                same total.
+                <a href="./speed-up-google-drive-uploads.html">What speeds uploads up</a>.
+              </p>
+
+              <h2 id="does-the-extension-upload-only-one-file-at-a-time">Does it upload only one file at a time?</h2>
+              <p>
+                No, unless you choose <strong>1 file</strong>. With the default
+                of 3, three files are in flight together. A single large file is
+                still sent in pieces, one after another, so it goes at about the
+                speed of Drive's own site; extra parallel slots help only when
+                there are several files to send.
+              </p>
+              <p>
+                To add files, click <strong>Choose files</strong> (the file
+                dialog allows selecting several) or drag them onto <strong>Drag
+                files or folders here</strong>. Pick more at any time and they
+                join the same queue.
+              </p>
+
+              <h2 id="what-about-thousands-of-small-files">What about thousands of small files?</h2>
+              <p>
+                Queue them the same way; each file is one job. Small files
+                finish quickly, so the time goes on the per-file start-up rather
+                than on the bytes. Choosing a higher <strong>At a time</strong>
+                value keeps several in progress at once. For a whole directory
+                use <strong>Choose folder</strong>, which keeps the subfolders:
+                <a href="./upload-folder-to-google-drive.html">how folder uploads work</a>.
+              </p>
+              <figure>
+                <img
+                  src="../assets/blog/folder-photos-1x.webp"
+                  srcset="../assets/blog/folder-photos-1x.webp 1280w, ../assets/blog/folder-photos-2x.webp 2560w"
+                  sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                  alt="The Uploft uploader after choosing a Photos folder: Upload to shows Uploft, At a time is set to 6 files and If already in Drive to Skip it; six photos such as IMG_4198.HEIC · Photos/2023 are uploading and the rest are waiting, with 0 of 32 files uploaded in the bar at the bottom"
+                  width="1280"
+                  height="1180"
+                  loading="lazy"
+                />
+                <figcaption>A long queue: six files upload at a time and the rest wait their turn (demo account).</figcaption>
+              </figure>
+
+              <h2 id="what-happens-when-one-file-fails">What happens when one file fails?</h2>
+              <p>
+                Each file is retried by itself. After a network error the
+                uploader waits about 1 second, then 2, then 4, up to about 60
+                seconds, and tries again from the last byte Drive confirmed. Time offline
+                doesn't count. A file is marked failed after 20 failures in a row
+                without progress, or at once for an error that a retry can't
+                fix; the other files keep going. A failed
+                file has a <strong>Retry</strong> button in the list.
+              </p>
+              <p>
+                If the tab is closed or Chrome restarts, the uploader keeps the
+                queue and shows <strong>Resume</strong>.
+                <a href="./resume-google-drive-upload.html">How resuming works</a>.
+              </p>
+
+              <h2 id="limits-to-know">Limits to know</h2>
+              <ul>
+                <li>The uploader runs in a Chrome tab; closing it pauses the queue until you press <strong>Resume</strong> or choose the files again.</li>
+                <li>More files at once share the same connection; the total speed depends on your upload bandwidth.</li>
+                <li>"Skip it" and "Replace it" under <strong>If already in Drive</strong> only know files the extension uploaded, because it uses Google's narrowest Drive permission (drive.file).</li>
+                <li>Your Drive storage still applies; Google lists the limits in its help pages.</li>
+                <li>It runs in Chrome 116 or later on a computer, it isn't on the Chrome Web Store yet, and the Google sign-in is in testing, so only listed test users can sign in for now.</li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../"
+                    >See Uploft</a
+                  >
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (uploader and upload engine).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Many files and folders">
+        <a class="series-previous" href="./cant-upload-folder-to-google-drive.html"><span>Previous</span> Why can&#x27;t I upload a folder to Google Drive?</a>
+        <a class="series-hub" href="./upload-folder-to-google-drive.html"><span>Guide</span> How do I upload a whole folder to Google Drive?</a>
+        <a class="series-next" href="./upload-photos-to-google-drive-from-computer.html"><span>Next</span> How do I upload lots of photos to Google Drive from a computer?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./upload-folder-to-google-drive.html">How do I upload a whole folder to Google Drive?</a></li>
+                  <li><a href="./speed-up-google-drive-uploads.html">How do I speed up Google Drive uploads?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

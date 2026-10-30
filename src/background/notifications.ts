@@ -212,7 +212,7 @@ export class NotificationManager {
       default:
         return {
           iconUrl: NOTIFICATION_ICON,
-          title: 'Upload Tracker',
+          title: 'Uploft',
           message: 'Upload event',
           priority: 0,
         };

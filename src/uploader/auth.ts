@@ -139,7 +139,7 @@ export class GoogleAuth {
     }
     if (!(result.get('scope') ?? '').split(' ').includes(DRIVE_FILE_SCOPE)) {
       throw new AuthRequiredError(
-        'Allow access to Google Drive files to upload with Upload Tracker'
+        'Allow access to Google Drive files to upload with Uploft'
       );
     }
 

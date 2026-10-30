@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Upload photos to Google Drive from a computer</title>
+    <meta
+      name="description"
+      content="Upload a whole photo library to Google Drive from a computer: pick the folder, upload several photos at once, skip ones already there and keep it going."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/upload-photos-to-google-drive-from-computer.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Upload photos to Google Drive from a computer"
+    />
+    <meta
+      property="og:description"
+      content="Upload a whole photo library to Google Drive from a computer: pick the folder, upload several photos at once, skip ones already there and keep it going."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/upload-photos-to-google-drive-from-computer.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-dark.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I upload lots of photos to Google Drive from a computer?",
+            "description": "Upload a whole photo library to Google Drive from a computer: pick the folder, upload several photos at once, skip ones already there and keep it going.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/upload-photos-to-google-drive-from-computer.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-dark.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I upload lots of photos to Google Drive from a computer?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#how-to-upload-photos-to-google-drive">How to upload photos to Google Drive from a computer</a></li>
+              <li><a href="#upload-a-photo-folder-in-order">Can I upload a photo folder in order?</a></li>
+              <li><a href="#avoid-duplicates-on-a-second-run">How do I avoid duplicates on a second run?</a></li>
+              <li><a href="#why-are-thousands-of-photos-slow">Why are thousands of photos slow?</a></li>
+              <li><a href="#can-it-upload-in-the-background">Can it upload in the background?</a></li>
+              <li><a href="#limits-to-know">Limits to know</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How do I upload lots of photos to Google Drive from a computer?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Go to drive.google.com, click New ▸ Folder upload and choose the
+              folder that holds your photos; Drive uploads everything inside
+              it. For a large library, Uploft, a Chrome
+              extension, sends 1 to 6 photos at a time, skips ones already in
+              Drive on a second run and carries on after a dropped connection.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's steps link to Google's
+              own pages and were checked on 29 October 2026; what the extension
+              does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="how-to-upload-photos-to-google-drive">How to upload photos to Google Drive from a computer</h2>
+              <ol>
+                <li>On your computer, go to drive.google.com.</li>
+                <li>At the top left, click <strong>New</strong>, then <strong>Folder upload</strong>.</li>
+                <li>Choose the folder with your photos. To send single photos, choose <strong>File upload</strong> instead.</li>
+                <li>Keep the tab open until Drive's upload panel says it has finished.</li>
+              </ol>
+              <p>
+                These are the steps on Google's help page,
+                <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>,
+                which lists images among the files you can upload. Uploaded
+                photos count against your Drive storage. Google says that the
+                storage of a Google Account is shared by products such as
+                <a href="https://support.google.com/photos/answer/6193313">Google Photos, Google Drive and Gmail</a>.
+                This guide is about Drive, not about Google Photos backup.
+              </p>
+              <p>
+                With Uploft, open the uploader from the
+                toolbar popup (<strong>Upload files to Drive</strong>), click
+                <strong>Choose folder</strong> or drop the folder in, and leave
+                <strong>If already in Drive</strong> on <strong>Skip it</strong>.
+                The photos go up as they are: the extension does not resize or
+                convert them.
+              </p>
+              <figure>
+                <img
+                  src="../assets/blog/uploading.webp"
+                  alt="The Uploft uploader page with four files uploading at once and a summary line reading 0 of 6 files uploaded, 16.6 GB of 75.4 GB, 106 MB/s, about 9 min left"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The uploader sending four files at a time with two more waiting. Screenshot from a demo account, so the files and the
+                  speed are examples.
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="../assets/blog/folder-photos-1x.webp"
+                  srcset="../assets/blog/folder-photos-1x.webp 1280w, ../assets/blog/folder-photos-2x.webp 2560w"
+                  sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                  alt="The Uploft uploader after choosing a Photos folder: Upload to shows Uploft, At a time is set to 6 files and If already in Drive to Skip it; six photos such as IMG_4198.HEIC · Photos/2023 are uploading and the rest are waiting, with 0 of 32 files uploaded in the bar at the bottom"
+                  width="1280"
+                  height="1180"
+                  loading="lazy"
+                />
+                <figcaption>A Photos folder with 2023 and 2024 subfolders: 32 photos, six at a time, with Skip it for photos already in Drive (demo account).</figcaption>
+              </figure>
+
+              <h2 id="upload-a-photo-folder-in-order">Can I upload a photo folder in order?</h2>
+              <p>
+                Mostly. The extension adds the photos to its queue in the order
+                it reads the folder and starts them in that order, and each
+                photo keeps its path, such as <code>Photos/2024/IMG_0412.jpg</code>,
+                so the same year folders are created in Drive. With
+                <strong>At a time</strong> set to 1, photos finish one after
+                another in queue order. With 3 or 6, several are in flight at
+                once and a small photo can finish before a larger one that
+                started earlier, so the order they finish in is not guaranteed.
+              </p>
+              <p>
+                The uploader sends each photo's modified time from your
+                computer along with it. Folders you choose keep their folder
+                names, and hidden files such as <code>.DS_Store</code>,
+                <code>Thumbs.db</code> and <code>desktop.ini</code> are left out.
+                <a href="./upload-folder-to-google-drive.html">How folder upload works</a>.
+              </p>
+
+              <h2 id="avoid-duplicates-on-a-second-run">How do I avoid duplicates on a second run?</h2>
+              <p>
+                Choose the same folder again with <strong>Skip it</strong>
+                selected. Before sending a photo, the uploader looks in the
+                destination folder for a file with the same name and the same
+                size in bytes. If there is one, it is marked <strong>Already in
+                Drive, skipped</strong> and nothing is sent. A photo with the
+                same name but a different size is uploaded as a second file.
+              </p>
+              <p>
+                A worked case: you uploaded 1,200 photos last month and have
+                added 80 since. Choosing the folder again queues 1,280; 1,200
+                are skipped and 80 are uploaded. The other settings are
+                <strong>Replace it</strong> (a new version of the same Drive
+                file) and <strong>Keep both</strong>. Google's page says Drive's
+                own website, given a same-name file, uploads it as a revision of
+                the file already there.
+                <a href="./google-drive-upload-skip-duplicates.html">What counts as already in Drive</a>.
+              </p>
+
+              <h2 id="why-are-thousands-of-photos-slow">Why are thousands of photos slow?</h2>
+              <p>
+                Because the total size sets the time, and a library is large.
+                Uploads go at your connection's upload speed, not its download
+                speed. 4,000 photos of 5 MB each is 4,000 × 5 = 20,000 MB, or
+                20 GB. On a 20 Mbps upload, 20 × 8,000 = 160,000 megabits, and
+                160,000 ÷ 20 = 8,000 seconds, which is 2 hours 13 minutes.
+              </p>
+              <p>
+                Photos are many mid-sized files, so sending several at once
+                helps: the <strong>At a time</strong> setting runs 1 to 6 files
+                side by side, 4 by default. It cannot raise your upload speed,
+                so if one photo already fills the connection, six at once share
+                the same total.
+                <a href="./upload-multiple-files-to-google-drive.html">Uploading many files at once</a>.
+              </p>
+
+              <h2 id="can-it-upload-in-the-background">Can it upload in the background?</h2>
+              <p>
+                Partly. Drive's website uploads from the tab, so closing the
+                tab ends the upload. Google's own background route is Drive for
+                desktop, which uploads without a browser tab; see
+                <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.
+              </p>
+              <p>
+                The extension's uploader also runs in a Chrome tab, but it can
+                be left alone: with <strong>Keep the computer awake while
+                uploading</strong> on (the default), it asks the computer not to
+                sleep from inactivity, it retries a failed photo after a wait
+                that grows from 1 second to 60, and it carries on from the last
+                byte Drive confirmed. After a closed tab or a restart, press
+                <strong>Resume</strong>; Chrome may ask permission to read the
+                folder again.
+                <a href="./resume-google-drive-upload.html">How resuming works</a>.
+              </p>
+
+              <h2 id="limits-to-know">Limits to know</h2>
+              <ul>
+                <li>The uploader runs in a Chrome tab on a computer. Closing the tab pauses the queue until you press <strong>Resume</strong>. Closing a laptop lid can still put the computer to sleep.</li>
+                <li>Skip it only knows files the extension uploaded itself, because it uses Google's narrowest Drive permission (drive.file). Photos you added through drive.google.com are not seen, so a copy is uploaded beside them.</li>
+                <li>Skip it matches name and size, not content. It does not find a renamed copy.</li>
+                <li>One photo is limited by your upload speed. The gain comes from sending several photos at once, not from a faster connection.</li>
+                <li>It does not back up to Google Photos or watch a folder for new photos.</li>
+                <li>It runs in Chrome 116 or later, it isn't on the Chrome Web Store yet, and the Google sign-in is in testing, so only listed test users can sign in for now.</li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>.</li>
+                <li>Google Photos Help: <a href="https://support.google.com/photos/answer/6193313">Back up photos &amp; videos</a> (shared account storage).</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (uploader, queue and upload engine).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Many files and folders">
+        <a class="series-previous" href="./upload-multiple-files-to-google-drive.html"><span>Previous</span> How do I upload multiple files to Google Drive at once?</a>
+        <a class="series-hub" href="./upload-folder-to-google-drive.html"><span>Guide</span> How do I upload a whole folder to Google Drive?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./upload-folder-to-google-drive.html">How do I upload a whole folder to Google Drive?</a></li>
+                  <li><a href="./upload-multiple-files-to-google-drive.html">How do I upload multiple files to Google Drive at once?</a></li>
+                  <li><a href="./google-drive-upload-skip-duplicates.html">How do I skip files already in Google Drive?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

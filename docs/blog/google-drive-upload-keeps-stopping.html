@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive upload keeps stopping: causes and fixes</title>
+    <meta
+      name="description"
+      content="Google Drive upload keeps stopping or pausing? Check sleep, Chrome tab discarding, Wi-Fi, VPN and antivirus, plus what automatic retry can do."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-keeps-stopping.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive upload keeps stopping: causes and fixes"
+    />
+    <meta
+      property="og:description"
+      content="Google Drive upload keeps stopping or pausing? Check sleep, Chrome tab discarding, Wi-Fi, VPN and antivirus, plus what automatic retry can do."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-keeps-stopping.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Why does my Google Drive upload keep stopping?",
+      "description": "Google Drive upload keeps stopping or pausing? Check sleep, Chrome tab discarding, Wi-Fi, VPN and antivirus, plus what automatic retry can do.",
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "inLanguage": "en-GB",
+      "author": {"@type": "Person", "name": "Sai Nath", "url": "https://sai-na.github.io/uploft/about.html"},
+      "publisher": {"@type": "Organization", "name": "Meru Apps"},
+      "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-keeps-stopping.html",
+      "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+      "about": {"@type": "SoftwareApplication", "name": "Uploft", "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome 116 or later", "url": "https://sai-na.github.io/uploft/"}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Uploft", "item": "https://sai-na.github.io/uploft/"},
+        {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://sai-na.github.io/uploft/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "Why does my Google Drive upload keep stopping?"}
+      ]
+    }
+  ]
+}
+</script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#why-it-stops-again-and-again">Sleep, tab discarded, Wi-Fi, VPN, antivirus</a></li>
+              <li><a href="#keeps-pausing-or-freezing">Keeps pausing or freezing</a></li>
+              <li><a href="#what-are-the-automatic-retry-steps">What are the automatic Retry steps (5 s, 20 s, 60 s)?</a></li>
+              <li><a href="#how-many-failures-before-it-gives-up">How many failures before it gives up?</a></li>
+              <li><a href="#what-the-extension-fixes">What the extension fixes and what it can&#x27;t</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Why does my Google Drive upload keep stopping?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              A Google Drive upload keeps stopping when the page sending it
+              loses something it needs: the computer goes to sleep, Chrome
+              unloads the tab, or the connection drops. Plug in, stop sleep,
+              keep drive.google.com active in Chrome, use a steady network and
+              click Retry. Repeated stops at the same point mean a limit.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="why-it-stops-again-and-again">Sleep, tab discarded, Wi-Fi, VPN, antivirus</h2>
+              <p>
+                An upload from drive.google.com runs inside the open tab, so
+                anything that interrupts the tab, the computer or the network
+                interrupts the upload. Work through these in order, and test
+                after each change with the same file.
+              </p>
+              <ol>
+                <li><strong>Sleep.</strong> Plug the computer in and set its sleep setting so it stays awake while uploading. Chrome's own extension documentation says a keep-awake request prevents sleep "in response to user inactivity", so it does not stop a lid closing or a manual <strong>Sleep</strong>.</li>
+                <li><strong>A discarded tab.</strong> Open <strong>Settings</strong> ▸ <strong>Performance</strong>, click <strong>Add</strong> next to "Always keep these sites active" and add drive.google.com. Google says Memory Saver "deactivates tabs that you aren't currently using", and its list of tabs it leaves active does not mention uploads.</li>
+                <li><strong>Wi-Fi.</strong> A weak signal or a router that drops the connection stops an upload every time it fails. Use a cable, or sit closer to the router, for large files.</li>
+                <li><strong>A VPN.</strong> A VPN that reconnects or switches servers can cut a connection in the middle of an upload. Turn it off for the upload, or keep it on a stable server.</li>
+                <li><strong>Antivirus or a firewall.</strong> Security software that scans or filters web traffic can interrupt long connections. Pause it briefly, or check its log for blocked connections to Google, to see whether it is involved.</li>
+                <li><strong>Other tabs and uploads.</strong> Several large uploads at once share one connection and make each other slower, which looks like a freeze.</li>
+              </ol>
+              <p>
+                Google does not publish a list of why Drive's website stops an
+                upload, so the order above comes from how a browser upload
+                works, not from a Google table. If the same file stops at the
+                same percentage every time, that points away from the connection:
+                check <strong>Storage</strong> in Drive's left-hand menu.
+                Google says that when an account reaches its storage limit,
+                "you won't be able to upload or create files in Drive".
+                Google also documents a 750 GB limit on what one Google
+                Workspace user can upload and copy to Drive in 24 hours.
+              </p>
+              <figure data-todo="Screenshot of Chrome's Settings > Performance page with 'Always keep these sites active' and drive.google.com added to the list. Chrome's own UI, taken by the owner; show the whole section and no personal bookmarks or other sites."></figure>
+
+              <h2 id="keeps-pausing-or-freezing">Keeps pausing or freezing</h2>
+              <p>
+                An upload that pauses or freezes, then carries on, is usually
+                waiting for the network or for other files in the queue. One
+                that freezes and never carries on has lost its tab or its
+                connection. Look at the other files in the panel: if some move,
+                the frozen one is queued. If nothing moves, check the network by
+                opening another page, then click <strong>Retry</strong> on the
+                file.
+              </p>
+              <p>
+                Google does not say that Drive's website can continue an
+                upload after its tab is closed or reloaded, so assume a reload
+                means starting that file again. That is why a freeze that ends
+                in a reload can cost so much on large files. For a long file, the odds of a stop rise with the
+                time it takes: at 20 Mbps, a 50 GB file takes about 5 hours 33
+                minutes (50 × 8,000 megabits ÷ 20 Mbps = 20,000 seconds), and
+                all of that time the computer, the tab and the network must
+                stay as they are.
+              </p>
+              <p>
+                For an upload that does not depend on an open tab, Google makes
+                <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a>
+                for Windows and macOS. Google says you can pause or resume its
+                sync at any time.
+              </p>
+
+              <h2 id="what-are-the-automatic-retry-steps">What are the automatic Retry steps (5 s, 20 s, 60 s)?</h2>
+              <p>
+                With Uploft installed, a failed upload on
+                drive.google.com is retried automatically three times: after 5
+                seconds, then 20 seconds, then 60 seconds. Each time, the
+                extension clicks Drive's own <strong>Retry</strong> button on
+                the file. If the computer is offline, it waits for the network
+                to return, then waits 3 more seconds before it retries.
+              </p>
+              <figure data-todo="Screenshot of the Uploft progress panel on drive.google.com right after an automatic retry, with a file shown as retrying. Taken by the owner on a demo account; show the whole panel and file names, no real account details."></figure>
+
+              <h2 id="how-many-failures-before-it-gives-up">How many failures before it gives up?</h2>
+              <p>
+                On the Drive tab, the extension gives up on a file after the
+                third automatic Retry fails, and, unless upload-failure notifications are turned off, shows a
+                notification so the file is not left unnoticed. In the extension's own uploader the
+                rule is different: it retries a piece again and again, waiting
+                1 second, then 2, doubling up to 60 seconds, and marks the file
+                failed after 20 failures in a row with no progress, about 15
+                minutes. Time spent offline does not count towards the 20, and a
+                piece that moves no bytes for 60 seconds is restarted.
+              </p>
+              <p>
+                A file that fails again after the last retry needs a cause
+                fixed, not another click: storage, the daily limit, the file
+                itself or a connection that does not stay up.
+              </p>
+
+              <h2 id="what-the-extension-fixes">What the extension fixes and what it can't</h2>
+              <p>
+                Uploft is a free Chrome extension (Chrome 116
+                or later, on a computer). It targets the stops above.
+              </p>
+              <ul>
+                <li><strong>Keep-awake.</strong> While uploads run it asks Chrome to keep the computer awake from inactivity. It can be turned off in the toolbar popup.</li>
+                <li><strong>No tab discarding.</strong> It marks the uploading tab so Chrome does not discard it automatically.</li>
+                <li><strong>Auto-retry</strong> as described above, and a progress panel and notifications on the Drive tab.</li>
+              </ul>
+              <p>
+                It cannot fix a full Google storage or the daily limit, a VPN
+                or antivirus that cuts the connection, or a closed lid or manual
+                <strong>Sleep</strong>. It cannot change what Drive does after
+                Retry. It is not on the Chrome Web Store yet.
+              </p>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your storage in Drive, Gmail &amp; Photos</a>.</li>
+                <li>Google Workspace Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a>.</li>
+                <li>Google Chrome Help: <a href="https://support.google.com/chrome/answer/12929150">Personalize Chrome performance</a> (Memory Saver).</li>
+                <li>Chrome for Developers: <a href="https://developer.chrome.com/docs/extensions/reference/api/power">chrome.power API</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (retry, keep-awake and upload engine).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Stuck uploads">
+        <a class="series-previous" href="./google-drive-upload-paused-waiting-for-network.html"><span>Previous</span> Why does my Google Drive upload say &quot;paused&quot; or &quot;waiting for network&quot;?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-stuck.html"><span>Guide</span> Why is my Google Drive upload stuck, and what do I do?</a>
+        <a class="series-next" href="./google-drive-preparing-upload-stuck.html"><span>Next</span> Why is Google Drive stuck on &#x27;Preparing to upload&#x27;?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./why-is-google-drive-upload-stuck.html">Why is my Google Drive upload stuck, and what do I do?</a></li>
+                  <li><a href="./google-drive-upload-stops-when-computer-sleeps.html">Why does my Google Drive upload stop when the computer sleeps?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Google Drive and Chrome are trademarks of Google LLC. Uploft for
+          Drive is an independent extension, not made by Google.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

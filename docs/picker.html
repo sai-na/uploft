@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Choose a folder · Upload Tracker</title>
+    <title>Choose a folder · Uploft</title>
     <style>
       :root {
         color-scheme: light dark;
@@ -52,7 +52,7 @@
     </main>
 
     <!--
-      Google Picker for the Upload Tracker for Drive extension. The extension opens
+      Google Picker for the Uploft extension. The extension opens
       this page with ?ext=<extension id>, optionally &folder=<id> (the folder open
       in Drive, offered first), hands it a drive.file token, and receives the
       folder the user picks. Browsing starts at the top of My Drive. Picking a folder is what lets
@@ -90,7 +90,7 @@
 
       async function start() {
         if (!extensionId || !window.chrome?.runtime?.sendMessage) {
-          fail('Open this page from the Upload Tracker for Drive extension.');
+          fail('Open this page from the Uploft extension.');
           return;
         }
 
@@ -98,7 +98,7 @@
         if (!init?.ok) {
           fail(
             init?.error ??
-              'Upload Tracker for Drive did not respond. Is the extension installed?'
+              'Uploft did not respond. Is the extension installed?'
           );
           return;
         }

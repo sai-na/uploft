@@ -3,481 +3,552 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload Tracker for Drive</title>
+    <title>
+      Uploft: Google Drive uploads that don't start over
+    </title>
     <meta
       name="description"
-      content="A Chrome extension that uploads to Google Drive reliably: uploads survive closed tabs, crashes, sleep and Wi-Fi drops, and several files go up at once."
+      content="A Chrome extension for big Google Drive uploads. Survives closed tabs, crashes, sleep and Wi-Fi drops, sends several files at once, and skips or replaces files already in Drive."
     />
     <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='12 12 104 104'%3E%3Ccircle cx='64' cy='64' r='48' fill='white'/%3E%3Cg fill='none' stroke-width='10' stroke-linecap='round'%3E%3Cpath d='M28.8 56.6A36 36 0 0 1 56.6 28.8' stroke='%23E3E3E3'/%3E%3Cpath d='M71.4 28.8A36 36 0 0 1 99.2 56.6' stroke='%2300AC47'/%3E%3Cpath d='M99.2 71.4A36 36 0 0 1 71.4 99.2' stroke='%23FFBA00'/%3E%3Cpath d='M56.6 99.2A36 36 0 0 1 28.8 71.4' stroke='%232684FC'/%3E%3Cpath d='M64 81.5V46.5M49.5 59L64 44.5 78.5 59' stroke='%230B57D0' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E"
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/"
     />
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #f8fafd;
-        --surface: #ffffff;
-        --surface-variant: #f0f4f9;
-        --on-surface: #1f1f1f;
-        --muted: #444746;
-        --outline: #c4c7c5;
-        --outline-soft: #e1e3e1;
-        --primary: #0b57d0;
-        --on-primary: #ffffff;
-        --primary-container: #d3e3fd;
-        --on-primary-container: #041e49;
-        --success: #146c2e;
-        --radius: 16px;
-        --shadow:
-          0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-        font-family:
-          'Google Sans Text',
-          'Google Sans',
-          Roboto,
-          system-ui,
-          -apple-system,
-          sans-serif;
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Uploft" />
+    <meta
+      property="og:description"
+      content="Google Drive uploads that survive closed tabs, crashes, sleep and Wi-Fi drops."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/og-image.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="assets/site.css" />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/hero-poster.webp"
+      fetchpriority="high"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Uploft",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome",
+        "description": "A Chrome extension for Google Drive uploads that survive closed tabs, crashes, sleep and Wi-Fi drops, with several files at a time.",
+        "url": "https://sai-na.github.io/uploft/",
+        "image": "https://sai-na.github.io/uploft/assets/og-image.jpg",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          color-scheme: dark;
-          --bg: #131314;
-          --surface: #1e1f20;
-          --surface-variant: #282a2c;
-          --on-surface: #e3e3e3;
-          --muted: #c4c7c5;
-          --outline: #8e918f;
-          --outline-soft: #444746;
-          --primary: #a8c7fa;
-          --on-primary: #062e6f;
-          --primary-container: #004a77;
-          --on-primary-container: #c2e7ff;
-          --success: #6dd58c;
-          --shadow: 0 1px 3px rgb(0 0 0 / 50%);
-        }
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--on-surface);
-        font-size: 15px;
-        line-height: 24px;
-      }
-      a {
-        color: var(--primary);
-      }
-      .wrap {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 0 16px;
-      }
-
-      /* Hero */
-      .hero {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 28px;
-        align-items: center;
-        padding: 56px 0 40px;
-      }
-      .hero svg {
-        width: 120px;
-        height: 120px;
-        filter: drop-shadow(0 2px 6px rgb(60 64 67 / 25%));
-      }
-      h1 {
-        font-family: 'Google Sans', system-ui, sans-serif;
-        font-size: 40px;
-        line-height: 48px;
-        font-weight: 400;
-        margin: 0 0 8px;
-      }
-      .tagline {
-        font-size: 20px;
-        line-height: 28px;
-        color: var(--muted);
-        margin: 0 0 20px;
-      }
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      .button {
-        display: inline-flex;
-        align-items: center;
-        height: 44px;
-        padding: 0 24px;
-        border-radius: 22px;
-        font-weight: 500;
-        text-decoration: none;
-      }
-      .button.filled {
-        background: var(--primary);
-        color: var(--on-primary);
-      }
-      .button.outlined {
-        border: 1px solid var(--outline);
-        color: var(--primary);
-      }
-
-      /* Sections */
-      section {
-        padding: 24px 0;
-      }
-      h2 {
-        font-family: 'Google Sans', system-ui, sans-serif;
-        font-size: 24px;
-        line-height: 32px;
-        font-weight: 400;
-        margin: 0 0 16px;
-      }
-      .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 16px;
-      }
-      .card {
-        background: var(--surface);
-        border: 1px solid var(--outline-soft);
-        border-radius: var(--radius);
-        padding: 20px;
-      }
-      .card h3 {
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 500;
-        margin: 0 0 6px;
-      }
-      .card p {
-        margin: 0;
-        color: var(--muted);
-      }
-      .badge {
-        display: inline-block;
-        margin-bottom: 10px;
-        padding: 2px 10px;
-        border-radius: 8px;
-        background: var(--primary-container);
-        color: var(--on-primary-container);
-        font-size: 12px;
-        font-weight: 500;
-      }
-      ol.steps {
-        margin: 0;
-        padding-left: 22px;
-      }
-      ol.steps li {
-        margin: 6px 0;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        background: var(--surface);
-        border: 1px solid var(--outline-soft);
-        border-radius: var(--radius);
-        overflow: hidden;
-      }
-      th,
-      td {
-        text-align: left;
-        vertical-align: top;
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--outline-soft);
-      }
-      tr:last-child td {
-        border-bottom: 0;
-      }
-      th {
-        font-weight: 500;
-        background: var(--surface-variant);
-      }
-      td:first-child {
-        width: 34%;
-        font-weight: 500;
-      }
-      .privacy {
-        background: var(--surface-variant);
-        border-radius: var(--radius);
-        padding: 20px 24px;
-      }
-      .privacy p {
-        margin: 0 0 8px;
-      }
-      footer {
-        border-top: 1px solid var(--outline-soft);
-        margin-top: 32px;
-        padding: 24px 0 40px;
-        color: var(--muted);
-        font-size: 13px;
-      }
-      footer a {
-        margin-right: 16px;
-      }
-
-      @media (max-width: 600px) {
-        .hero {
-          grid-template-columns: 1fr;
-          justify-items: start;
-          gap: 16px;
-          padding-top: 32px;
-        }
-        .hero svg {
-          width: 80px;
-          height: 80px;
-        }
-        h1 {
-          font-size: 30px;
-          line-height: 38px;
-        }
-        .tagline {
-          font-size: 17px;
-          line-height: 26px;
-        }
-        table,
-        tbody,
-        tr,
-        td {
-          display: block;
-          width: 100%;
-        }
-        thead {
-          display: none;
-        }
-        td:first-child {
-          width: 100%;
-          padding-bottom: 0;
-          border-bottom: 0;
-        }
-      }
-    </style>
+    </script>
   </head>
   <body>
-    <div class="wrap">
-      <header class="hero">
-        <svg
-          viewBox="12 12 104 104"
-          role="img"
-          aria-label="Upload Tracker for Drive icon"
-        >
-          <circle cx="64" cy="64" r="48" fill="#ffffff" />
-          <path
-            d="M28.778 56.554 A36 36 0 0 1 56.554 28.778"
-            fill="none"
-            stroke="#E3E3E3"
-            stroke-width="10"
-            stroke-linecap="round"
-          />
-          <path
-            d="M71.446 28.778 A36 36 0 0 1 99.222 56.554"
-            fill="none"
-            stroke="#00AC47"
-            stroke-width="10"
-            stroke-linecap="round"
-          />
-          <path
-            d="M99.222 71.446 A36 36 0 0 1 71.446 99.222"
-            fill="none"
-            stroke="#FFBA00"
-            stroke-width="10"
-            stroke-linecap="round"
-          />
-          <path
-            d="M56.554 99.222 A36 36 0 0 1 28.778 71.446"
-            fill="none"
-            stroke="#2684FC"
-            stroke-width="10"
-            stroke-linecap="round"
-          />
-          <path
-            d="M64 81.5 V46.5 M49.5 59.0 L64 44.5 L78.5 59.0"
-            fill="none"
-            stroke="#0B57D0"
-            stroke-width="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        <div>
-          <h1>Upload Tracker for Drive</h1>
-          <p class="tagline">
-            Start a big upload to Google Drive, walk away, and find it finished
-            when you're back.
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="./" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="#features">Features</a>
+          <a href="#compare">Compare</a>
+          <a href="blog/">Guides</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <!-- TODO: point at the Chrome Web Store listing once the item is published -->
+        <a class="pill ink" href="#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <p class="eyebrow">A Chrome extension for Google Drive</p>
+          <h1>Big uploads to Drive that don't start over</h1>
+          <p class="lede">
+            When Wi&#8209;Fi drops, it waits and carries on. When the tab closes
+            or Chrome crashes, reopen it and it picks up from the last piece
+            Drive confirmed. And it sends several files at a time.
           </p>
-          <div class="actions">
-            <!-- TODO: replace href with the Chrome Web Store listing URL once the item is published -->
-            <a class="button filled" href="#install">Add to Chrome</a>
-            <a
-              class="button outlined"
-              href="https://github.com/sai-na/upload-tracker-for-drive"
-              >Source on GitHub</a
-            >
+          <div class="ctas">
+            <!-- TODO: point at the Chrome Web Store listing once the item is published -->
+            <a class="pill ink big" href="#install">Add to Chrome, it's free</a>
+            <a class="pill line big" href="#features">See how it works</a>
           </div>
+          <ul class="facts">
+            <li>Can't read the rest of your Drive</li>
+            <li>No servers of ours, no analytics</li>
+            <li>
+              <a
+                class="quiet"
+                href="https://github.com/sai-na/uploft"
+                >Source on GitHub</a
+              >
+            </li>
+          </ul>
         </div>
-      </header>
+      </section>
 
-      <main>
-        <section>
-          <h2>Uploads that don't fall over</h2>
-          <div class="cards">
-            <div class="card">
-              <span class="badge">Resumes</span>
-              <h3>Survives a closed tab or a crash</h3>
-              <p>
-                Close the tab, restart Chrome or let it crash. Reopen the
-                uploader and it carries on from what Drive already received, not
-                from zero.
-              </p>
-            </div>
-            <div class="card">
-              <span class="badge">Resumes</span>
-              <h3>Rides out Wi-Fi drops</h3>
-              <p>
-                When the connection drops it waits for the network, retries with
-                back-off, and continues from the last byte Drive confirmed.
-              </p>
-            </div>
-            <div class="card">
-              <span class="badge">Stays awake</span>
-              <h3>No sleeping mid-upload</h3>
-              <p>
-                Keeps your computer awake and stops Chrome from unloading the
-                tab while uploads run, then lets it sleep again when they
-                finish.
-              </p>
-            </div>
-            <div class="card">
-              <span class="badge">Faster batches</span>
-              <h3>Several files at once</h3>
-              <p>
-                Uploads up to six files side by side. Big files go up in pieces
-                that grow on fast connections. Folders keep their structure.
-              </p>
-            </div>
-            <div class="card">
-              <span class="badge">No duplicates</span>
-              <h3>Knows what's already there</h3>
-              <p>
-                Uploading the same folder again skips files it already put in
-                Drive, or replaces them with the new version.
-              </p>
-            </div>
-            <div class="card">
-              <span class="badge">Drive tab</span>
-              <h3>Tracks uploads you start in Drive</h3>
-              <p>
-                Shows a progress panel and notifications on drive.google.com,
-                and can press Drive's Retry button for you when an upload fails.
-              </p>
-            </div>
+      <figure class="stage" aria-labelledby="stage-caption">
+        <div class="screen">
+          <video
+            id="demo"
+            muted
+            loop
+            playsinline
+            preload="none"
+            width="1440"
+            height="1008"
+            poster="assets/hero-poster.webp"
+            aria-label="Recording of the uploader: a 75.4 GB folder of six files from 2.6 GB to 29.8 GB is added, four upload at once at about 107 MB/s, the connection drops and the rows wait for the network, then the uploads continue and finish, one replacing an older copy and one skipped because Drive already has it."
+          >
+            <source src="assets/hero.mp4" type="video/mp4" />
+            <source src="assets/hero.webm" type="video/webm" />
+          </video>
+          <img
+            class="still"
+            src="assets/hero-poster.webp"
+            width="1440"
+            height="1008"
+            alt="The uploader partway through a 75.4 GB folder: one file uploaded, four uploading at once, one waiting, and 37.5 GB sent at 107 MB/s with about 6 min left at the bottom."
+          />
+          <button class="video-toggle" type="button" hidden>Pause</button>
+        </div>
+        <figcaption class="caption" id="stage-caption">
+          A real recording of the uploader with a demo account and 75 GB of
+          test files, sped up. A minute in, the browser is switched offline.
+        </figcaption>
+      </figure>
+
+      <section class="section" id="features">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Made for uploads that take a while</h2>
+            <p class="lede">
+              Hours of camera footage, a photo library, a backup folder. The
+              kind of upload you start, then walk away from.
+            </p>
           </div>
-        </section>
 
-        <section id="install">
-          <h2>How it works</h2>
-          <ol class="steps">
-            <li>Install Upload Tracker for Drive from the Chrome Web Store.</li>
-            <li>
-              Click its toolbar icon, then
-              <strong>Upload files to Drive</strong>.
-            </li>
-            <li>
-              Sign in with Google and allow access to the files it uploads.
-            </li>
-            <li>
-              Drop files or folders in. Uploads go into an
-              <strong>Upload Tracker</strong> folder in My Drive, or any folder
-              you choose.
-            </li>
-          </ol>
-        </section>
+          <article class="feature">
+            <div class="feature-text">
+              <h3>When Wi&#8209;Fi drops, it waits instead of failing</h3>
+              <p>
+                Files go up in pieces that Drive confirms one at a time. When
+                the connection goes, the uploads in progress switch to
+                <span class="status">Waiting for the network</span> and continue
+                from the last confirmed piece as soon as it's back.
+              </p>
+              <p>
+                Other hiccups, like Drive asking it to slow down, are retried
+                with growing pauses for about 15 minutes before a file is marked
+                as failed.
+              </p>
+            </div>
+            <div class="screen">
+              <img
+                src="assets/shot-network-1x.webp"
+                srcset="
+                  assets/shot-network-1x.webp  744w,
+                  assets/shot-network-2x.webp 1488w
+                "
+                sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                width="744"
+                height="364"
+                loading="lazy"
+                decoding="async"
+                alt="Four files from a wedding shoot folder, each showing Waiting for the network with what Drive already has, such as 11.4 GB of 29.8 GB and 8.6 GB of 20.3 GB."
+              />
+            </div>
+          </article>
 
-        <section>
-          <h2>What it asks for, and why</h2>
-          <table>
+          <article class="feature flip">
+            <div class="feature-text">
+              <h3>Closed the tab? Reopen it and pick up where it stopped</h3>
+              <p>
+                The queue is saved in your browser. After a closed tab, a crash
+                or a restart, the uploader shows what was interrupted and how
+                much Drive already has, then sends only the rest.
+              </p>
+              <p>
+                Files you dropped in or picked resume from the banner, though
+                Chrome may ask you to allow access to them again. Files added
+                another way are chosen again. Drive keeps an unfinished upload
+                for about a week.
+              </p>
+            </div>
+            <div class="screen">
+              <img
+                src="assets/shot-resume-1x.webp"
+                srcset="
+                  assets/shot-resume-1x.webp  744w,
+                  assets/shot-resume-2x.webp 1488w
+                "
+                sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                width="744"
+                height="613"
+                loading="lazy"
+                decoding="async"
+                alt="The uploader after reopening: a banner says six uploads were interrupted with 24.8 GB already in Drive, and each row shows where it stopped, such as 11.3 GB of 29.8 GB."
+              />
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-text">
+              <h3>Four files at a time, or up to six</h3>
+              <p>
+                Batches finish sooner with several files on the go. Choose 1 to
+                6 at a time. Big files go up in pieces that grow from 8 MB to 64
+                MB on a fast connection, and folders keep their structure in
+                Drive.
+              </p>
+              <p>
+                Drive takes one file's pieces in order, so a single file isn't
+                split. The gain is for batches.
+              </p>
+            </div>
+            <div class="screen">
+              <img
+                src="assets/shot-parallel-1x.webp"
+                srcset="
+                  assets/shot-parallel-1x.webp  760w,
+                  assets/shot-parallel-2x.webp 1520w
+                "
+                sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                width="760"
+                height="632"
+                loading="lazy"
+                decoding="async"
+                alt="Four files from a 75.4 GB shoot folder uploading at once while two wait. The bar at the bottom reads 25.5 GB of 75.4 GB, 108 MB/s, about 8 min left."
+              />
+            </div>
+          </article>
+
+          <article class="feature flip">
+            <div class="feature-text">
+              <h3>Already in Drive? Skip it, replace it, or keep both</h3>
+              <ul class="choices">
+                <li>
+                  <strong>Skip it</strong>: a file with the same name and size
+                  is left alone.
+                </li>
+                <li>
+                  <strong>Replace it</strong>: uploads a new version of the
+                  file, so its link and sharing stay the same and Drive keeps
+                  the old one in its version history. Files with the same size
+                  and date are left alone.
+                </li>
+                <li>
+                  <strong>Keep both</strong>: always uploads a separate copy.
+                </li>
+              </ul>
+              <p>
+                Upload into any folder in My Drive, Shared with me, Starred or a
+                shared drive, chosen in Google's own folder picker.
+              </p>
+            </div>
+            <div class="screen">
+              <img
+                src="assets/shot-finished-1x.webp"
+                srcset="
+                  assets/shot-finished-1x.webp  744w,
+                  assets/shot-finished-2x.webp 1488w
+                "
+                sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                width="744"
+                height="453"
+                loading="lazy"
+                decoding="async"
+                alt="A finished batch of six files from 2.6 GB to 29.8 GB: five uploaded, one of them marked Replaced, and one marked Already in Drive, skipped."
+              />
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="compare">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Next to Drive's own uploader</h2>
+            <p class="lede">
+              For one file you could also use drive.google.com, at about the
+              same speed. The difference is what happens when something goes
+              wrong.
+            </p>
+          </div>
+          <table class="compare">
             <thead>
               <tr>
-                <th>Permission</th>
-                <th>Why</th>
+                <th scope="col">What happens</th>
+                <th scope="col">drive.google.com on its own</th>
+                <th scope="col" class="ours-head">With Uploft</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Google Drive: only files it uses (drive.file)</td>
-                <td>
-                  To upload your files and create folders for them. It can only
-                  see files it created and folders you pick. It can't read the
-                  rest of your Drive.
+                <th scope="row">You close the tab, or Chrome crashes</th>
+                <td class="drive">The upload is lost. You start again.</td>
+                <td class="ours">
+                  Reopen the uploader and resume from what Drive already has.
                 </td>
               </tr>
               <tr>
-                <td>Your data on drive.google.com</td>
-                <td>
-                  To read Drive's own upload panel, so it can show progress,
-                  notify you and retry failed uploads.
+                <th scope="row">Wi&#8209;Fi drops for a few minutes</th>
+                <td class="drive">
+                  The upload can fail and wait for you to press Retry.
+                </td>
+                <td class="ours">
+                  It waits for the network, then carries on by itself.
                 </td>
               </tr>
               <tr>
-                <td>Your data on www.googleapis.com</td>
-                <td>To send files to the Google Drive API.</td>
-              </tr>
-              <tr>
-                <td>Notifications</td>
-                <td>To tell you when uploads finish or fail.</td>
-              </tr>
-              <tr>
-                <td>Power</td>
-                <td>To keep your computer awake while uploads run.</td>
-              </tr>
-              <tr>
-                <td>Identity</td>
-                <td>To show Google's sign-in window.</td>
-              </tr>
-              <tr>
-                <td>Storage</td>
-                <td>
-                  To remember your settings and unfinished uploads on your
-                  computer.
-                </td>
-              </tr>
-              <tr>
-                <td>Active tab</td>
-                <td>
-                  When you click the toolbar icon on a Drive folder, to offer
-                  that folder as the destination.
+                <th scope="row">The computer is about to go to sleep</th>
+                <td class="drive">Uploads stop while it sleeps.</td>
+                <td class="ours">
+                  It keeps the computer awake until the uploads finish.
                 </td>
               </tr>
             </tbody>
           </table>
-        </section>
+          <p class="after-table small quiet">
+            Closing a laptop's lid still puts it to sleep. When it wakes, the
+            uploads continue from where they were.
+          </p>
+        </div>
+      </section>
 
-        <section>
-          <h2>Privacy</h2>
-          <div class="privacy">
-            <p>
-              Files go straight from your browser to Google. There is no server
-              in between, no analytics and no tracking. Your settings and
-              unfinished uploads are stored only in your browser.
-            </p>
-            <p>
-              <a href="privacy.html">Read the privacy policy</a>
+      <section class="section" id="drive-tab">
+        <div class="wrap helper">
+          <div>
+            <div class="section-head">
+              <h2>It also looks after uploads you start in Drive</h2>
+              <p class="lede">
+                Prefer to drag files into drive.google.com? Keep doing that.
+                Uploft watches Drive's own upload panel in the tab.
+              </p>
+            </div>
+            <ul class="helper-list">
+              <li>
+                <strong>Keeps the computer awake</strong>
+                <span
+                  >while uploads run, then lets it sleep again when they're
+                  done.</span
+                >
+              </li>
+              <li>
+                <strong>Keeps the Drive tab loaded</strong>
+                <span
+                  >so Chrome doesn't unload it to save memory mid-upload.</span
+                >
+              </li>
+              <li>
+                <strong>Presses Retry for you</strong>
+                <span
+                  >when an upload fails: after 5 seconds, 20 seconds and a
+                  minute, or as soon as the network is back.</span
+                >
+              </li>
+              <li>
+                <strong>Tells you when it's done</strong>
+                <span
+                  >with a progress panel in the tab and a notification when
+                  uploads finish or fail.</span
+                >
+              </li>
+            </ul>
+          </div>
+          <figure>
+            <div class="screen">
+              <img
+                src="assets/shot-popup-360.webp"
+                srcset="
+                  assets/shot-popup-360.webp 360w,
+                  assets/shot-popup-720.webp 720w
+                "
+                sizes="360px"
+                width="720"
+                height="1200"
+                loading="lazy"
+                decoding="async"
+                alt="The toolbar popup: an Upload files to Drive button, switches to keep the computer awake and retry failed Drive uploads, desktop notifications with a choice of when, and Device, Light or Dark appearance."
+              />
+            </div>
+            <figcaption>
+              The toolbar popup. Each of these can be turned off.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="install">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Up and running in a minute</h2>
+          </div>
+          <ol class="steps">
+            <li>
+              <strong>Add it to Chrome</strong>
+              <span
+                >From the Chrome Web Store. It works in Chrome 116 and
+                later.</span
+              >
+            </li>
+            <li>
+              <strong>Sign in with Google</strong>
+              <span
+                >Click the toolbar icon, then Upload files to Drive. Google asks
+                you to allow access to the files it uploads, nothing more.</span
+              >
+            </li>
+            <li>
+              <strong>Drop files or folders in</strong>
+              <span
+                >They go into an Uploft folder in My Drive, or any
+                folder you pick.</span
+              >
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="privacy">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>It only sees the files it uploads</h2>
+            <p class="lede">
+              Sign-in asks Google for one permission, drive.file. The extension
+              can see the files and folders it creates and the folders you pick,
+              not the rest of your Drive. Files go straight from your browser to
+              Google, with no server of ours in between and no analytics.
+              <a href="privacy.html">Read the privacy policy</a>.
             </p>
           </div>
-        </section>
-      </main>
+          <dl class="perms">
+            <div>
+              <dt>Google Drive, files it uses</dt>
+              <dd>To upload your files and create folders for them.</dd>
+            </div>
+            <div>
+              <dt>drive.google.com</dt>
+              <dd>
+                To read Drive's own upload panel for progress, notifications and
+                retries.
+              </dd>
+            </div>
+            <div>
+              <dt>www.googleapis.com</dt>
+              <dd>To send files to the Google Drive API.</dd>
+            </div>
+            <div>
+              <dt>Notifications</dt>
+              <dd>To tell you when uploads finish or fail.</dd>
+            </div>
+            <div>
+              <dt>Power</dt>
+              <dd>To keep your computer awake while uploads run.</dd>
+            </div>
+            <div>
+              <dt>Identity</dt>
+              <dd>To show Google's sign-in window.</dd>
+            </div>
+            <div>
+              <dt>Storage</dt>
+              <dd>
+                To remember your settings and unfinished uploads on your
+                computer.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
 
-      <footer>
-        <a href="privacy.html">Privacy policy</a>
-        <a href="https://github.com/sai-na/upload-tracker-for-drive"
-          >Source code</a
-        >
-        <a href="https://github.com/sai-na/upload-tracker-for-drive/issues"
-          >Report a problem</a
-        >
-      </footer>
-    </div>
+      <section class="section closing">
+        <div class="wrap">
+          <h2>Start the upload. Go do something else.</h2>
+          <div class="ctas">
+            <!-- TODO: point at the Chrome Web Store listing once the item is published -->
+            <a class="pill ink big" href="#install">Add to Chrome, it's free</a>
+            <a class="pill line big" href="blog/">Read the upload guides</a>
+          </div>
+          <p class="support">
+            Free, with no ads and no tracking. If it saves you a long upload,
+            you can buy me a coffee.
+          </p>
+          <a class="bmc" href="https://buymeacoffee.com/sai.nath"
+            ><img
+              src="assets/bmc-button.png"
+              alt="Buy me a coffee"
+              width="171"
+              height="48"
+          /></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="blog/">Guides</a>
+          <a href="privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive is a trademark of
+          Google LLC.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Play the recording unless the visitor prefers reduced motion; then
+      // only the poster shows and nothing is downloaded
+      (() => {
+        const video = document.getElementById('demo');
+        const toggle = document.querySelector('.video-toggle');
+        if (!video || !toggle) return;
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        video.preload = 'auto';
+        video.play().catch(() => undefined);
+        toggle.hidden = false;
+        toggle.addEventListener('click', () => {
+          if (video.paused) {
+            void video.play();
+            toggle.textContent = 'Pause';
+          } else {
+            video.pause();
+            toggle.textContent = 'Play';
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

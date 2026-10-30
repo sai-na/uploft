@@ -1,5 +1,5 @@
 /**
- * Content script for Upload Tracker for Drive
+ * Content script for Uploft
  * Injected into Google Drive pages to track upload progress
  */
 
@@ -311,10 +311,7 @@ function initialize(): void {
     return;
   }
 
-  logger.info(
-    'Content',
-    'Upload Tracker for Drive initialized on Google Drive page'
-  );
+  logger.info('Content', 'Uploft initialized on Google Drive page');
 
   // Wait for DOM to be ready
   if (document.readyState === 'loading') {

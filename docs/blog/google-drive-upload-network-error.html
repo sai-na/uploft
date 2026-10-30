@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive upload failed, connection lost: what it means</title>
+    <meta
+      name="description"
+      content="Google Drive upload failed with a network error or connection lost? A short drop and a real failure look alike. What each means and what to try."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-network-error.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive upload failed, connection lost: what it means"
+    />
+    <meta
+      property="og:description"
+      content="Google Drive upload failed with a network error or connection lost? A short drop and a real failure look alike. What each means and what to try."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-network-error.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "What does 'network error' or 'connection lost' mean on a Google Drive upload?",
+      "description": "Google Drive upload failed with a network error or connection lost? A short drop and a real failure look alike. What each means and what to try.",
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "inLanguage": "en-GB",
+      "author": {"@type": "Person", "name": "Sai Nath", "url": "https://sai-na.github.io/uploft/about.html"},
+      "publisher": {"@type": "Organization", "name": "Meru Apps"},
+      "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-network-error.html",
+      "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+      "about": {"@type": "SoftwareApplication", "name": "Uploft", "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome 116 or later", "url": "https://sai-na.github.io/uploft/"}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Uploft", "item": "https://sai-na.github.io/uploft/"},
+        {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://sai-na.github.io/uploft/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "What does 'network error' or 'connection lost' mean on a Google Drive upload?"}
+      ]
+    }
+  ]
+}
+</script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#short-drop-or-real-failure">Short drop or real failure?</a></li>
+              <li><a href="#manual-retry">Manual retry</a></li>
+              <li><a href="#automatic-retry-after-5-s-20-s-60-s">Automatic Retry after 5 s, 20 s, 60 s</a></li>
+              <li><a href="#when-it-is-googles-side">When it is Google&#x27;s side</a></li>
+              <li><a href="#what-the-extension-fixes">What the extension fixes and what it can&#x27;t</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>What does 'network error' or 'connection lost' mean on a Google Drive upload?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              A "network error" or "connection lost" message means the
+              connection to Google broke while the file was being sent. If the
+              network comes back within moments, the upload can carry on. If it
+              keeps failing, check the Wi-Fi, a VPN or security software, then
+              Google's status page, then retry the file.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's behaviour links to
+              Google's own pages and was checked on 29 October 2026; what the
+              extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="short-drop-or-real-failure">Short drop or real failure?</h2>
+              <p>
+                A short drop is a break of seconds: Wi-Fi roaming, a router
+                restart, a phone hotspot changing towers. A real failure is a
+                break that does not mend, or a file that fails again each time
+                it is retried. The message can look the same for both, so judge
+                by what happens next, not by the wording.
+              </p>
+              <ul>
+                <li><strong>Short drop:</strong> other pages load again within a minute, and one click on Retry finishes the file.</li>
+                <li><strong>Real failure:</strong> pages still do not load, the same file fails at the same point each time, or only large files fail.</li>
+              </ul>
+              <p>
+                Google's developer documentation treats these cases the same
+                way: for <code>5xx</code> errors, it says to "resume or retry
+                uploads that fail due to connection interruptions". Drive's
+                website does not publish a guide to its own wording, so this
+                page does not claim what each message means inside Drive.
+              </p>
+              <figure data-todo="Screenshot of the progress panel on drive.google.com showing a failed upload with its Retry button, taken while the computer is offline on a demo account. Google's own Drive UI, taken by the owner; show the whole panel, no real file names or account details."></figure>
+
+              <h2 id="manual-retry">Manual retry</h2>
+              <p>
+                Check that the network works first: open another site in a new
+                tab. Then click <strong>Retry</strong> on the failed file in the
+                Drive upload panel. If a VPN is on, turn it off or pick a
+                steadier server for the upload; security software that filters
+                web traffic can also cut a long connection, so pausing it for a
+                test shows whether it is involved. Google publishes no list of
+                these causes for Drive's website, so they are common browser
+                causes, not a Google table.
+              </p>
+              <p>
+                On drive.google.com an upload runs inside the open tab, so keep
+                the tab open until Retry has finished. Google does not
+                document what Drive's website does if the tab is closed or
+                reloaded after an error, so check that the file arrived.
+              </p>
+
+              <h2 id="automatic-retry-after-5-s-20-s-60-s">Automatic Retry after 5 s, 20 s, 60 s</h2>
+              <p>
+                With Uploft installed, a failed upload on
+                drive.google.com is retried automatically three times: after 5
+                seconds, then 20, then 60. Each time the extension clicks Drive's
+                own <strong>Retry</strong> button. If the computer is offline,
+                it waits for the network to return, then waits 3 more seconds. A
+                file that fails after the third retry is left for you, with a
+                notification.
+              </p>
+              <p>
+                The extension's own uploader page works differently. It sends
+                the file to Drive in pieces through Google's resumable upload
+                method. When a piece fails with a network error, the uploader
+                waits 1 second and tries again, then 2, doubling up to 60
+                seconds. It marks the file failed after 20 failures in a row
+                with no progress. A piece that moves no bytes for 60 seconds is
+                treated as stalled and restarted.
+              </p>
+              <p>
+                If the computer is offline, the file shows <strong>Waiting for
+                the network</strong> and those 20 attempts are not used up. When
+                the connection returns, the upload carries on from the bytes
+                Drive already holds, not from zero. Google's developer
+                documentation describes this procedure: if an upload request is
+                interrupted, "you must resume the interrupted upload". It also
+                says a resumable session URI "expires after one week".
+              </p>
+              <figure>
+                <img
+                  src="../assets/shot-network-1x.webp"
+                  srcset="../assets/shot-network-1x.webp 744w, ../assets/shot-network-2x.webp 1488w"
+                  sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                  alt="The uploader's list with four files from a wedding shoot folder, Ceremony_A001.MP4, Reception_B014.MP4, Zoom_F6_full_day.wav and Highlights_final.mov, each showing the amber line Waiting for the network with what Drive already has, such as 11.4 GB of 29.8 GB"
+                  width="744"
+                  height="364"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The uploader while the computer is offline: each file waits and
+                  keeps the bytes already sent. Screenshot from a demo account;
+                  the file names and sizes are not real files.
+                </figcaption>
+              </figure>
+
+              <h2 id="when-it-is-googles-side">When it is Google's side</h2>
+              <p>
+                If every upload fails while other sites work, Google's service
+                may be at fault. The
+                <a href="https://www.google.com/appsstatus/dashboard/">Google Workspace Status Dashboard</a>
+                lists Google Drive and any reported incident. Nothing on a page
+                like this can mend an outage; wait, then retry. A file that keeps
+                failing when the status is normal and the network is steady needs
+                a different cause fixed: free storage, the daily limit or the
+                file itself (see
+                <a href="./google-drive-upload-failed.html">why a Google Drive upload failed</a>).
+              </p>
+
+              <h2 id="what-the-extension-fixes">What the extension fixes and what it can't</h2>
+              <p>
+                Uploft is a free Chrome extension (Chrome 116
+                or later, on a computer). It retries after a drop, waits while
+                offline and resumes the piece that failed. It cannot fix a bad
+                Wi-Fi signal, a VPN or antivirus that cuts the connection, a
+                full Google storage, or an outage at Google. It is not on the
+                Chrome Web Store yet, and the Google sign-in for its uploader
+                page is in testing mode, so only listed test users can sign in
+                for now.
+              </p>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Upload file data</a> (Google Drive API: resumable uploads, 5xx, session expiry).</li>
+                <li>Google Workspace: <a href="https://www.google.com/appsstatus/dashboard/">Status Dashboard</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (retry, offline wait and upload engine).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Upload errors and messages">
+        <a class="series-previous" href="./google-drive-upload-file-unreadable.html"><span>Previous</span> Why does Google Drive say &#x27;file unreadable&#x27; when I upload?</a>
+        <a class="series-hub" href="./google-drive-upload-errors-explained.html"><span>Guide</span> What do Google Drive upload error messages mean?</a>
+        <a class="series-next" href="./google-drive-error-accessing-folder-contents.html"><span>Next</span> Why does Google Drive say &#x27;error accessing folder contents&#x27;?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./google-drive-upload-paused-waiting-for-network.html">Why does a Google Drive upload say it is waiting for the network?</a></li>
+                  <li><a href="./google-drive-upload-errors-explained.html">Google Drive upload errors explained</a></li>
+                  <li><a href="./google-drive-upload-failed.html">Why did my Google Drive upload fail?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Google Drive and Chrome are trademarks of Google LLC. Uploft for
+          Drive is an independent extension, not made by Google.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

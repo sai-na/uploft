@@ -1,6 +1,6 @@
 <img src="icons/icon-128.png" width="64" height="64" alt="" align="left" />
 
-# Upload Tracker for Drive
+# Uploft
 
 A Chrome extension for uploading to Google Drive without babysitting the tab.
 Uploads survive closed tabs, crashes, sleep and Wi-Fi drops. It also tracks the
@@ -65,7 +65,7 @@ npm run package
 ```
 
 This builds, then zips only the files the extension loads (no source maps or
-type files) into `release/upload-tracker-for-drive-<version>.zip`. It stops if
+type files) into `release/uploft-<version>.zip`. It stops if
 a referenced file is missing or the uploader has no Google client ID.
 
 The store listing text, permission justifications, data disclosures and
@@ -87,7 +87,7 @@ sign-in screen branding are in [docs/STORE_LISTING.md](docs/STORE_LISTING.md).
 
 Files go straight from your browser to Google, with no server in between, no
 analytics and no tracking. See the
-[privacy policy](https://sai-na.github.io/upload-tracker-for-drive/privacy.html).
+[privacy policy](https://sai-na.github.io/uploft/privacy.html).
 
 ## Support
 

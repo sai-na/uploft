@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>How to retry a failed Google Drive upload</title>
+    <meta
+      name="description"
+      content="Retry a failed Google Drive upload: click Retry on the failed item, what a retry sends again, and how Uploft retries on its own."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-couldnt-upload-retry.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="How to retry a failed Google Drive upload"
+    />
+    <meta
+      property="og:description"
+      content="Retry a failed Google Drive upload: click Retry on the failed item, what a retry sends again, and how Uploft retries on its own."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-couldnt-upload-retry.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-resume.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I retry a Google Drive upload that failed?",
+            "description": "Retry a failed Google Drive upload: click Retry on the failed item, what a retry sends again, and how Uploft retries on its own.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-couldnt-upload-retry.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-resume.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I retry a Google Drive upload that failed?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+<!-- toc:start -->
+<nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ol>
+    <li><a href="#check-first">What do I do when Drive says it couldn&#x27;t upload?</a></li>
+    <li><a href="#one-item">Can I retry one item without redoing the whole batch?</a></li>
+    <li><a href="#from-zero">Does a retry start from zero?</a></li>
+    <li><a href="#auto">What is the automatic Retry on the Drive tab?</a></li>
+    <li><a href="#wont-help">When does Retry not help?</a></li>
+    <li><a href="#limits">What can&#x27;t it do?</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+  <script src="../assets/blog/toc.js" defer></script>
+</nav>
+<!-- toc:end -->
+<div class="prose-card">
+<header class="post-head">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Uploft</a> › <a href="./">Guides</a></nav>
+<h1>How do I retry a Google Drive upload that failed?</h1>
+<p class="updated">Published <time datetime="2026-10-29">29 October 2026</time> · Updated <time datetime="2026-10-29">29 October 2026</time> · By <a href="../about.html" rel="author">Sai Nath</a></p>
+</header>
+
+<p class="answer">To retry a failed Google Drive upload, wait until your connection is back, then click Retry on the failed file in Drive's upload panel. If Retry does nothing, or the cause is full storage or a daily limit, fix that first or upload the file again. Uploft clicks Retry for you after 5, 20 and 60 seconds.</p>
+
+<p class="disclosure">This guide comes from the maker of Uploft, the Chrome extension mentioned below. Google's limits and steps link to Google's own pages and were checked on 29 October 2026; what the extension does comes from its source code.</p>
+
+<div class="prose">
+<h2 id="check-first">What do I do when Drive says it couldn't upload?</h2>
+<p>Retry only helps when the failure was temporary, such as a dropped connection or a busy server. Work through these steps.</p>
+<ol>
+<li><strong>Keep the drive.google.com tab open.</strong> An upload started on Drive's website is sent by that page, so closing the tab or quitting Chrome ends it.</li>
+<li><strong>Check the connection.</strong> If the Wi-Fi dropped, wait until it is back.</li>
+<li><strong>Click Retry.</strong> In Drive's upload panel, click <strong>Retry</strong> next to the file or files that failed.</li>
+<li><strong>If Retry fails again,</strong> check your storage (<strong>Storage</strong> in Drive's left-hand menu). Google says that once you reach your limit, "you won't be able to upload or create files in Drive". A Google Workspace user can also upload and copy 750 GB per 24 hours.</li>
+<li><strong>If the file still won't go,</strong> check that it opens on your computer and is not on a disk or network folder that disconnected, then upload it again from the start.</li>
+</ol>
+<p>The causes behind a failure are listed in the <a href="./google-drive-upload-errors-explained.html">guide to Google Drive upload errors</a>.</p>
+
+<h2 id="one-item">Can I retry one item without redoing the whole batch?</h2>
+<p>Yes. A retry applies to the item you click it on. Items in the same batch that already finished stay in Drive, so only the failed ones need another try.</p>
+<p>In the Uploft uploader (toolbar icon, then <strong>Upload files to Drive</strong>), each failed file shows its own <strong>Retry</strong> button beside a <strong>Remove</strong> button. Retry sends only that file back into the queue; the other files keep going.</p>
+<figure>
+  <img
+    src="../assets/blog/storage-full-1x.webp"
+    srcset="../assets/blog/storage-full-1x.webp 1040w, ../assets/blog/storage-full-2x.webp 2080w"
+    sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+    alt="The uploader&#x27;s list: two files uploaded, and three files marked failed with the red message Your Google storage is full, each with Retry and Remove buttons"
+    width="1040"
+    height="498"
+    loading="lazy"
+  />
+  <figcaption>Failed files keep their Retry and Remove buttons, and files that finished stay done (demo account).</figcaption>
+</figure>
+
+<h2 id="from-zero">Does a retry start from zero?</h2>
+<p>It depends on what is retrying. Google's resumable upload protocol lets a client ask Drive how many bytes arrived and send only the rest, but a session that has expired must start again from the beginning. Google says a resumable session URI expires after one week. Whether Drive's own Retry button resumes or restarts a file is not documented by Google.</p>
+<p>Uploft's uploader uses resumable uploads. After a failure it asks Drive what it already has and continues from that byte; if Drive no longer knows the session, the file starts over. Pressing <strong>Retry</strong> on a failed file there also resets its count of failed tries, so it gets a fresh run of automatic attempts. See <a href="./resume-google-drive-upload.html">how resuming a Drive upload works</a>.</p>
+
+<h2 id="auto">What is the automatic Retry on the Drive tab?</h2>
+<p>It is the extension's tracker on drive.google.com pressing Drive's own Retry button for you. When an upload in Drive's panel fails, it waits 5 seconds and clicks Retry; if that fails, it waits 20 seconds, then 60 seconds. If the computer is offline it waits for the network and tries 3 seconds after it returns. A failure notification comes only after the last try.</p>
+<p>It is on by default. To turn it off, click the extension's toolbar icon and switch off <strong>Retry failed Drive uploads</strong>. What Drive does after Retry is up to Drive; the extension only presses the button.</p>
+<p>The uploader page retries differently: timeouts, rate limits and server errors are retried automatically, starting at about 1 second and doubling to a minute. After 20 failures in a row with no progress the file is marked failed, and time spent offline does not count.</p>
+
+<h2 id="wont-help">When does Retry not help?</h2>
+<p>When the cause is a limit rather than a glitch. Full storage and a Workspace daily limit of 750 GB do not clear by themselves, so each retry fails the same way. The uploader stops at once on these, with a plain reason such as "Your Google storage is full", instead of retrying. Free space, buy more, or wait for the limit to refresh (Google says within 24 hours), then retry.</p>
+
+<h2 id="limits">What can't it do?</h2>
+<ul>
+<li>It cannot add storage, lift Google's limits or fix a Drive outage.</li>
+<li>Automatic Retry on the Drive tab works only while that tab is open, and depends on Drive's Retry button being there.</li>
+<li>Closing a tab or restarting Chrome ends an upload started on drive.google.com. Only the extension's uploader picks up after that.</li>
+<li>It runs in Chrome 116 or later on a computer, not on phones, and is not on the Chrome Web Store yet. Sign-in for the uploader page is in Google's testing mode, so only listed test users can use it for now.</li>
+</ul>
+
+<div class="try">
+<p><strong>Uploft</strong> is free, and its source code is public. It isn't on the Chrome Web Store yet; the home page shows what it does and what it asks for.</p>
+<p><a class="pill ink" href="../">See Uploft</a></p>
+</div>
+
+<h2 id="sources">Sources</h2>
+<p><strong>Checked on 29 October 2026.</strong></p>
+<ul class="sources">
+<li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Manage uploads</a> (resuming an interrupted upload, session expiry, retry guidance).</li>
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your storage in Drive, Gmail &amp; Photos</a>.</li>
+<li>Google Workspace Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a>.</li>
+<li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (auto-retry, uploader retry and back-off).</li>
+</ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Upload errors and messages">
+        <a class="series-previous" href="./google-drive-upload-server-rejected.html"><span>Previous</span> Why does Google Drive say &#x27;server rejected your upload attempt&#x27;?</a>
+        <a class="series-hub" href="./google-drive-upload-errors-explained.html"><span>Guide</span> What do Google Drive upload error messages mean?</a>
+      </nav>
+      <!-- series:end -->
+<section class="related">
+<h2>Related</h2>
+<ul>
+<li><a href="./google-drive-upload-errors-explained.html">Why does Google Drive show an error when uploading a file?</a></li>
+<li><a href="./resume-google-drive-upload.html">Can you resume a Google Drive upload after it stops?</a></li>
+<li><a href="./">All Google Drive upload guides</a></li>
+</ul>
+</section>
+</div>
+</div>
+<!-- rail:start -->
+<aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

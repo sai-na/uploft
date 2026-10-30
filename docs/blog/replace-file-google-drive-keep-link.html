@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Replace a file in Google Drive without changing the link</title>
+    <meta
+      name="description"
+      content="Use Manage versions so a Google Drive file keeps its link and sharing. How long old versions last, and how to replace many files at once."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/replace-file-google-drive-keep-link.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Replace a file in Google Drive without changing the link"
+    />
+    <meta
+      property="og:description"
+      content="Use Manage versions so a Google Drive file keeps its link and sharing. How long old versions last, and how to replace many files at once."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/replace-file-google-drive-keep-link.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-replaced.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I replace a file in Google Drive without changing the link?",
+            "description": "Use Manage versions so a Google Drive file keeps its link and sharing. How long old versions last, and how to replace many files at once.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/replace-file-google-drive-keep-link.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-replaced.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I replace a file in Google Drive without changing the link?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#how-to-upload-a-new-version-of-a-file">How to upload a new version of a file</a></li>
+              <li><a href="#do-the-link-and-sharing-stay-the-same">Do the link and sharing stay the same?</a></li>
+              <li><a href="#how-long-does-drive-keep-the-old-version">How long does Drive keep the old version?</a></li>
+              <li><a href="#does-this-work-for-google-docs-sheets-and-slides">Does this work for Google Docs, Sheets and Slides?</a></li>
+              <li><a href="#what-if-i-delete-the-old-file-and-upload-the-new-one">What if I delete the old file and upload the new one?</a></li>
+              <li><a href="#how-do-i-replace-many-files-at-once">How do I replace many files at once?</a></li>
+              <li><a href="#why-doesn-t-replace-match-files-i-uploaded-another-way">Why doesn&#x27;t Replace match files I uploaded another way?</a></li>
+              <li><a href="#what-are-the-limits">What are the limits?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>
+                How do I replace a file in Google Drive without changing the
+                link?
+              </h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Upload the new file as a new version of the old one: on
+              drive.google.com, click the file, then More ▸ File information ▸
+              Manage versions ▸ Upload new version. It stays the same file, so
+              its link and sharing don't change. Drive can delete old versions
+              after 30 days or 100 newer versions unless you choose Keep
+              forever.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's steps and rules link to
+              Google's own pages and were checked on 29 October 2026; what the
+              extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="how-to-upload-a-new-version-of-a-file">
+                How to upload a new version of a file
+              </h2>
+              <ol>
+                <li>On your computer, go to drive.google.com.</li>
+                <li>Click the file you want to replace.</li>
+                <li>
+                  At the top right, click <strong>More</strong> (⋮) ▸
+                  <strong>File information</strong> ▸
+                  <strong>Manage versions</strong>.
+                </li>
+                <li>
+                  Click <strong>Upload new version</strong> and choose the new
+                  file.
+                </li>
+              </ol>
+              <p>
+                Uploading into the same folder works too. Google's upload help
+                says that if you upload a file with the same name, "Google Drive
+                will upload the file as a revision of the file already in Google
+                Drive". If you want two separate files instead, click
+                <strong>Keep both files</strong> when you upload.
+              </p>
+
+              <h2 id="do-the-link-and-sharing-stay-the-same">
+                Do the link and sharing stay the same?
+              </h2>
+              <p>
+                Yes. A new version replaces the file's contents, but it stays
+                the same file in Drive, with the same file ID. A Drive file link
+                (drive.google.com/file/d/<em>file ID</em>/…) is built from that
+                ID, so the links people already have keep opening the file, now
+                with the new contents, and the people it is shared with keep
+                their access. Google also notes that when you upload a new
+                version of a file someone else owns, "the original owner remains
+                the same".
+              </p>
+
+              <h2 id="how-long-does-drive-keep-the-old-version">
+                How long does Drive keep the old version?
+              </h2>
+              <p>
+                Google says a version "might be permanently deleted after 30
+                days or if there are 100 newer versions". To keep one, open
+                <strong>Manage versions</strong>, click
+                <strong>More</strong> next to that version and choose
+                <strong>Keep forever</strong>; a tick shows it won't be deleted.
+                From the same list you can <strong>Download</strong> an older
+                version, or <strong>Delete</strong> one you don't need.
+              </p>
+
+              <h2 id="does-this-work-for-google-docs-sheets-and-slides">
+                Does this work for Google Docs, Sheets and Slides?
+              </h2>
+              <p>
+                No. Google says version history for Docs, Sheets and Slides "is
+                different than file versions in Google Drive". You edit those
+                files in place, so their link doesn't change, and earlier states
+                are in their own version history, as
+                <a href="https://support.google.com/docs/answer/190843"
+                  >Google's Docs Editors Help</a
+                >
+                describes. Manage versions is for uploaded files, such as PDFs,
+                images, videos and other files stored in Drive.
+              </p>
+
+              <h2 id="what-if-i-delete-the-old-file-and-upload-the-new-one">
+                What if I delete the old file and upload the new one?
+              </h2>
+              <p>
+                Then it's a different file. The new upload gets its own ID and
+                its own link, the old file's sharing doesn't carry over to it,
+                and the old link no longer opens it. Anyone you shared the old
+                file with would need the new link. Upload a new version instead,
+                as above.
+              </p>
+
+              <h2 id="how-do-i-replace-many-files-at-once">
+                How do I replace many files at once?
+              </h2>
+              <p>
+                Manage versions works one file at a time. When you upload an
+                updated folder again, Uploft's uploader can do
+                the whole folder in one go. In the uploader, set
+                <strong>If already in Drive</strong> to
+                <strong>Replace it</strong>, choose the destination folder and
+                drop the folder in:
+              </p>
+              <ul>
+                <li>
+                  A file with the same name in the same Drive folder, one the
+                  extension uploaded earlier, is uploaded as a new version of
+                  it, so its link and sharing stay, and Drive keeps the old one
+                  under Manage versions.
+                </li>
+                <li>
+                  Files that haven't changed, meaning the same size and modified
+                  time, are skipped, so nothing is uploaded twice.
+                </li>
+                <li>
+                  New files are uploaded as new files, and subfolders keep their
+                  structure.
+                </li>
+              </ul>
+              <p>
+                The three settings compare each file with a file of the same
+                name in the destination folder:
+              </p>
+              <div
+                class="table-wrap"
+                role="region"
+                aria-label="What each If already in Drive setting does"
+                tabindex="0"
+              >
+                <table class="stack">
+                  <thead>
+                    <tr>
+                      <th scope="col">Setting</th>
+                      <th scope="col">Same name and size</th>
+                      <th scope="col">Same name, different size</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Skip it (the default)</th>
+                      <td data-label="Same name and size">
+                        Skipped: "Already in Drive, skipped"
+                      </td>
+                      <td data-label="Same name, different size">
+                        Uploaded as a second file with the same name
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Replace it</th>
+                      <td data-label="Same name and size">
+                        Skipped if the modified time matches too; if not, a new
+                        version
+                      </td>
+                      <td data-label="Same name, different size">
+                        A new version of the file in Drive: "Replaced"
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Keep both</th>
+                      <td data-label="Same name and size">
+                        Uploaded as a second file
+                      </td>
+                      <td data-label="Same name, different size">
+                        Uploaded as a second file
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <figure>
+                <img
+                  src="../assets/blog/replaced-crop.webp"
+                  alt="Finished uploads in the uploader: four files marked Uploaded, Highlights_final.mov marked Replaced, and a summary reading All uploads finished, 5 uploaded, 1 already in Drive"
+                  width="960"
+                  height="425"
+                  loading="lazy"
+                />
+                <figcaption>
+                  With Replace it on, one file became a new version of the copy
+                  in Drive ("Replaced") and an unchanged file was skipped ("1
+                  already in Drive"). Screenshot from a demo account.
+                </figcaption>
+              </figure>
+              <p>
+                Replace spots an unchanged file by its modified time: the
+                uploader sets each file's modified time in Drive to the file's
+                own modified time on your computer, so a file you haven't
+                touched matches exactly.
+              </p>
+
+              <h2 id="why-doesn-t-replace-match-files-i-uploaded-another-way">
+                Why doesn't Replace match files I uploaded another way?
+              </h2>
+              <p>
+                Because the extension uses Google's narrowest Drive permission,
+                drive.file, which Google's list of permissions describes as
+                "See, edit, create, and delete only the specific Google Drive
+                files you use with this app". The uploader can see the files it
+                uploaded and the folders you pick for it in Google's folder
+                picker, and nothing else. A file you put in that folder through
+                drive.google.com or another app is invisible to it, so with
+                Replace it on, the uploader adds a second file with the same
+                name next to it. For those files, use Manage versions in Drive.
+              </p>
+
+              <h2 id="what-are-the-limits">What are the limits?</h2>
+              <ul>
+                <li>
+                  Skip and Replace only know about files the extension uploaded
+                  itself.
+                </li>
+                <li>
+                  When a folder already holds several files it uploaded with the
+                  same name, Replace updates the one modified most recently.
+                </li>
+                <li>
+                  Old versions follow Drive's rules: they can be deleted after
+                  30 days or 100 newer versions unless you keep them forever.
+                </li>
+                <li>
+                  Google Docs, Sheets and Slides can't be replaced by uploading;
+                  they keep their own version history.
+                </li>
+                <li>
+                  It runs in Chrome 116 or later on a computer, and it isn't on
+                  the Chrome Web Store yet.
+                </li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../"
+                    >See Uploft</a
+                  >
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/2409045"
+                    >Check activity &amp; file versions</a
+                  >
+                  (Manage versions, retention, Keep forever).
+                </li>
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/2424368"
+                    >Upload files &amp; folders to Google Drive</a
+                  >
+                  (files with the same name).
+                </li>
+                <li>
+                  Google Docs Editors Help:
+                  <a href="https://support.google.com/docs/answer/190843"
+                    >Find what's changed in a file</a
+                  >.
+                </li>
+                <li>
+                  Google for Developers:
+                  <a
+                    href="https://developers.google.com/identity/protocols/oauth2/scopes"
+                    >OAuth 2.0 Scopes for Google APIs</a
+                  >
+                  and
+                  <a
+                    href="https://developers.google.com/workspace/drive/api/guides/api-specific-auth"
+                    >Choose Google Drive API scopes</a
+                  >
+                  (drive.file).
+                </li>
+                <li>
+                  Uploft:
+                  <a href="https://github.com/sai-na/uploft"
+                    >source code</a
+                  >
+                  (Skip, Replace and Keep both) and
+                  <a href="../privacy.html">privacy policy</a> (what the
+                  drive.file permission lets it see).
+                </li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Google Drive uploads">
+        <a class="series-previous" href="./upload-large-files-to-google-drive.html"><span>Previous</span> How do I upload large files to Google Drive?</a>
+        <a class="series-hub" href="./upload-to-google-drive-from-computer.html"><span>Guide</span> How do I upload files and folders to Google Drive from a computer?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li>
+                    <a href="./upload-large-files-to-google-drive.html"
+                      >How do I upload large files to Google Drive?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="./resume-google-drive-upload.html"
+                      >Can you resume a Google Drive upload after it stops?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="./google-drive-upload-failed.html"
+                      >Why is my Google Drive upload failing or stuck?</a
+                    >
+                  </li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

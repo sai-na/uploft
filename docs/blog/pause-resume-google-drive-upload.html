@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Pause and resume a Google Drive upload | Uploft</title>
+    <meta
+      name="description"
+      content="Drive&#x27;s website has no pause button. Uploft adds Pause all and Resume all, keeps your place, and clears finished uploads."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/pause-resume-google-drive-upload.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Pause and resume a Google Drive upload | Uploft"
+    />
+    <meta
+      property="og:description"
+      content="Drive&#x27;s website has no pause button. Uploft adds Pause all and Resume all, keeps your place, and clears finished uploads."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/pause-resume-google-drive-upload.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-resume.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Can you pause and resume a Google Drive upload?",
+            "description": "Drive's website has no pause button. Uploft adds Pause all and Resume all, keeps your place, and clears finished uploads.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/pause-resume-google-drive-upload.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-resume.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Can you pause and resume a Google Drive upload?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#drive-has-no-pause-button">Does Drive&#x27;s website have a pause button?</a></li>
+              <li><a href="#how-to-pause-and-resume">How to pause and resume uploads</a></li>
+              <li><a href="#pause-all-resume-all">What do Pause all and Resume all do?</a></li>
+              <li><a href="#what-survives-a-restart">What survives a restart?</a></li>
+              <li><a href="#how-to-clear-finished-or-stuck-items">How do I clear finished or stuck items?</a></li>
+              <li><a href="#what-are-the-limits">What are the limits?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Can you pause and resume a Google Drive upload?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Drive's own upload panel has no pause button that Google
+              documents. Uploft adds one: press the pause
+              icon on a file, or <strong>Pause all</strong>, and press
+              <strong>Resume</strong> or <strong>Resume all</strong> to carry
+              on from the last byte Drive confirmed. Only the piece that was
+              on its way is sent again.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="drive-has-no-pause-button">
+                Does Drive's website have a pause button?
+              </h2>
+              <p>
+                Google's help pages for uploading
+                (<a href="https://support.google.com/drive/answer/2424368">Upload files and folders</a>
+                and <a href="https://support.google.com/drive/answer/2424384">Get started with Google Drive</a>)
+                describe no way to pause an upload on drive.google.com. The
+                one pause Google does document is in
+                <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a>,
+                where "you can pause or resume the sync process ... at any
+                time". That is syncing a folder, not sending one large file
+                from a browser tab.
+              </p>
+              <p>
+                Pausing matters when a video upload is using all of a slow
+                connection, or when you need the computer for a video call
+                and want the upload back afterwards. Uploft
+                has a pause control for exactly that, in its uploader page.
+              </p>
+
+              <h2 id="how-to-pause-and-resume">
+                How to pause and resume uploads
+              </h2>
+              <ol>
+                <li>
+                  Click the extension's toolbar icon ▸
+                  <strong>Upload files to Drive</strong> and start your
+                  uploads with <strong>Choose files</strong>,
+                  <strong>Choose folder</strong> or drag and drop.
+                </li>
+                <li>
+                  To stop one file, press the pause icon at the right of its
+                  row. The row reads "Paused" with how much is already in
+                  Drive, for example "Paused · 73.6 MB of 180 MB".
+                </li>
+                <li>
+                  To stop everything, press <strong>Pause all</strong> above
+                  the list.
+                </li>
+                <li>
+                  To carry on, press the play icon on the row
+                  (<strong>Resume</strong>) or <strong>Resume all</strong>.
+                  The files rejoin the line and start again within the "At a
+                  time" limit you chose.
+                </li>
+              </ol>
+              <figure>
+                <img
+                  src="../assets/shot-parallel-1x.webp"
+                  srcset="../assets/shot-parallel-1x.webp 760w, ../assets/shot-parallel-2x.webp 1520w"
+                  sizes="(min-width: 760px) 760px, 100vw"
+                  alt="The Uploads list of the uploader with Pause all, Resume all and Clear finished above it; four files from a 75.4 GB folder are uploading, two are waiting, and each row has a pause icon and a close icon"
+                  width="760"
+                  height="632"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The uploads list with its three controls and a pause icon on
+                  each row. Screenshot from a demo account; the files are
+                  examples.
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="../assets/blog/paused-1x.webp"
+                  srcset="../assets/blog/paused-1x.webp 1280w, ../assets/blog/paused-2x.webp 2560w"
+                  sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                  alt="Three uploads in the uploader: Cam_B_ceremony.MP4 reads Paused · 2.9 GB of 19.6 GB with a play button, while Cam_A_ceremony.MP4 and Drone_ceremony.MP4 keep uploading"
+                  width="1280"
+                  height="746"
+                  loading="lazy"
+                />
+                <figcaption>One upload paused at 2.9 GB of 19.6 GB while the other two carry on; the play button resumes it (demo account).</figcaption>
+              </figure>
+
+              <h2 id="pause-all-resume-all">
+                What do Pause all and Resume all do?
+              </h2>
+              <p>
+                <strong>Pause all</strong> pauses every upload that is waiting
+                or running. A file in the middle of a piece stops that piece;
+                a file that is waiting simply stays put. Nothing is deleted
+                from Drive and nothing is cancelled.
+              </p>
+              <p>
+                <strong>Resume all</strong> puts every paused file back in the
+                line. Each one asks Drive how many bytes it already holds and
+                continues from the next one, so the work already done is kept.
+                What is sent again is at most the piece that was in flight when
+                you paused: pieces start at 8 MiB and grow to 64 MiB on fast
+                connections. Drive keeps the session for about a week, as
+                <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Google's upload guide</a>
+                says ("A resumable session URI expires after one week").
+              </p>
+              <p>
+                While nothing is uploading, the extension stops asking Chrome
+                to keep the computer awake, so a paused list does not hold the
+                computer up. The page also stops asking before you close the
+                tab, because nothing is running.
+              </p>
+
+              <h2 id="what-survives-a-restart">What survives a restart?</h2>
+              <p>
+                The list and each file's place in Drive. The queue is saved in
+                the browser's own storage, so after Chrome restarts, the
+                uploader shows those files as "Interrupted at" a size, with a
+                banner. Press <strong>Resume</strong> in the banner, or choose
+                the same files again, and each continues from the byte Drive
+                confirmed. The details are in
+                <a href="./resume-google-drive-upload.html">how to resume a
+                Google Drive upload</a>.
+              </p>
+              <p>
+                Keep a pause under a week. After that Drive has dropped the
+                session and the file starts again from zero.
+              </p>
+
+              <h2 id="how-to-clear-finished-or-stuck-items">
+                How do I clear finished or stuck items?
+              </h2>
+              <ul>
+                <li>
+                  <strong>Clear finished</strong> removes uploaded, skipped,
+                  cancelled and failed rows from the list. Running and paused
+                  uploads stay. It only tidies the list: the files in Drive are
+                  not touched.
+                </li>
+                <li>
+                  A failed row has <strong>Retry</strong> and
+                  <strong>Remove</strong>. Retry starts it again with a fresh
+                  count of attempts.
+                </li>
+                <li>
+                  The close icon on a running or paused row cancels that
+                  upload and asks Drive to discard its session.
+                </li>
+                <li>
+                  An interrupted row has <strong>Forget this upload</strong>,
+                  which drops it from the saved queue.
+                </li>
+              </ul>
+              <p>
+                If an upload stops by itself instead of being paused, see
+                <a href="./google-drive-upload-keeps-stopping.html">why Google Drive uploads keep stopping</a>
+                and
+                <a href="./google-drive-upload-paused-waiting-for-network.html">what "waiting for the network" means</a>.
+              </p>
+
+              <h2 id="what-are-the-limits">What are the limits?</h2>
+              <ul>
+                <li>
+                  The pause controls are in the uploader page. They do not
+                  pause an upload you started on drive.google.com.
+                </li>
+                <li>
+                  The uploader has to stay in Chrome (open or restored) for
+                  uploads to run; it does not upload in the background once its
+                  tab is closed.
+                </li>
+                <li>
+                  A paused file must be unchanged to continue: a different
+                  size or modified time makes it a new upload.
+                </li>
+                <li>
+                  It runs in Chrome 116 or later on a computer, and it is not
+                  on the Chrome Web Store yet.
+                </li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files and folders</a> and <a href="https://support.google.com/drive/answer/2424384">Get started with Google Drive</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a> (pausing sync).</li>
+                <li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Upload file data</a> (resumable uploads, one-week session).</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (upload engine and uploader page) and <a href="../privacy.html">privacy policy</a>.</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Stuck uploads">
+        <a class="series-previous" href="./google-drive-preparing-upload-stuck.html"><span>Previous</span> Why is Google Drive stuck on &#x27;Preparing to upload&#x27;?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-stuck.html"><span>Guide</span> Why is my Google Drive upload stuck, and what do I do?</a>
+        <a class="series-next" href="./google-drive-upload-progress-not-showing.html"><span>Next</span> Why can&#x27;t I see my Google Drive upload progress?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./resume-google-drive-upload.html">Can you resume a Google Drive upload after it stops?</a></li>
+                  <li><a href="./google-drive-upload-paused-waiting-for-network.html">Google Drive upload paused, waiting for the network</a></li>
+                  <li><a href="./google-drive-upload-keeps-stopping.html">Why does my Google Drive upload keep stopping?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

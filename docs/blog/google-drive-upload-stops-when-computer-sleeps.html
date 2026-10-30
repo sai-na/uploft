@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Does Google Drive upload when the computer sleeps?</title>
+    <meta
+      name="description"
+      content="No. A sleeping computer stops uploading to Google Drive. Here is what screen-off, lock and lid-close do, and how to keep an upload running."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-stops-when-computer-sleeps.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Does Google Drive upload when the computer sleeps?"
+    />
+    <meta
+      property="og:description"
+      content="No. A sleeping computer stops uploading to Google Drive. Here is what screen-off, lock and lid-close do, and how to keep an upload running."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-stops-when-computer-sleeps.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Does Google Drive keep uploading when my computer sleeps?",
+            "description": "No. A sleeping computer stops uploading to Google Drive. Here is what screen-off, lock and lid-close do, and how to keep an upload running.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-stops-when-computer-sleeps.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Does Google Drive keep uploading when my computer sleeps?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+
+<main id="main" class="page">
+<article class="post">
+<div class="post-grid has-toc">
+<!-- toc:start -->
+<nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ol>
+    <li><a href="#why-sleep-stops-uploads">Why does sleep stop an upload?</a></li>
+    <li><a href="#screen-off-or-locked">What happens if the screen turns off or the computer is locked?</a></li>
+    <li><a href="#lid-closed">What happens if I close the lid?</a></li>
+    <li><a href="#power-settings">Do my power settings matter?</a></li>
+    <li><a href="#keep-awake">How does Uploft keep the computer awake?</a></li>
+    <li><a href="#after-sleep">What happens after the computer wakes?</a></li>
+    <li><a href="#limits">What are the limits?</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+  <script src="../assets/blog/toc.js" defer></script>
+</nav>
+<!-- toc:end -->
+<div class="prose-card">
+<header class="post-head">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Uploft</a> › <a href="./">Guides</a></nav>
+<h1>Does Google Drive keep uploading when my computer sleeps?</h1>
+<p class="updated">Published <time datetime="2026-10-29">29 October 2026</time> · Updated <time datetime="2026-10-29">29 October 2026</time> · By <a href="../about.html" rel="author">Sai Nath</a></p>
+</header>
+
+<p class="answer">No. A sleeping computer stops sending data, so a Google Drive upload pauses or fails until it wakes. A dimmed or switched-off screen is different: the computer can keep uploading. To keep an upload going, stop the computer sleeping from inactivity. Closing a laptop lid or choosing Sleep still sleeps it.</p>
+
+<p class="disclosure">This guide comes from the maker of Uploft, the Chrome extension mentioned below. Google's steps link to Google's own pages and were checked on 29 October 2026; what the extension does comes from its source code.</p>
+
+<div class="prose">
+<h2 id="why-sleep-stops-uploads">Why does sleep stop an upload?</h2>
+<p>Because the upload is work the computer does, and a sleeping computer does none. An upload you start on drive.google.com is sent by that web page in Chrome, so when the computer sleeps the page stops sending. What happens next depends on how long it sleeps and what the connection does on waking. The upload may continue, show an error, or need a retry.</p>
+<p>Not every kind of rest is sleep. The screen turning off, the screen locking and the computer sleeping are three different things, and only the last stops the upload.</p>
+
+<h2 id="screen-off-or-locked">What happens if the screen turns off or the computer is locked?</h2>
+<p>A screen that turns off or dims does not by itself stop an upload. Chrome's power API, which the extension uses, describes its "system" level as preventing the system from sleeping "in response to user inactivity". Its separate "display" level is the one that also keeps the screen from dimming or turning off. The extension asks for the "system" level, so the display can switch off while the computer carries on uploading.</p>
+<p>Whether a locked screen stops anything depends on the computer's own settings, because locking and sleeping are separate settings. If the upload stops soon after a lock, check the sleep timer rather than the lock.</p>
+
+<h2 id="lid-closed">What happens if I close the lid?</h2>
+<p>On most laptops, closing the lid puts the computer to sleep, and the upload stops. Chrome's documentation for keep-awake covers only sleep "in response to user inactivity". It does not say it overrides the lid, and the extension cannot do so. What a closed lid does is the operating system's decision and differs between computers, power sources and settings. If an upload has to run with the lid closed, check how your computer behaves before relying on it, or leave the lid open and turn the screen down.</p>
+
+<h2 id="power-settings">Do my power settings matter?</h2>
+<p>Yes. The computer's own sleep timer decides when it sleeps from inactivity, and that is the timer a keep-awake request holds off. On a laptop, battery and mains power often have separate timers, so an upload that survives on a charger can stop on battery. Set the sleep timer longer, or plug in, for a long upload. The settings are in the operating system's power or battery options; their names differ between Windows and macOS and between versions.</p>
+<p>A computer that is shut down or restarted also ends a browser upload.</p>
+
+<h2 id="keep-awake">How does Uploft keep the computer awake?</h2>
+<p>Uploft is a free Chrome extension (Chrome 116 or later). While uploads are running it asks Chrome to stop the computer sleeping from inactivity, and it releases that request when they finish. The setting is on by default.</p>
+<ol>
+<li>Click the extension's toolbar icon.</li>
+<li>Under <strong>While uploading</strong>, find <strong>Keep the computer awake</strong>.</li>
+<li>Leave it on, or turn it off if you would rather the computer slept.</li>
+</ol>
+<p>This works for uploads you start on drive.google.com, where the extension watches Drive's upload panel, and for uploads sent from the extension's own uploader (toolbar icon, then <strong>Upload files to Drive</strong>, then sign in with Google). It also marks the uploading Drive tab so Chrome does not discard it to save memory.</p>
+<figure>
+  <img
+    src="../assets/shot-popup-360.webp"
+    srcset="../assets/shot-popup-360.webp 360w, ../assets/shot-popup-720.webp 720w"
+    sizes="360px"
+    alt="The extension&#x27;s toolbar popup: an Upload files to Drive button, and under While uploading, the switches Keep the computer awake and Retry failed Drive uploads, both on"
+    width="360"
+    height="600"
+    loading="lazy"
+  />
+  <figcaption>The toolbar popup, with Keep the computer awake switched on.</figcaption>
+</figure>
+
+<h2 id="after-sleep">What happens after the computer wakes?</h2>
+<p>It depends on where the upload was running. In the extension's own uploader, Drive's resumable uploads let it ask Drive how much of the file arrived and continue from that byte. A piece that moves no bytes for 60 seconds is restarted, and time spent offline does not count as a failed try. In the uploader, a file that was part-sent before sleep is therefore sent again from where Drive stopped, not from zero. How an upload started in Drive's own tab behaves after a long sleep is not described by Google; if it fails, the extension clicks Drive's Retry button after 5, 20 and 60 seconds, but that only helps if the tab itself survived. See
+<a href="./google-drive-upload-keeps-stopping.html">why uploads keep stopping</a> and <a href="./can-google-drive-upload-in-the-background.html">whether Drive can upload in the background</a>.</p>
+
+<h2 id="limits">What are the limits?</h2>
+<ul>
+<li>Closing a laptop lid, choosing Sleep, shutting down or restarting still ends the upload or pauses it. The extension only prevents sleep from inactivity, as Chrome's power API describes it.</li>
+<li>If a laptop runs out of battery, nothing keeps it awake.</li>
+<li>For uploads that do not depend on a Chrome tab at all, Google makes <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a>, which syncs files from a folder on the computer. It still needs the computer awake to send data.</li>
+<li>The extension runs in Chrome on a computer, not on phones, and is not on the Chrome Web Store yet.</li>
+</ul>
+
+<div class="try">
+<p><strong>Uploft</strong> is free, and its source code is public. It is not on the Chrome Web Store yet; the home page shows what it does and what it asks for.</p>
+<p><a class="pill ink" href="../">See Uploft</a></p>
+</div>
+
+<h2 id="sources">Sources</h2>
+<p><strong>Checked on 29 October 2026.</strong></p>
+<ul class="sources">
+<li>Chrome for Developers: <a href="https://developer.chrome.com/docs/extensions/reference/api/power">chrome.power API</a> (keep-awake levels).</li>
+<li>Google Chrome Help: <a href="https://support.google.com/chrome/answer/12929150">Personalize Chrome performance</a> (Memory Saver).</li>
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+<li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Manage uploads, including resumable uploads</a>.</li>
+<li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (keep-awake, retry and upload engine).</li>
+</ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Chrome, sleep and tabs">
+        <a class="series-previous" href="./can-google-drive-upload-in-the-background.html"><span>Previous</span> Can Google Drive keep uploading in the background on a computer?</a>
+        <a class="series-hub" href="./can-google-drive-upload-in-the-background.html"><span>Guide</span> Can Google Drive keep uploading in the background on a computer?</a>
+      </nav>
+      <!-- series:end -->
+<section class="related">
+<h2>Related</h2>
+<ul>
+<li><a href="./can-google-drive-upload-in-the-background.html">Can Google Drive upload in the background?</a></li>
+<li><a href="./google-drive-upload-keeps-stopping.html">Why does my Google Drive upload keep stopping?</a></li>
+<li><a href="./upload-large-video-to-google-drive.html">How do I upload a large video to Google Drive?</a></li>
+<li><a href="./">All Google Drive upload guides</a></li>
+</ul>
+</section>
+</div>
+</div>
+<!-- rail:start -->
+<aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- rail:end -->
+</div>
+</article>
+</main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

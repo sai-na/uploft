@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Upload to a shared drive in Google Drive: how-to</title>
+    <meta
+      name="description"
+      content="Upload to a Google Drive shared drive or shared folder: the role you need, how folder uploads work, and how to pick the destination in the extension."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/upload-to-shared-drive-google-drive.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Upload to a shared drive in Google Drive: how-to"
+    />
+    <meta
+      property="og:description"
+      content="Upload to a Google Drive shared drive or shared folder: the role you need, how folder uploads work, and how to pick the destination in the extension."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/upload-to-shared-drive-google-drive.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-dark.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I upload files and folders to a shared drive or shared folder?",
+            "description": "Upload to a Google Drive shared drive or shared folder: the role you need, how folder uploads work, and how to pick the destination in the extension.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/upload-to-shared-drive-google-drive.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-dark.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I upload files and folders to a shared drive or shared folder?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+<article class="post">
+<div class="post-grid has-toc">
+<!-- toc:start -->
+<nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ol>
+    <li><a href="#shared-drive-vs-shared-folder">What is the difference between a shared drive and a shared folder?</a></li>
+    <li><a href="#which-role-do-i-need">Which role do I need to upload?</a></li>
+    <li><a href="#how-do-i-upload-a-folder-to-a-shared-drive">How do I upload a folder to a shared drive?</a></li>
+    <li><a href="#where-does-the-uploader-send-files">Where does Uploft send files?</a></li>
+    <li><a href="#what-are-the-limits">What are the limits?</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+  <script src="../assets/blog/toc.js" defer></script>
+</nav>
+<!-- toc:end -->
+<div class="prose-card">
+<header class="post-head">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Uploft</a> › <a href="./">Guides</a></nav>
+<h1>How do I upload files and folders to a shared drive or shared folder?</h1>
+<p class="updated">Published <time datetime="2026-10-29">29 October 2026</time> · Updated <time datetime="2026-10-29">29 October 2026</time> · By <a href="../about.html" rel="author">Sai Nath</a></p>
+</header>
+<p class="answer">Open the shared drive or shared folder in Google Drive, then drag files in or use New ▸ File upload or Folder upload. You need Contributor or higher on a shared drive, or Editor on a shared folder. In Uploft, choose the destination in its folder picker, which has a Shared drives tab.</p>
+<p class="disclosure">This guide comes from the maker of Uploft, the Chrome extension mentioned below. Google's roles and limits link to Google's own pages and were checked on 29 October 2026; what the extension does comes from its source code.</p>
+<div class="prose">
+<h2 id="shared-drive-vs-shared-folder">What is the difference between a shared drive and a shared folder?</h2>
+<p>A shared drive is a space owned by a team. A shared folder is a folder in someone's My Drive that they have shared. Google says "Unlike files in My Drive, files in a shared drive belong to the team instead of an individual", and "Even if members leave, the files stay exactly where they are".</p>
+<p>The difference matters to uploaders too. Drive's API treats shared drives as a separate case: Google's developer guide says apps must send <code>supportsAllDrives=true</code> when creating files so that Drive knows the app can handle shared drive items.</p>
+
+<h2 id="which-role-do-i-need">Which role do I need to upload?</h2>
+<p>On a shared drive, Contributor, Content manager or Manager can add files in the web interface; Drive for desktop needs Content manager or Manager. On a shared folder, Editor.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Where</th><th>Role</th><th>Can add files?</th></tr></thead>
+<tbody>
+<tr><td>Shared drive</td><td>Manager, Content manager</td><td>Yes</td></tr>
+<tr><td>Shared drive</td><td>Contributor</td><td>Yes in the web interface; Google says only read access in Drive for desktop</td></tr>
+<tr><td>Shared drive</td><td>Commenter, Viewer</td><td>No</td></tr>
+<tr><td>Shared folder</td><td>Editor</td><td>Yes (Editors can add new files)</td></tr>
+<tr><td>Shared folder</td><td>Commenter, Viewer</td><td>No</td></tr>
+</tbody></table></div>
+<p>If the upload option is missing or greyed out, the role is the usual reason. Ask a manager of the drive, or the folder's owner, to change it.</p>
+
+<h2 id="how-do-i-upload-a-folder-to-a-shared-drive">How do I upload a folder to a shared drive?</h2>
+<ol>
+<li>Open <strong>drive.google.com</strong> and choose <strong>Shared drives</strong> in the left menu.</li>
+<li>Open the shared drive, and the subfolder if you want one.</li>
+<li>Choose <strong>New</strong> ▸ <strong>Folder upload</strong>, pick the folder, and keep the tab open until it finishes. Single files use <strong>File upload</strong>, or drag them into the window.</li>
+</ol>
+<p>With Uploft, the steps are different because the uploader is its own page:</p>
+<ol>
+<li>Open the uploader from the extension's toolbar icon ▸ <strong>Upload files to Drive</strong>.</li>
+<li>Press the <strong>Upload to</strong> button and, in Google's folder picker, open the <strong>Shared drives</strong> tab (a <strong>Shared with me</strong> tab is there for shared folders). Choose the folder or the drive's top level.</li>
+<li>Choose <strong>Choose folder</strong>, or drag a folder into the window. Folders keep their structure in Drive.</li>
+<li>Set <strong>At a time</strong> (1 to 6 files) and <strong>If already in Drive</strong> (Skip it, Replace it or Keep both) if the defaults of 3 and Skip don't fit.</li>
+</ol>
+<figure data-todo="The uploader's folder picker (Google Picker window titled 'Choose a folder to upload into') with the Shared drives tab selected and a demo shared drive's folders listed; demo account, no real company names."></figure>
+
+<h2 id="where-does-the-uploader-send-files">Where does Uploft send files?</h2>
+<p>To the folder you pick. Until you pick one, files go to a folder called "Uploft" in My Drive. If you open the uploader while a Drive folder is open in the current tab, a banner asks "Upload into the folder you had open in Drive?" and a <strong>Use that folder</strong> button opens the picker at that folder. The extension asks Google for the narrowest Drive permission, <code>drive.file</code>, so it only reaches files it uploaded and folders you choose in the picker; this is why the folder has to be picked rather than typed in.</p>
+<figure>
+  <img
+    src="../assets/blog/opened-folder-1x.webp"
+    srcset="../assets/blog/opened-folder-1x.webp 1280w, ../assets/blog/opened-folder-2x.webp 2560w"
+    sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+    alt="The top of the uploader: Upload to shows Client projects, and a banner asks Upload into the folder you had open in Drive? with a Use that folder button"
+    width="1280"
+    height="214"
+    loading="lazy"
+  />
+  <figcaption>Opened from a folder in Drive, the uploader offers that folder; Upload to shows where files go now (demo account).</figcaption>
+</figure>
+
+<h2 id="what-are-the-limits">What are the limits?</h2>
+<ul>
+<li>Your role decides everything. The extension cannot give itself more access than your account has.</li>
+<li>Skip, Replace and Keep both only see files the extension uploaded itself.</li>
+<li>The uploader must stay open while files send; it resumes after a closed tab or restart, as <a href="./resume-google-drive-upload.html">the resume guide</a> explains.</li>
+<li>For a folder kept in sync all the time, <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a> is Google's own app.</li>
+<li>It needs Chrome 116 or later on a computer and a Google account. It isn't on the Chrome Web Store yet, and Google's sign-in screen is in testing, so only listed test users can sign in for now.</li>
+</ul>
+
+<div class="try"><p><strong>Uploft</strong> is free, and its source code is public. It isn't on the Chrome Web Store yet; the home page shows what it does and what it asks for.</p><p><a class="pill ink" href="../">See Uploft</a></p></div>
+
+<h2 id="sources">Sources</h2>
+<p><strong>Checked on 29 October 2026.</strong></p>
+<ul class="sources">
+<li>Google Workspace Help: <a href="https://support.google.com/a/users/answer/9310351">Learn about shared drives</a> (team ownership).</li>
+<li>Google Workspace Help: <a href="https://support.google.com/a/users/answer/9310249">Shared drive access levels</a> (who can add files).</li>
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/7166529">Share files from Google Drive</a> (Editor on a folder).</li>
+<li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/enable-shareddrives">Implement shared drive support</a> (supportsAllDrives).</li>
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+<li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (folder picker, upload engine) and <a href="../privacy.html">privacy policy</a>.</li>
+</ul>
+
+<section class="related"><h2>Related</h2><ul><li><a href="./google-workspace-drive-upload-limit.html">Are Google Drive upload limits different on a work or school account?</a></li><li><a href="./google-drive-upload-limits.html">What are the Google Drive upload limits?</a></li><li><a href="./upload-folder-to-google-drive.html">How do I upload a whole folder to Google Drive?</a></li><li><a href="./">All Google Drive upload guides</a></li></ul></section>
+</div>
+</div>
+<!-- rail:start -->
+<aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- rail:end -->
+</div>
+</article>
+</main>
+
+<footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive stuck on Preparing to upload: fixes</title>
+    <meta
+      name="description"
+      content="Drive stuck on 'Preparing to upload' with a big folder? Why thousands of files stall it, how to upload in smaller batches, and how long to wait."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-preparing-upload-stuck.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive stuck on Preparing to upload: fixes"
+    />
+    <meta
+      property="og:description"
+      content="Drive stuck on 'Preparing to upload' with a big folder? Why thousands of files stall it, how to upload in smaller batches, and how long to wait."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-preparing-upload-stuck.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Why is Google Drive stuck on 'Preparing to upload'?",
+      "description": "Drive stuck on 'Preparing to upload' with a big folder? Why thousands of files stall it, how to upload in smaller batches, and how long to wait.",
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "inLanguage": "en-GB",
+      "author": {
+        "@type": "Person",
+        "name": "Sai Nath",
+        "url": "https://sai-na.github.io/uploft/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Meru Apps"
+      },
+      "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-preparing-upload-stuck.html",
+      "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Uploft",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome 116 or later",
+        "url": "https://sai-na.github.io/uploft/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Uploft",
+          "item": "https://sai-na.github.io/uploft/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://sai-na.github.io/uploft/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Why is Google Drive stuck on 'Preparing to upload'?"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#slow-or-stuck">Is it slow or really stuck?</a></li>
+              <li><a href="#huge-folders">Huge folders</a></li>
+              <li><a href="#smaller-batches">Upload in smaller batches</a></li>
+              <li><a href="#taking-forever">Why is it taking forever?</a></li>
+              <li><a href="#what-the-extension-does">What the extension does and what it can&#x27;t</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Why is Google Drive stuck on 'Preparing to upload'?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Drive says Preparing to upload while the browser reads the list
+              of files you chose, before any file is sent. With a folder of
+              thousands of files, that step can take a long time. Wait a few
+              minutes first. If it still shows nothing, cancel, then upload the
+              folder in smaller batches, one subfolder at a time.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="slow-or-stuck">Is it slow or really stuck?</h2>
+              <p>
+                Google does not document the Preparing to upload message or say
+                how long it should last, so any exact time quoted for it is a
+                guess. What can be said is how the step works. Before a file
+                can be sent, the browser has to list the files in the folder
+                and open each one to read its name and size. A few files take
+                no time; thousands take a while, and the screen can look frozen
+                while it counts. The test is the size of the job:
+              </p>
+              <div class="table-wrap"><table>
+                <thead>
+                  <tr><th>What you chose</th><th>What to expect</th><th>Try first</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>A few files or a small folder</td>
+                    <td>Preparing should pass in seconds</td>
+                    <td>Reload the Drive tab and try again; check <strong>Storage</strong> in the left-hand menu</td>
+                  </tr>
+                  <tr>
+                    <td>A folder with thousands of files</td>
+                    <td>A long preparing step is likely, and it may be working</td>
+                    <td>Wait a few minutes, then <a href="#smaller-batches">split it into batches</a></td>
+                  </tr>
+                  <tr>
+                    <td>A folder on an external, network or synced drive</td>
+                    <td>Reading each file is slower than on the computer's own disk</td>
+                    <td>Copy the folder to the computer first, or upload it in batches</td>
+                  </tr>
+                  <tr>
+                    <td>Preparing for a long time, then the panel never appears</td>
+                    <td>The tab is stalled or out of memory</td>
+                    <td>Reload, then upload fewer files at once</td>
+                  </tr>
+                </tbody>
+              </table></div>
+              <p>
+                The table gives likely causes from how folder uploads work, not
+                from a Google list. If the upload panel has not appeared at
+                all, rule out the browser first; see
+                <a href="./cant-upload-folder-to-google-drive.html">why a folder won't upload</a>.
+              </p>
+              <figure data-todo="Screenshot of drive.google.com's own upload panel showing 'Preparing to upload' (or the equivalent preparing message) after choosing a large folder, taken by the owner on a demo account with a folder of a few thousand small files. Show the whole panel; no real account details."></figure>
+
+              <h2 id="huge-folders">Huge folders</h2>
+              <p>
+                A large file count is the usual reason for a long Preparing
+                step, because the work is per file, not per gigabyte. A folder
+                of 20,000 small photos has far more to read than one 20 GB
+                video. Google's pages do not give a file count where folder
+                uploads stop working, so the safe course is to treat a folder
+                with thousands of files as a job to split up.
+              </p>
+              <p>
+                Some limits do exist. Google says each user can upload and
+                copy 750 GB to Drive within 24 hours, and a folder over that
+                cannot finish in one day however well it is prepared. Google's
+                limits page also says a shared drive can hold at most 500,000
+                items, counting files, folders, shortcuts and items in the
+                trash. Neither limit is the cause of a stall that happens
+                before the first file moves, but both matter when a folder is
+                very large.
+              </p>
+
+              <h2 id="smaller-batches">Upload in smaller batches</h2>
+              <p>
+                Splitting the folder keeps each preparing step short and
+                shows progress sooner. Splitting by subfolder keeps the
+                structure, so nothing needs sorting afterwards.
+              </p>
+              <ol>
+                <li>Cancel the stuck upload and reload the Drive tab.</li>
+                <li>Choose a target size. For example, a folder of 20,000 files split into batches of 2,000 files gives 20,000 ÷ 2,000 = 10 batches.</li>
+                <li>Upload the first batch: click <strong>New</strong>, then <strong>Folder upload</strong>, and pick one subfolder, or drag a group of files into the Drive window.</li>
+                <li>Keep the tab open until Drive's upload panel says the batch has finished, then start the next.</li>
+                <li>Upload the batches into the same Drive folder. Note which batches are done, so none is uploaded twice.</li>
+              </ol>
+              <p>
+                Folder upload and drag and drop are the methods on Google's help page,
+                <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>;
+                the batching is this guide's advice, not Google's.
+                <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a>
+                is an app that syncs a folder on the computer to Drive instead
+                of running in a browser tab, which is another way to move a
+                very large folder. Zipping a
+                folder first gives Drive one file to read instead of
+                thousands, but the folder then arrives as one .zip that has to
+                be unpacked, and a failure restarts the whole archive.
+              </p>
+
+              <h2 id="taking-forever">Why is it taking forever?</h2>
+              <p>
+                Once the files start, the time is set by upload speed, not by
+                preparing. Time in seconds is the size in megabits divided by
+                the speed in megabits per second. Worked example: 100 GB is
+                100 × 8,000 = 800,000 megabits; on a 20 Mbps upload line,
+                800,000 ÷ 20 = 40,000 seconds, which is 11 hours 7 minutes.
+                Home upload speeds are often far lower than download speeds,
+                so check the upload figure, not the download one. The page
+                <a href="./how-long-to-upload-to-google-drive.html">how long an upload takes</a>
+                has the same sum for any size and speed.
+              </p>
+
+              <h2 id="what-the-extension-does">What the extension does and what it can't</h2>
+              <p>
+                Uploft is a free Chrome extension (Chrome 116
+                or later, on a computer) with an uploader page of its own. It
+                suits a big folder in a few ways, and has one limit to know.
+              </p>
+              <ul>
+                <li><strong>One queue.</strong> Choose <strong>Choose folder</strong> (or drop the folder) and every file in it becomes its own row in the list, with its folder path. <strong>At a time</strong> runs 1 to 6 at once, 4 by default; the rest show <strong>Waiting</strong>.</li>
+                <li><strong>Batches without losing the rest.</strong> Choose one subfolder after another and every file joins the same queue. Pause all and Resume all hold the queue without losing what is sent.</li>
+                <li><strong>No big file blocks the others.</strong> A file that cannot be sent is marked failed after 20 failed tries in a row with no progress, and the rest carry on. Each failed file has a <strong>Retry</strong> button.</li>
+                <li><strong>Survives a restart.</strong> If Chrome closes, choose the files again or press <strong>Resume</strong> and each file continues from what Drive already holds.</li>
+              </ul>
+              <figure>
+                <img
+                  src="../assets/blog/uploading.webp"
+                  alt="The Uploft uploader page with four files uploading at once while two more wait their turn"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  A queue in the extension's own uploader: four files going, two waiting. Screenshot from a demo account, so the files and
+                  speeds are examples.
+                </figcaption>
+              </figure>
+              <p>
+                The limit: the uploader also has to list the folder before it
+                can queue it. It opens the files one at a time, and the rows
+                appear when that finishes, so a folder of many thousands of
+                files can take a while to show up in the extension too. It
+                does not make that step faster; splitting a very large folder
+                into subfolders keeps it short. It also cannot fix a full
+                Google storage or the 750 GB daily limit. Uploft for
+                Drive is not on the Chrome Web Store yet.
+              </p>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>.</li>
+                <li>Google Workspace Admin Help: <a href="https://support.google.com/a/answer/7338880">Google Drive limits</a> (750 GB per user in 24 hours; 500,000 items in a shared drive).</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (folder scan, upload queue, retry and resume).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Stuck uploads">
+        <a class="series-previous" href="./google-drive-upload-keeps-stopping.html"><span>Previous</span> Why does my Google Drive upload keep stopping?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-stuck.html"><span>Guide</span> Why is my Google Drive upload stuck, and what do I do?</a>
+        <a class="series-next" href="./pause-resume-google-drive-upload.html"><span>Next</span> Can you pause and resume a Google Drive upload?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./why-is-google-drive-upload-stuck.html">Why is my Google Drive upload stuck, and what do I do?</a></li>
+                  <li><a href="./upload-folder-to-google-drive.html">How to upload a folder to Google Drive</a></li>
+                  <li><a href="./cant-upload-folder-to-google-drive.html">Why can't I upload a folder to Google Drive?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 {
-  "name": "upload-tracker-for-drive",
+  "name": "uploft",
   "version": "1.0.0",
   "description": "Chrome extension for tracking Google Drive upload progress with real-time notifications",
   "main": "index.js",
@@ -19,7 +19,7 @@
   "keywords": [
     "chrome-extension",
     "google-drive",
-    "upload-tracker",
+    "uploft",
     "notifications"
   ],
   "author": "",

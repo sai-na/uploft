@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive daily upload limit: 750 GB a day explained</title>
+    <meta
+      name="description"
+      content="Google documents a 750 GB per user, per 24 hours upload limit for Workspace. How it is counted, what happens mid-file, and a 3 TB plan."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-daily-upload-limit.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive daily upload limit: 750 GB a day explained"
+    />
+    <meta
+      property="og:description"
+      content="Google documents a 750 GB per user, per 24 hours upload limit for Workspace. How it is counted, what happens mid-file, and a 3 TB plan."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-daily-upload-limit.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "What is the Google Drive daily upload limit (750 GB)?",
+            "description": "Google documents a 750 GB per user, per 24 hours upload limit for Workspace. How it is counted, what happens mid-file, and a 3 TB plan.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {"@type": "Person", "name": "Sai Nath", "url": "https://sai-na.github.io/uploft/about.html"},
+            "publisher": {"@type": "Organization", "name": "Meru Apps"},
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-daily-upload-limit.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {"@type": "SoftwareApplication", "name": "Uploft", "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome 116 or later", "url": "https://sai-na.github.io/uploft/"}
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Uploft", "item": "https://sai-na.github.io/uploft/"},
+              {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://sai-na.github.io/uploft/blog/"},
+              {"@type": "ListItem", "position": 3, "name": "What is the Google Drive daily upload limit (750 GB)?"}
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+        <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#counted">How is the 750 GB counted?</a></li>
+              <li><a href="#in-progress">What happens to a file in progress?</a></li>
+              <li><a href="#plan">How to spread an upload over days</a></li>
+              <li><a href="#workspace">Does it apply to Workspace and personal accounts?</a></li>
+              <li><a href="#extension">What does Uploft do about it?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>What is the Google Drive daily upload limit (750 GB)?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Google says each Google Workspace user can upload and copy 750 GB to Drive in 24 hours, across My Drive
+              and all shared drives. After that, uploads and copies stop until 24 hours have passed. A 3 TB job
+              therefore needs at least four days, and five if uploaded in safe batches of 700 GB.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, a Chrome extension. Every Google limit below
+              links to Google's own pages and was checked on 29 October 2026. Google can change them, so the linked
+              page wins if it differs.
+            </p>
+
+            <div class="prose">
+              <h2 id="counted">How is the 750 GB counted?</h2>
+              <p>
+                Per user, not per file and not per folder. Google's
+                <a href="https://developers.google.com/workspace/drive/api/guides/limits">Drive API limits page</a>
+                says users can upload 750 GB per day between My Drive and all shared drives, and that the limit also
+                applies to copies. Its
+                <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Workspace limits page</a>
+                puts it as 750 GB uploaded and copied within 24 hours, and says the limit refreshes within 24 hours.
+                Google's pages describe a window of 24 hours, not a reset at midnight, so a plan should not rely on a
+                fixed clock time.
+              </p>
+              <p>
+                Two other limits sit beside it and are easy to confuse with it. A single file can be up to 5 TB, and a
+                file can only be copied up to 750 GB. See
+                <a href="./google-drive-upload-limits.html">all the Drive upload limits in one table</a>.
+              </p>
+
+              <h2 id="in-progress">What happens to a file in progress?</h2>
+              <p>
+                The file that crosses the limit is the last one to finish. Google's pages say only the first file that
+                breaks the limit completes uploading, and that a user who reaches 750 GB, or uploads a file larger
+                than 750 GB, can't upload or copy more files until 24 hours have passed. Files queued behind it are
+                refused.
+              </p>
+              <p>
+                An illustration, inferred from that wording rather than tested: with 700 GB already sent today, a 100 GB file can still start and finish, taking the
+                day to 800 GB. The next file is then refused. A single 900 GB file is allowed to complete once, and
+                nothing more goes up for 24 hours afterwards.
+              </p>
+
+              <h2 id="plan">How to spread an upload over days</h2>
+              <p>
+                Divide the total by 750 GB and round up. For 3 TB (3,000 GB): 3,000 ÷ 750 = 4 days. Because the file
+                that crosses the limit still finishes, batches of a little under 750 GB leave a margin; in batches of
+                700 GB the same job is 3,000 ÷ 700 = 4.3, so five days.
+              </p>
+              <ol>
+                <li>Sort the files into batches whose sizes add up to under 750 GB each.</li>
+                <li>Upload one batch, then wait until Google lets uploads through again, which its pages say is within 24 hours.</li>
+                <li>Check the storage: the limit is daily, but the total still has to fit in the account's storage.</li>
+              </ol>
+              <p>
+                Time matters too. At 100 Mbps, 750 GB takes 750 × 8,000 megabits ÷ 100 Mbps = 60,000 seconds, about
+                16 hours 40 minutes, so on a home connection the speed can be the tighter limit. See
+                <a href="./upload-1tb-to-google-drive.html">how to upload 1 TB to Google Drive</a>.
+              </p>
+
+              <h2 id="workspace">Does it apply to Workspace and personal accounts?</h2>
+              <p>
+                Google documents it for Google Workspace users. Its help page for personal accounts,
+                <a href="https://support.google.com/drive/answer/37603">Files you can store in Google Drive</a>, lists
+                the 5 TB file size and no daily figure, so this guide states the 750 GB limit as Google's Workspace
+                limit and does not promise the same number for a personal account. The
+                <a href="./google-workspace-drive-upload-limit.html">Workspace upload limit guide</a> covers it.
+              </p>
+
+              <h2 id="extension">What does Uploft do about it?</h2>
+              <p>
+                It does not raise or bypass the limit. Uploft is a free Chrome extension (Chrome 116
+                or later) with public source code. When Drive refuses an upload for the daily limit, the uploader
+                stops that file and shows "Drive daily upload limit reached (750 GB). Try again tomorrow" instead of
+                retrying a failure that cannot succeed. The uploader keeps its queue across a closed tab or restart, so the remaining files can be continued once Drive accepts uploads again.
+              </p>
+              <figure>
+                <img
+                  src="../assets/blog/daily-limit-1x.webp"
+                  srcset="../assets/blog/daily-limit-1x.webp 1040w, ../assets/blog/daily-limit-2x.webp 2080w"
+                  sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                  alt="The uploader&#x27;s list: Recap_edit.mov and Keynote_cam_A.MP4 uploaded, and three files marked failed with the red message Drive daily upload limit reached (750 GB). Try again tomorrow, each with Retry and Remove buttons"
+                  width="1040"
+                  height="498"
+                  loading="lazy"
+                />
+                <figcaption>When Drive reports its daily limit, each file still to go stops with this message instead of retrying; Retry sends it again once the limit refreshes (demo account).</figcaption>
+              </figure>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its source code is public. It isn't on the
+                  Chrome Web Store yet; the home page shows what it does and what it asks for.
+                </p>
+                <p><a class="pill ink" href="../">See Uploft</a></p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/limits">Google Drive API usage limits</a>.</li>
+                <li>Google Workspace Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/37603">Files you can store in Google Drive</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (error messages and upload engine).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Limits and quotas">
+        <a class="series-previous" href="./google-drive-upload-limits.html"><span>Previous</span> What are the Google Drive upload limits?</a>
+        <a class="series-hub" href="./google-drive-upload-limits.html"><span>Guide</span> What are the Google Drive upload limits?</a>
+        <a class="series-next" href="./google-drive-file-size-limit.html"><span>Next</span> What is the largest file you can upload to Google Drive?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./google-drive-upload-limits.html">What are the Google Drive upload limits?</a></li>
+                  <li><a href="./upload-1tb-to-google-drive.html">How to upload 1 TB to Google Drive</a></li>
+                  <li><a href="./google-workspace-drive-upload-limit.html">Google Workspace Drive upload limit</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+          
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>How to upload large files to Google Drive</title>
+    <meta
+      name="description"
+      content="Upload large files to Google Drive from the browser or Drive for desktop: the 5 TB file limit, 750 GB a day, how long it takes, and how to avoid restarts."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/upload-large-files-to-google-drive.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="How to upload large files to Google Drive"
+    />
+    <meta
+      property="og:description"
+      content="Upload large files to Google Drive from the browser or Drive for desktop: the 5 TB file limit, 750 GB a day, how long it takes, and how to avoid restarts."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/upload-large-files-to-google-drive.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-dark.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I upload large files to Google Drive?",
+            "description": "Upload large files to Google Drive from the browser or Drive for desktop: the 5 TB file limit, 750 GB a day, how long it takes, and how to avoid restarts.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/upload-large-files-to-google-drive.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-dark.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I upload large files to Google Drive?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#how-to-upload-a-large-file-from-the-browser">How to upload a large file from the browser</a></li>
+              <li><a href="#what-is-the-largest-file-google-drive-accepts">What is the largest file Google Drive accepts?</a></li>
+              <li><a href="#is-there-a-daily-upload-limit">Is there a daily upload limit?</a></li>
+              <li><a href="#how-long-will-a-large-upload-take">How long will a large upload take?</a></li>
+              <li><a href="#can-you-make-one-big-upload-faster">Can you make one big upload faster?</a></li>
+              <li><a href="#how-do-i-upload-big-files-without-watching-them">How do I upload big files without watching them?</a></li>
+              <li><a href="#limits-to-know">Limits to know</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How do I upload large files to Google Drive?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              On a computer, open drive.google.com and click New ▸ File upload,
+              or use Google Drive for desktop to upload in the background. One
+              file can be up to 5 TB, and Google Workspace accounts can upload
+              750 GB a day. Your upload speed sets the time: 50 GB at 20 Mbps
+              takes about 5.5 hours, so keep the computer awake.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="how-to-upload-a-large-file-from-the-browser">
+                How to upload a large file from the browser
+              </h2>
+              <ol>
+                <li>On your computer, go to drive.google.com.</li>
+                <li>
+                  At the top left, click <strong>New</strong> ▸
+                  <strong>File upload</strong>, or
+                  <strong>Folder upload</strong> for a whole folder. You can
+                  also drag files into the Drive window.
+                </li>
+                <li>
+                  Choose the file. Drive shows its progress in an upload panel.
+                </li>
+                <li>
+                  Keep the tab open, the computer awake and the connection up
+                  until it finishes. The upload runs in that tab, so closing it
+                  ends the upload.
+                </li>
+              </ol>
+              <p>
+                For a folder you add to often, Google's
+                <a href="https://support.google.com/drive/answer/10838124"
+                  >Google Drive for desktop</a
+                >
+                (Windows and macOS) is the other built-in way: it puts a "Google
+                Drive" folder on your computer, and files you drag into it
+                upload to Drive without a browser tab.
+              </p>
+
+              <h2 id="what-is-the-largest-file-google-drive-accepts">
+                What is the largest file Google Drive accepts?
+              </h2>
+              <p>
+                5 TB per file, according to Google's list of files you can store
+                in Drive. Files converted to Google's own formats have lower
+                limits: a text document converted to Google Docs can be up to 50
+                MB, and spreadsheets and presentations converted to Sheets or
+                Slides up to 100 MB. Videos, archives, disk images and other
+                files kept as they are only have the 5 TB limit.
+              </p>
+              <p>
+                The file also has to fit in your storage. A personal Google
+                Account includes up to 15 GB, shared by Drive, Gmail and Photos,
+                and once it is full, Google says you won't be able to upload
+                files to Drive.
+              </p>
+
+              <h2 id="is-there-a-daily-upload-limit">
+                Is there a daily upload limit?
+              </h2>
+              <p>
+                Yes, for Google Workspace accounts: 750 GB within 24 hours,
+                across My Drive and shared drives, copies included. Users who
+                reach it can't upload or copy more until the limit refreshes,
+                within 24 hours. A single file bigger than 750 GB can still
+                finish, because Google says the first file that breaks the limit
+                completes uploading. Google's help page for personal accounts
+                lists only the 5 TB file limit.
+              </p>
+              <p>
+                The daily limit only matters on fast connections. Uploading 750
+                GB in 24 hours means 750 × 8,000 = 6,000,000 megabits in 86,400
+                seconds, which needs about 69 Mbps of upload speed the whole
+                day. On a slower connection, the day runs out before the limit
+                does.
+              </p>
+
+              <h2 id="how-long-will-a-large-upload-take">
+                How long will a large upload take?
+              </h2>
+              <p>
+                Divide the size in megabits by your upload speed in megabits per
+                second. One gigabyte is 1,000 megabytes and one megabyte is 8
+                megabits, so 1 GB is 8,000 megabits.
+              </p>
+              <p>
+                Worked example: a 50 GB file on a 20 Mbps upload. 50 × 8,000 =
+                400,000 megabits, and 400,000 ÷ 20 = 20,000 seconds, which is 5
+                hours 33 minutes.
+              </p>
+              <div
+                class="table-wrap"
+                role="region"
+                aria-label="Upload time by file size and upload speed"
+                tabindex="0"
+              >
+                <table class="numbers">
+                  <thead>
+                    <tr>
+                      <th scope="col">Size</th>
+                      <th scope="col">10 Mbps</th>
+                      <th scope="col">20 Mbps</th>
+                      <th scope="col">50 Mbps</th>
+                      <th scope="col">100 Mbps</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">10 GB</th>
+                      <td>2 h 13 min</td>
+                      <td>1 h 7 min</td>
+                      <td>27 min</td>
+                      <td>13 min</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">50 GB</th>
+                      <td>11 h 7 min</td>
+                      <td>5 h 33 min</td>
+                      <td>2 h 13 min</td>
+                      <td>1 h 7 min</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">200 GB</th>
+                      <td>44 h 27 min</td>
+                      <td>22 h 13 min</td>
+                      <td>8 h 53 min</td>
+                      <td>4 h 27 min</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                These are best cases. Use your upload speed, not the download
+                speed a provider advertises: home connections often upload much
+                slower than they download. Other traffic on the same connection
+                adds time.
+              </p>
+
+              <h2 id="can-you-make-one-big-upload-faster">
+                Can you make one big upload faster?
+              </h2>
+              <p>
+                Not by much. The time is set by your connection's upload speed,
+                and the most that helps is giving the upload all of it: a wired
+                connection or a spot near the router, and pausing other uploads
+                and backups on the same network.
+              </p>
+              <p>
+                Splitting one file across several connections isn't possible
+                with Drive's resumable uploads. Google's upload guide has each
+                piece start where Drive's reply says the last one ended, so a
+                file's pieces go up one after another. Batches of many files are
+                different: each file has its own start and finish, so uploading
+                several at the same time can save time on a folder of many small
+                and medium files.
+              </p>
+
+              <h2 id="how-do-i-upload-big-files-without-watching-them">
+                How do I upload big files without watching them?
+              </h2>
+              <p>Two tools keep going without you:</p>
+              <h3>Google Drive for desktop</h3>
+              <p>
+                Google's own app syncs a folder on your computer with Drive in
+                the background, and you can pause and resume the sync. It suits
+                files you want kept in sync.
+              </p>
+              <h3>Uploft</h3>
+              <p>
+                A free Chrome extension whose uploader page is built for one-off
+                big uploads from the browser. Click its toolbar icon, then
+                <strong>Upload files to Drive</strong>, sign in with Google and
+                drop files or folders in.
+              </p>
+              <ul>
+                <li>
+                  It sends 1 to 6 files at a time, 4 by default, set under
+                  <strong>At a time</strong>.
+                </li>
+                <li>
+                  Big files go up in pieces that start at 8 MB. A piece that
+                  finishes in under 4 seconds makes the next one twice as big,
+                  up to 64 MB; one that takes over 20 seconds halves it. Big
+                  pieces mean fewer round trips on a fast line; small ones lose
+                  less when a slow line drops.
+                </li>
+                <li>
+                  After a Wi-Fi drop, a closed tab, a crash or a restart, it
+                  continues from the last byte Drive confirmed instead of
+                  starting again.
+                </li>
+                <li>
+                  While uploads run, it keeps the computer from sleeping and
+                  Chrome from unloading the tab.
+                </li>
+                <li>
+                  Folders keep their structure, and uploading the same folder
+                  again skips the files it already put there.
+                </li>
+              </ul>
+              <figure>
+                <img
+                  src="../assets/blog/dark.webp"
+                  alt="The Uploft uploader in dark mode with four files from a wedding shoot uploading at the same time and a summary line reading 16.6 GB of 75.4 GB, about 10 min left"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  Four files at a time in the uploader, in dark mode.
+                  Screenshot from a demo account, so the files and the speed are
+                  examples.
+                </figcaption>
+              </figure>
+              <p>
+                For one huge file it uploads at about the same speed as Drive's
+                own site. The difference is what happens when something
+                interrupts it: it carries on from where it was, not from zero.
+                <a href="./resume-google-drive-upload.html"
+                  >How resuming works</a
+                >.
+              </p>
+
+              <h2 id="limits-to-know">Limits to know</h2>
+              <ul>
+                <li>
+                  The uploader runs in a Chrome tab. Closing the tab stops its
+                  uploads; when you open it again, they continue from where they
+                  stopped after you press <strong>Resume</strong> or choose the
+                  files again.
+                </li>
+                <li>
+                  Drive keeps an unfinished upload for one week. After that, the
+                  file starts again from zero.
+                </li>
+                <li>
+                  Google's 750 GB daily limit and your storage still apply.
+                </li>
+                <li>
+                  It can only see files it uploaded and folders you choose for
+                  it, because it uses Google's narrowest Drive permission
+                  (drive.file). So "skip what's already there" only knows its
+                  own uploads.
+                </li>
+                <li>
+                  It runs in Chrome 116 or later on a computer, and it isn't on
+                  the Chrome Web Store yet.
+                </li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../"
+                    >See Uploft</a
+                  >
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/2424368"
+                    >Upload files &amp; folders to Google Drive</a
+                  >.
+                </li>
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/37603"
+                    >Files you can store in Google Drive</a
+                  >.
+                </li>
+                <li>
+                  Google Workspace Help:
+                  <a
+                    href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace"
+                    >Storage and upload limits for Google Workspace</a
+                  >.
+                </li>
+                <li>
+                  Google for Developers:
+                  <a
+                    href="https://developers.google.com/workspace/drive/api/guides/limits"
+                    >Google Drive API usage limits</a
+                  >.
+                </li>
+                <li>
+                  Google for Developers:
+                  <a
+                    href="https://developers.google.com/workspace/drive/api/guides/manage-uploads"
+                    >Upload file data</a
+                  >
+                  (resumable uploads).
+                </li>
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/6374270"
+                    >Manage your storage in Drive, Gmail &amp; Photos</a
+                  >.
+                </li>
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/10838124"
+                    >Use Google Drive for desktop</a
+                  >.
+                </li>
+                <li>
+                  Uploft:
+                  <a href="https://github.com/sai-na/uploft"
+                    >source code</a
+                  >
+                  (upload engine).
+                </li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Google Drive uploads">
+        <a class="series-previous" href="./resume-google-drive-upload.html"><span>Previous</span> Can you resume a Google Drive upload after it stops?</a>
+        <a class="series-hub" href="./upload-to-google-drive-from-computer.html"><span>Guide</span> How do I upload files and folders to Google Drive from a computer?</a>
+        <a class="series-next" href="./replace-file-google-drive-keep-link.html"><span>Next</span> How do I replace a file in Google Drive without changing the link?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li>
+                    <a href="./google-drive-upload-failed.html"
+                      >Why is my Google Drive upload failing or stuck?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="./resume-google-drive-upload.html"
+                      >Can you resume a Google Drive upload after it stops?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="./replace-file-google-drive-keep-link.html"
+                      >How do I replace a file in Google Drive without changing
+                      the link?</a
+                    >
+                  </li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

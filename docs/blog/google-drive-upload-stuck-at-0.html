@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive upload stuck at 0%? Causes and fixes</title>
+    <meta
+      name="description"
+      content="Why a Google Drive upload sits at 0% or on Starting upload: no connection, full storage, the 750 GB limit, sign-in or a bad file, and each fix."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-at-0.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive upload stuck at 0%? Causes and fixes"
+    />
+    <meta
+      property="og:description"
+      content="Why a Google Drive upload sits at 0% or on Starting upload: no connection, full storage, the 750 GB limit, sign-in or a bad file, and each fix."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-at-0.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Why is my Google Drive upload stuck at 0% or on 'Starting upload'?",
+            "description": "Why a Google Drive upload sits at 0% or on Starting upload: no connection, full storage, the 750 GB limit, sign-in or a bad file, and each fix.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {"@type": "Person", "name": "Sai Nath", "url": "https://sai-na.github.io/uploft/about.html"},
+            "publisher": {"@type": "Organization", "name": "Meru Apps"},
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-at-0.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {"@type": "SoftwareApplication", "name": "Uploft", "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome 116 or later", "url": "https://sai-na.github.io/uploft/"}
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Uploft", "item": "https://sai-na.github.io/uploft/"},
+              {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://sai-na.github.io/uploft/blog/"},
+              {"@type": "ListItem", "position": 3, "name": "Why is my Google Drive upload stuck at 0% or on 'Starting upload'?"}
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+
+<!-- toc:start -->
+<nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ol>
+    <li><a href="#check-these-first">Check these first</a></li>
+    <li><a href="#starting-upload-never-ends">What does &quot;Starting upload&quot; that never ends mean?</a></li>
+    <li><a href="#is-it-the-network-the-file-or-the-account">Is it the network, the file or the account?</a></li>
+    <li><a href="#what-does-a-restarted-piece-mean">What does a restarted piece mean?</a></li>
+    <li><a href="#when-to-cancel-and-retry">When to cancel and retry</a></li>
+    <li><a href="#how-does-uploft-help">How does Uploft help?</a></li>
+    <li><a href="#what-can-t-it-fix">What can&#x27;t it fix?</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+  <script src="../assets/blog/toc.js" defer></script>
+</nav>
+<!-- toc:end -->
+<div class="prose-card">
+<header class="post-head">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Uploft</a> › <a href="./">Guides</a></nav>
+<h1>Why is my Google Drive upload stuck at 0% or on 'Starting upload'?</h1>
+<p class="updated">Published <time datetime="2026-10-29">29 October 2026</time> · Updated <time datetime="2026-10-29">29 October 2026</time> · By <a href="../about.html" rel="author">Sai Nath</a></p>
+</header>
+
+<p class="answer">An upload stuck at 0% means Drive has not accepted any of the file yet. The usual causes are a dead or blocked connection, Google storage that is full, Google's 750 GB daily upload limit, an expired sign-in, or an unreadable file. Check storage first, then the connection and the file.</p>
+
+<p class="disclosure">This guide comes from the maker of Uploft, the Chrome extension mentioned below. Google's limits and behaviour link to Google's own pages, checked on 29 October 2026; what the extension does comes from its source code.</p>
+
+<div class="prose">
+<h2 id="check-these-first">Check these first</h2>
+<p>Work down the list. The first two are account limits that no retry gets past.</p>
+<ol>
+<li><strong>Your storage.</strong> In Drive, click <strong>Storage</strong> in the left-hand menu. Google says that once you reach your limit, "you won't be able to upload or create files in Drive". A personal Google Account includes up to 15 GB, shared by Drive, Gmail and Photos.</li>
+<li><strong>The daily limit.</strong> Google's Workspace limits page says each user can upload and copy 750 GB to Drive within 24 hours. After that, uploads stop until the limit refreshes.</li>
+<li><strong>Your connection.</strong> Open any other website. If pages do not load, the upload cannot start either. Reconnect, then retry.</li>
+<li><strong>Your sign-in.</strong> Open drive.google.com in a new tab. If Google asks you to sign in again, do it, then retry the upload.</li>
+<li><strong>The file.</strong> If one file stays at 0% while others go up, check that it opens on your computer and is not on an external drive or network folder that disconnected.</li>
+</ol>
+
+<h2 id="starting-upload-never-ends">What does "Starting upload" that never ends mean?</h2>
+<p>It means the upload has not begun sending data. A Drive upload takes two steps: the browser first asks Drive to open an upload session, then sends the file's bytes to it. Google's developer documentation describes the session as the first request, whose response carries the address the data is then sent to. If that first step is refused or never answers, the progress stays at 0%.</p>
+<p>A full storage quota, the daily limit, an expired sign-in and a blocked connection all end up here, because each stops the session from opening or the first bytes from arriving. The checklist above covers them in order of how often they are the cause.</p>
+
+<h2 id="is-it-the-network-the-file-or-the-account">Is it the network, the file or the account?</h2>
+<p>Tell them apart by what else still works.</p>
+<ul>
+<li><strong>Nothing loads, or other tabs are slow too:</strong> the network. Wait for it, or switch to another connection, then retry.</li>
+<li><strong>Websites load but every upload sits at 0%:</strong> the account. Check storage and the daily limit, and whether you are signed in to the right account. With several Google accounts open in one browser, Drive can upload to a different one from the one you expect.</li>
+<li><strong>One file sits at 0% and the rest finish:</strong> the file. Try a copy of it saved under a new name, or from the computer's internal disk.</li>
+<li><strong>A shared folder only:</strong> the permission on that folder. You need to be allowed to add files to it.</li>
+</ul>
+
+<h2 id="what-does-a-restarted-piece-mean">What does a restarted piece mean?</h2>
+<p>It means the connection moved no data for a while, so the uploader stopped that request and sent the same piece again. Uploft splits a file into pieces and gives each request a watchdog: if no bytes move for 60 seconds, the request is aborted and the file shows "Connection stalled. Retrying in" a few seconds.</p>
+<p>The retry does not start the file over. Drive's resumable uploads let a client ask how many bytes the server holds and continue from the next one. Google describes this as an empty <code>PUT</code> to the session address, and a <code>308 Resume Incomplete</code> reply whose <code>Range</code> header lists the bytes received. If no <code>Range</code> header comes back, no bytes were received, and the upload goes on from the start of the file.</p>
+<p>A session expires after a week; Google says a <code>404</code> means the session has expired and the upload must start from the beginning. The uploader does the same and opens a new session.</p>
+
+<h2 id="when-to-cancel-and-retry">When to cancel and retry</h2>
+<ul>
+<li><strong>Wait</strong> if the percentage is moving, even slowly, or the file says it is retrying. A retry has a reason and a timer.</li>
+<li><strong>Retry</strong> once the cause is fixed: storage freed, connection back, signed in again. In Drive's own upload panel, use <strong>Retry</strong> on the failed file.</li>
+<li><strong>Cancel and start again</strong> if a file has sat at 0% for several minutes with a working connection and enough storage. Reload drive.google.com first, then upload the file again.</li>
+<li><strong>Stop retrying</strong> if the message names a limit: full storage or the 750 GB limit. Free space, or wait until the limit refreshes, which Google says happens within 24 hours.</li>
+</ul>
+
+<h2 id="how-does-uploft-help">How does Uploft help?</h2>
+<p>Uploft is a free Chrome extension (Chrome 116 or later) with two parts. On drive.google.com, a tracker presses Drive's own <strong>Retry</strong> button after 5, 20 and 60 seconds when an upload fails, and waits for the network if the computer is offline. It also keeps the computer awake from inactivity while uploads run, and stops Chrome from discarding the uploading tab.</p>
+<p>Its own uploader (toolbar icon, then <strong>Upload files to Drive</strong>, then sign in with Google) goes further for a stuck start:</p>
+<ul>
+<li>A file shows <strong>Starting</strong> while it opens the upload session, then the bytes sent out of the total.</li>
+<li>A piece that moves no bytes for 60 seconds is restarted, as described above.</li>
+<li>Server errors and rate limits are retried after about 1, 2, 4 seconds and so on, up to a minute apart. After 20 failed tries in a row with no progress, the file is marked failed.</li>
+<li>Offline time does not count as failed tries; the file shows "Waiting for the network".</li>
+<li>Causes a retry cannot fix stop at once with a plain reason, such as "Your Google storage is full", "Drive daily upload limit reached (750 GB). Try again tomorrow" or "Sign in again to continue".</li>
+</ul>
+<figure>
+  <img
+    src="../assets/blog/retrying-1x.webp"
+    srcset="../assets/blog/retrying-1x.webp 1280w, ../assets/blog/retrying-2x.webp 2560w"
+    sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+    alt="Three uploads in the uploader: Cam_A_ceremony.MP4 shows the amber line Network connection lost. Retrying in 7 s, while Cam_B_ceremony.MP4 and Drone_ceremony.MP4 keep uploading"
+    width="1280"
+    height="730"
+    loading="lazy"
+  />
+  <figcaption>A file that can't reach Drive shows why and retries on its own, while the other files keep uploading (demo account).</figcaption>
+</figure>
+<p>See also <a href="./resume-google-drive-upload.html">how resuming a Drive upload works</a>.</p>
+
+<h2 id="what-can-t-it-fix">What can't it fix?</h2>
+<ul>
+<li>A full Google storage or the daily limit. Those are Google's limits.</li>
+<li>A computer with no working internet connection, or a network that blocks Google.</li>
+<li>A file Chrome cannot read, or a folder you have no permission to add to.</li>
+<li>An upload in Drive's own tab still ends if that tab is closed. Only the extension's uploader picks up after a closed tab.</li>
+<li>It runs in Chrome on a computer, not on phones, and it is not on the Chrome Web Store yet.</li>
+</ul>
+
+<div class="try">
+<p><strong>Uploft</strong> is free, and its source code is public. It is not on the Chrome Web Store yet; the home page shows what it does and what it asks for.</p>
+<p><a class="pill ink" href="../">See Uploft</a></p>
+</div>
+
+<h2 id="sources">Sources</h2>
+<p><strong>Checked on 29 October 2026.</strong></p>
+<ul class="sources">
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your storage in Drive, Gmail &amp; Photos</a>.</li>
+<li>Google Workspace Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a>.</li>
+<li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Upload file data (resumable uploads)</a>.</li>
+<li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (upload engine and Drive client).</li>
+</ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Stuck uploads">
+        <a class="series-previous" href="./why-is-google-drive-upload-stuck.html"><span>Previous</span> Why is my Google Drive upload stuck, and what do I do?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-stuck.html"><span>Guide</span> Why is my Google Drive upload stuck, and what do I do?</a>
+        <a class="series-next" href="./google-drive-upload-stuck-at-100.html"><span>Next</span> Why is my Google Drive upload stuck at 100%?</a>
+      </nav>
+      <!-- series:end -->
+<section class="related">
+<h2>Related</h2>
+<ul>
+<li><a href="./why-is-google-drive-upload-stuck.html">Why is my Google Drive upload stuck, and what do I do?</a></li>
+<li><a href="./google-drive-upload-stuck-on-waiting.html">Why does my Google Drive upload say 'Waiting' and never start?</a></li>
+<li><a href="./">All Google Drive upload guides</a></li>
+</ul>
+</section>
+</div>
+</div>
+<!-- rail:start -->
+<aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

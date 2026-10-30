@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Does Google Drive overwrite a file or make a copy?</title>
+    <meta
+      name="description"
+      content="Uploading a same-name file on drive.google.com adds a new version; Keep both files makes a copy. How Skip, Replace and Keep both differ."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-overwrite-or-duplicate.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Does Google Drive overwrite a file or make a copy?"
+    />
+    <meta
+      property="og:description"
+      content="Uploading a same-name file on drive.google.com adds a new version; Keep both files makes a copy. How Skip, Replace and Keep both differ."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-overwrite-or-duplicate.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-replaced.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Does Google Drive overwrite a file with the same name or make a copy?",
+            "description": "Uploading a same-name file on drive.google.com adds a new version; Keep both files makes a copy. How Skip, Replace and Keep both differ.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-overwrite-or-duplicate.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-replaced.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Does Google Drive overwrite a file with the same name or make a copy?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#new-version-or-copy">New version or a &quot;(1)&quot; copy?</a></li>
+              <li><a href="#keep-both-on-drive">How do I keep both files on drive.google.com?</a></li>
+              <li><a href="#skip-replace-keep-both">Which should I choose: Skip, Replace or Keep both?</a></li>
+              <li><a href="#why-differ-by-tool">Why does it differ by tool?</a></li>
+              <li><a href="#what-are-the-limits">What are the limits?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Does Google Drive overwrite a file with the same name or make a copy?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Neither is fixed. Google's upload help says that uploading a file with the same name on drive.google.com adds it as a revision of the file already in Drive, so it overwrites nothing and makes no copy. To get two separate files, click Keep both files. Other tools choose for themselves, and Uploft lets you pick.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the Chrome extension mentioned below. Google's behaviour links to Google's own pages and was checked on 29 October 2026; what the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="new-version-or-copy">New version or a "(1)" copy?</h2>
+              <p>
+                On drive.google.com, a same-name upload becomes a new version. Google's help says: "If you upload a file with the same name, Google Drive will upload the file as a revision of the file already in Google Drive." The file keeps its ID, so its link and sharing stay, and the older contents sit in Manage versions. The steps and the retention rules are in
+                <a href="./replace-file-google-drive-keep-link.html">how to replace a file without changing the link</a>.
+              </p>
+              <p>
+                A copy appears only when you ask for one, or when a tool creates a new file instead of updating the old one. That is a difference between tools, not a Drive rule: the Drive API has separate calls to create a file and to update an existing one.
+              </p>
+
+              <h2 id="keep-both-on-drive">How do I keep both files on drive.google.com?</h2>
+              <ol>
+                <li>On your computer, go to drive.google.com and upload the file.</li>
+                <li>When Drive asks about the same-name file, click <strong>Keep both files</strong>.</li>
+              </ol>
+              <p>Google lists these as the steps "To keep both files". The wording of the prompt can change, so check it against your screen.</p>
+              <figure data-todo="Drive's own dialog or progress card on drive.google.com after uploading a same-name file, showing the Keep both files choice; taken by the owner on a test account and cropped to the dialog"></figure>
+
+              <h2 id="skip-replace-keep-both">Which should I choose: Skip, Replace or Keep both?</h2>
+              <p>
+                Uploft's uploader has a setting called <strong>If already in Drive</strong> with three choices. It compares each file with files of the same name in the destination folder:
+              </p>
+              <div class="table-wrap" role="region" aria-label="What each If already in Drive setting does" tabindex="0">
+                <table class="stack">
+                  <thead><tr><th scope="col">Setting</th><th scope="col">What happens</th><th scope="col">Pick it when</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Skip it (the default)</th><td data-label="What happens">A file of the same name and size is skipped ("Already in Drive, skipped"). Same name but a different size is uploaded as a second file.</td><td data-label="Pick it when">You are re-running a folder and want nothing uploaded twice.</td></tr>
+                    <tr><th scope="row">Replace it</th><td data-label="What happens">A changed file becomes a new version of the one in Drive ("Replaced"). Same size and modified time is skipped.</td><td data-label="Pick it when">You updated files and want the same links to open the new contents.</td></tr>
+                    <tr><th scope="row">Keep both</th><td data-label="What happens">Always uploaded as a second file.</td><td data-label="Pick it when">You want every upload kept as its own file.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <figure>
+                <img src="../assets/blog/replaced-crop.webp" alt="Finished uploads in the uploader: four files marked Uploaded, Highlights_final.mov marked Replaced, and a summary reading All uploads finished, 5 uploaded, 1 already in Drive" width="960" height="425" loading="lazy" />
+                <figcaption>With Replace it on, one file became a new version of the copy in Drive ("Replaced") and an unchanged file was skipped. Screenshot from a demo account.</figcaption>
+              </figure>
+              <p>
+                Replace sends the new contents to the same Drive file ID, which is why the link survives. Keep both and Skip never touch an existing file. The sizes and modified times it compares are described in the
+                <a href="./replace-file-google-drive-keep-link.html">replace guide</a>; skipping repeat uploads has its own page, <a href="./google-drive-upload-skip-duplicates.html">skipping duplicates in Google Drive uploads</a>.
+              </p>
+
+              <h2 id="why-differ-by-tool">Why does it differ by tool?</h2>
+              <p>
+                Because a tool has to decide what a same-name upload means, and Drive itself lets a tool do either. Google's developer guide describes one call to create a file ("use the create method on the files resource") and a separate one to change a file that exists ("To update an existing file, use PATCH"). A tool that always creates gives you a second file; one that updates gives you a new version.
+              </p>
+              <p>
+                The extension does both on purpose: Replace updates the existing file, Keep both creates a new one. Google's own desktop app, Drive for desktop, is another way to upload; how it treats same-name files is for Google's help, not this page.
+              </p>
+
+              <h2 id="what-are-the-limits">What are the limits?</h2>
+              <ul>
+                <li>Skip and Replace only know about files the extension uploaded itself, because it uses the narrow drive.file permission. A same-name file put there another way is invisible to it, so a second file is added.</li>
+                <li>Old versions follow Drive's retention rules, so they can be deleted after a time unless kept forever.</li>
+                <li>It runs in Chrome 116 or later on a computer, and it is not on the Chrome Web Store yet.</li>
+              </ul>
+
+              <div class="try">
+                <p><strong>Uploft</strong> is free, and its source code is public. It isn't on the Chrome Web Store yet; the home page shows what it does and what it asks for.</p>
+                <p><a class="pill ink" href="../">See Uploft</a></p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a> (same name uploads as a revision; Keep both files).</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2409045">Check activity &amp; file versions</a> (Manage versions).</li>
+                <li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Upload file data</a> (create and update).</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (Skip, Replace and Keep both) and <a href="../privacy.html">privacy policy</a>.</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Replacing files and versions">
+        <a class="series-next" href="./google-drive-upload-skip-duplicates.html"><span>Next</span> How do I stop Google Drive uploading duplicates?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./replace-file-google-drive-keep-link.html">How do I replace a file in Google Drive without changing the link?</a></li>
+                  <li><a href="./google-drive-upload-skip-duplicates.html">How do I skip duplicates when uploading to Google Drive?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -16,10 +16,10 @@ extension.
 APIs & Services → OAuth consent screen (Google Auth Platform):
 
 - User type: **External**
-- App name: Upload Tracker for Drive. Add a support email.
+- App name: Uploft. Add a support email.
 - Branding (needed before you publish): logo `icons/oauth-logo-120.png`, home page
-  `https://sai-na.github.io/upload-tracker-for-drive/`, privacy policy
-  `https://sai-na.github.io/upload-tracker-for-drive/privacy.html`, authorized
+  `https://sai-na.github.io/uploft/`, privacy policy
+  `https://sai-na.github.io/uploft/privacy.html`, authorized
   domain `sai-na.github.io`. [STORE_LISTING.md](STORE_LISTING.md) has every value.
 - Data access → add the scope `https://www.googleapis.com/auth/drive.file`.
   It's a non-sensitive scope, so publishing needs brand verification only, with
@@ -75,7 +75,7 @@ Reload the extension on `chrome://extensions`, click its toolbar icon, then
 **Upload files to Drive**.
 
 For the Chrome Web Store, run `npm run package`. It builds, then zips only the
-files the extension loads into `release/upload-tracker-for-drive-<version>.zip`.
+files the extension loads into `release/uploft-<version>.zip`.
 It stops if `config.ts` has no client ID. The listing text, permission
 justifications and the remaining steps are in [STORE_LISTING.md](STORE_LISTING.md).
 
@@ -85,7 +85,7 @@ justifications and the remaining steps are in [STORE_LISTING.md](STORE_LISTING.m
 in the picker. The narrower scope keeps the Web Store review simple and limits
 what a leaked token could reach. The trade-offs:
 
-- Uploads go into an **Upload Tracker** folder in My Drive until you choose
+- Uploads go into an **Uploft** folder in My Drive until you choose
   another folder.
 - To upload into the folder you have open in Drive, the uploader asks you to
   confirm it once in the picker.

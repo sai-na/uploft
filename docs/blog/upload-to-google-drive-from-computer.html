@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Upload to Google Drive from a computer: files and folders</title>
+    <meta
+      name="description"
+      content="Upload files and folders to Google Drive from a computer: New button, drag and drop, Drive for desktop, where files go, and when an extension helps."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/upload-to-google-drive-from-computer.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Upload to Google Drive from a computer: files and folders"
+    />
+    <meta
+      property="og:description"
+      content="Upload files and folders to Google Drive from a computer: New button, drag and drop, Drive for desktop, where files go, and when an extension helps."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/upload-to-google-drive-from-computer.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I upload files and folders to Google Drive from a computer?",
+            "description": "Upload files and folders to Google Drive from a computer: New button, drag and drop, Drive for desktop, where files go, and when an extension helps.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/upload-to-google-drive-from-computer.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I upload files and folders to Google Drive from a computer?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+        <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#how-to-upload">How do I upload files with the New button?</a></li>
+              <li><a href="#drag-drop">Can I drag and drop files instead?</a></li>
+              <li><a href="#folder">How do I upload a whole folder?</a></li>
+              <li><a href="#desktop">Should I use Drive for desktop instead?</a></li>
+              <li><a href="#where">Where do uploaded files go?</a></li>
+              <li><a href="#extension">When is an extension worth it?</a></li>
+              <li><a href="#limits">What it does not do</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> &rsaquo;
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How do I upload files and folders to Google Drive from a computer?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> &middot;
+                Updated <time datetime="2026-10-29">29 October 2026</time> &middot; By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Go to drive.google.com, click New at the top left, choose File
+              Upload or Folder Upload, then pick what to send. You can also
+              drag files or folders into an open Drive folder. Both methods
+              upload through the browser tab, so keep it open. Google Drive for
+              desktop uploads from a folder on your computer instead.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned near the end. Google's steps link to
+              Google's own help page and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="how-to-upload">How do I upload files with the New button?</h2>
+              <ol>
+                <li>On your computer, go to <strong>drive.google.com</strong> and sign in.</li>
+                <li>Open the folder you want the files in, or stay in <strong>My Drive</strong>.</li>
+                <li>At the top left, click <strong>New</strong>, then <strong>File Upload</strong>.</li>
+                <li>Select one or more files in the window that opens and confirm.</li>
+                <li>Wait until Drive shows each file as uploaded.</li>
+              </ol>
+              <figure data-todo="Drive's own New menu on drive.google.com with File Upload and Folder Upload visible, taken by the owner (Google Drive UI shots must be taken by the owner, not generated)"></figure>
+
+              <h2 id="drag-drop">Can I drag and drop files instead?</h2>
+              <p>
+                Yes. Google's steps: open or create the destination folder in
+                Drive, then drag the files or folders into it. It is the same
+                browser upload as the New button, so the same rule applies:
+                closing the tab or quitting Chrome stops it.
+              </p>
+
+              <h2 id="folder">How do I upload a whole folder?</h2>
+              <p>
+                Click <strong>New</strong>, then <strong>Folder Upload</strong>,
+                and select the folder. Drive uploads the folder with its
+                files. Dragging a folder into an open Drive folder does the
+                same.
+              </p>
+
+              <h2 id="desktop">Should I use Drive for desktop instead?</h2>
+              <p>
+                It depends on whether you want to watch the upload or leave it.
+                <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a>
+                is Google's own app for Windows and macOS. Per Google's upload
+                page, once it is installed you drag files or folders into the
+                "Google Drive" folder on your computer and they sync to Drive. Because the app does the
+                uploading, no browser tab has to stay open. It is the right
+                choice when you want a folder on the computer to stay in step
+                with Drive. For a one-off batch, the browser is quicker to
+                start, and needs nothing installed.
+              </p>
+
+              <h2 id="where">Where do uploaded files go?</h2>
+              <p>
+                Into the folder you are in when you upload. Google's page says
+                you can upload to private or shared folders, and that uploads
+                use your Drive storage even when the folder belongs to someone
+                else. If a file with the same name already exists in that
+                folder, Drive adds the new one as a new version of the original; to keep both,
+                click <strong>Keep both files</strong> after uploading.
+              </p>
+
+              <h2 id="extension">When is an extension worth it?</h2>
+              <p>
+                When the upload is big or long, and you do not want to babysit
+                the tab. Uploft is a free Chrome extension
+                (Chrome 116 or later, source code public) with two parts. On
+                drive.google.com it shows a progress panel, keeps the computer
+                awake, stops Chrome unloading the tab and clicks Drive's
+                <strong>Retry</strong> button for you. Its own uploader page
+                opens from the toolbar icon, signs in with Google and has
+                <strong>Choose files</strong> and <strong>Choose folder</strong>
+                buttons, plus a drop area. It sends 1 to 6 files at a time
+                (4 by default) and, if a connection drops or Chrome restarts,
+                continues from what Drive already has. For files that already
+                exist in Drive, you pick <strong>Skip it</strong>,
+                <strong>Replace it</strong> or <strong>Keep both</strong>.
+              </p>
+              <figure>
+                <img
+                  src="../assets/blog/uploading.webp"
+                  alt="The Uploft uploader page with four files uploading at once and a summary line reading 0 of 6 files uploaded, 16.6 GB of 75.4 GB, 106 MB/s, about 9 min left"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The extension's own uploader. Screenshot from a demo account,
+                  so the files and the speed are examples.
+                </figcaption>
+              </figure>
+              <p>
+                More: <a href="./google-drive-upload-failed.html">why uploads fail</a>,
+                <a href="./resume-google-drive-upload.html">resuming an upload</a>
+                and <a href="./upload-large-files-to-google-drive.html">large files</a>.
+              </p>
+
+              <h2 id="limits">What it does not do</h2>
+              <ul>
+                <li>It does not make one file upload faster than Drive's own site: your connection's upload speed is the limit.</li>
+                <li>Skip and Replace only see files the extension uploaded itself.</li>
+                <li>It runs in Chrome on a computer, not on phones, and it is not on the Chrome Web Store yet. Google sign-in is in testing, so only listed test users can sign in for now.</li>
+                <li>You do not need it for a few small files: the New button is enough.</li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (uploader page, retry, keep-awake).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Google Drive uploads">
+        <a class="series-next" href="./google-drive-upload-failed.html"><span>Next</span> Why is my Google Drive upload failing or stuck?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./google-drive-upload-failed.html">Why is my Google Drive upload failing or stuck?</a></li>
+                  <li><a href="./upload-large-files-to-google-drive.html">How do I upload large files to Google Drive?</a></li>
+                  <li><a href="./upload-folder-to-google-drive.html">How do I upload a folder to Google Drive?</a></li>
+                  <li><a href="./google-drive-upload-chrome-extension.html">Is there a Chrome extension for Google Drive uploads?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

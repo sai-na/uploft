@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive upload failed: file unreadable? Fixes</title>
+    <meta
+      name="description"
+      content="Google Drive upload failed with 'file unreadable' or 'file not found'? The file moved, changed, sits in the cloud or its drive was unplugged. Fixes inside."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-file-unreadable.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive upload failed: file unreadable? Fixes"
+    />
+    <meta
+      property="og:description"
+      content="Google Drive upload failed with 'file unreadable' or 'file not found'? The file moved, changed, sits in the cloud or its drive was unplugged. Fixes inside."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-file-unreadable.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-resume.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Why does Google Drive say 'file unreadable' when I upload?",
+      "description": "Google Drive upload failed with 'file unreadable' or 'file not found'? The file moved, changed, sits in the cloud or its drive was unplugged. Fixes inside.",
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "inLanguage": "en-GB",
+      "author": {
+        "@type": "Person",
+        "name": "Sai Nath",
+        "url": "https://sai-na.github.io/uploft/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Meru Apps"
+      },
+      "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-file-unreadable.html",
+      "image": "https://sai-na.github.io/uploft/assets/blog/og-resume.png",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Uploft",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome 116 or later",
+        "url": "https://sai-na.github.io/uploft/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Uploft",
+          "item": "https://sai-na.github.io/uploft/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://sai-na.github.io/uploft/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Why does Google Drive say 'file unreadable' when I upload?"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#what-does-file-unreadable-mean">What does &quot;file unreadable&quot; mean?</a></li>
+              <li><a href="#file-moved-locked-or-changed">File moved, locked or changed</a></li>
+              <li><a href="#cloud-only-placeholder-files">Cloud-only placeholder files</a></li>
+              <li><a href="#disconnected-drive">Disconnected drive</a></li>
+              <li><a href="#what-happens-after-a-restart">What happens after a restart?</a></li>
+              <li><a href="#file-not-found">File not found</a></li>
+              <li><a href="#what-the-extension-fixes">What the extension fixes and what it can&#x27;t</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Why does Google Drive say 'file unreadable' when I upload?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              The file could not be read from your computer. It was moved,
+              renamed, deleted or changed after you picked it, it is a
+              cloud-only placeholder, or its drive was unplugged. Drive can only
+              send bytes it can read, so put the file back, or choose it again,
+              and upload once more. An interrupted upload then continues where
+              it stopped.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="what-does-file-unreadable-mean">What does "file unreadable" mean?</h2>
+              <p>
+                It is a local problem, not a Drive account problem. The upload
+                runs in the browser, which reads the file from your disk piece
+                by piece while it sends. If the browser can no longer read the
+                file, the upload cannot go on. Google does not publish a list of
+                the wording Drive uses for this, so the exact message on your
+                screen may differ. The causes below cover the usual cases.
+              </p>
+              <p>
+                Work through them in order. First check that the file still
+                exists where it was and opens in its own app. Then look at where
+                it lives: a normal folder, a cloud-synced folder or an external
+                drive.
+              </p>
+
+              <h2 id="file-moved-locked-or-changed">File moved, locked or changed</h2>
+              <p>
+                The most common cause is that the file at the chosen location is
+                no longer the file the browser was given. The browser holds a
+                reference to the file you picked. Chrome's developer
+                documentation says that when a file on disk is modified, the
+                File object "becomes unreadable" and has to be requested again.
+                A file that was moved, renamed or deleted after you picked it
+                is likely to fail the same way, and a file another program is
+                still writing or has locked may fail too.
+              </p>
+              <ol>
+                <li>Put the file back in its old place, or note its new place.</li>
+                <li>Let the program that was saving or exporting it finish and close.</li>
+                <li>Do not edit the file during the upload. A big video that is still being exported will change size mid-upload.</li>
+                <li>Choose the file again and start the upload again.</li>
+              </ol>
+              <p>
+                Uploft checks this on purpose. It saves each
+                file's name, size and modified time, and when you choose a file
+                again it only continues the interrupted upload if the size and
+                modified time are unchanged. A file that changed since is not
+                glued onto the old partial upload, because the two halves would
+                not make one valid file.
+              </p>
+
+              <h2 id="cloud-only-placeholder-files">Cloud-only placeholder files</h2>
+              <p>
+                A file that shows in the folder but is kept only in another
+                cloud service has no bytes on your disk until it is downloaded.
+                A browser asked to read such a file can fail or wait a long
+                time, depending on the sync app. Download the file first (most
+                sync apps offer a "keep on this device" or "download now"
+                option), wait until it finishes, then upload it. Copying the
+                file to an ordinary local folder also works.
+              </p>
+              <p>
+                This depends on the sync app, so check its own help for the
+                menu wording. Google's own app, Drive for desktop, has the same
+                idea: files can be streamed or kept offline, as its
+                <a href="https://support.google.com/drive/answer/10838124">help page</a> describes.
+              </p>
+              <figure data-todo="Screenshot of a file in a cloud-synced folder showing its online-only status icon next to the same file marked as available on this device, taken by the owner on a demo account with a throwaway file; no real names or account details."></figure>
+
+              <h2 id="disconnected-drive">Disconnected drive</h2>
+              <p>
+                If the file is on a USB stick, an SD card, an external disk or a
+                network share, the upload fails the moment that volume goes
+                away: a sleeping disk, a loose cable, a Wi-Fi share that
+                dropped. Reconnect it, check that the file opens, and upload
+                again. For big files, copy them to the computer's own disk first
+                so a loose cable cannot interrupt an upload that takes hours.
+              </p>
+
+              <h2 id="what-happens-after-a-restart">What happens after a restart?</h2>
+              <p>
+                After Chrome or the computer restarts, the browser has lost its
+                access to your files. Chrome's documentation says that file
+                access granted to a site does not outlast its tabs ("Once a tab
+                is closed, the site loses all access", in its section on write
+                access), and that a permission request can only be triggered by
+                a user gesture such as a click. So a restart is the most
+                common time to meet this message.
+              </p>
+              <p>
+                In Uploft, the list of uploads and each file's
+                saved place survive a restart. Open the uploader from the
+                toolbar icon ▸ <strong>Upload files to Drive</strong> and a
+                banner says how many uploads were interrupted and how much is
+                already in Drive.
+              </p>
+              <ul>
+                <li>
+                  If Chrome kept a reference to the files (you used
+                  <strong>Choose files</strong>, <strong>Choose folder</strong>
+                  or drag and drop), press <strong>Resume</strong>. Chrome asks
+                  to read the files again, once for a whole folder.
+                </li>
+                <li>
+                  If a file could not be reopened, the banner says "N files
+                  couldn't be reopened. Drop or choose them again to continue
+                  where they stopped", and the row reads "Interrupted at
+                  &hellip; Choose the file again to continue". Choose the same
+                  file again.
+                </li>
+              </ul>
+              <figure>
+                <img
+                  src="../assets/blog/resume.webp"
+                  alt="The uploader after being reopened: a banner says uploads were interrupted with some data already in Drive, and each file row says Interrupted at, with the amount, choose the file again to continue"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The uploader after a restart, asking for the files again.
+                  Screenshot from a demo account, so the files and sizes are
+                  examples.
+                </figcaption>
+              </figure>
+
+              <h2 id="file-not-found">File not found</h2>
+              <p>
+                "File not found" has two different meanings, and the fix
+                differs. If it refers to the file on your computer, it is the
+                moved or deleted case above: restore it and choose it again. If
+                it refers to Drive, the saved upload session may be gone. Google
+                says a resumable session address expires after one week, and
+                Drive then answers 404 Not Found. The uploader handles that by
+                starting the file again from the beginning, so choose the file
+                and wait. Uploaders that cannot do that need the whole upload
+                started again.
+              </p>
+              <p>
+                If the message names a folder, not a file, the destination was
+                deleted or you lost access to it. Choose the destination folder
+                again.
+              </p>
+
+              <h2 id="what-the-extension-fixes">What the extension fixes and what it can't</h2>
+              <ul>
+                <li><strong>It keeps the place.</strong> Interrupted uploads are saved with the file's name, size, modified time and a handle to the file, so you do not start from zero.</li>
+                <li><strong>It asks for the file again</strong> instead of failing silently, with the wording "Choose the file again to continue".</li>
+                <li><strong>It refuses a changed file</strong> rather than corrupting the upload.</li>
+              </ul>
+              <p>
+                It cannot read a file that is gone, still downloading from a
+                cloud service or on an unplugged drive, and it cannot read a
+                file Chrome has not been allowed to open. It needs Chrome 116 or
+                later on a computer, and it is not on the Chrome Web Store yet.
+              </p>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Chrome for Developers: <a href="https://developer.chrome.com/docs/capabilities/web-apis/file-system-access">The File System Access API</a> (permissions after a tab closes, changed files).</li>
+                <li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Manage uploads</a> (resumable sessions and their one-week expiry).</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (file handles, reopening files, the interrupted banner).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Upload errors and messages">
+        <a class="series-previous" href="./google-drive-upload-errors-explained.html"><span>Previous</span> What do Google Drive upload error messages mean?</a>
+        <a class="series-hub" href="./google-drive-upload-errors-explained.html"><span>Guide</span> What do Google Drive upload error messages mean?</a>
+        <a class="series-next" href="./google-drive-upload-network-error.html"><span>Next</span> What does &#x27;network error&#x27; or &#x27;connection lost&#x27; mean on a Google Drive upload?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./google-drive-upload-errors-explained.html">Google Drive upload errors explained</a></li>
+                  <li><a href="./google-drive-error-accessing-folder-contents.html">Google Drive "error accessing folder contents"</a></li>
+                  <li><a href="./resume-google-drive-upload.html">Can you resume a Google Drive upload after it stops?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

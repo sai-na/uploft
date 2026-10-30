@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>How to speed up Google Drive uploads: what works</title>
+    <meta name="description" content="Use several files at once, a cable and no VPN, and keep the computer awake. Nothing makes one file beat your upload speed. Steps, sums and limits." />
+    <link rel="canonical" href="https://sai-na.github.io/uploft/blog/speed-up-google-drive-uploads.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta property="og:title" content="How to speed up Google Drive uploads: what works" />
+    <meta property="og:description" content="Use several files at once, a cable and no VPN, and keep the computer awake. Nothing makes one file beat your upload speed. Steps, sums and limits." />
+    <meta property="og:url" content="https://sai-na.github.io/uploft/blog/speed-up-google-drive-uploads.html" />
+    <meta property="og:image" content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How can I make Google Drive uploads faster?",
+            "description": "Use several files at once, a cable and no VPN, and keep the computer awake. Nothing makes one file beat your upload speed. Steps, sums and limits.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {"@type": "Person", "name": "Sai Nath", "url": "https://sai-na.github.io/uploft/about.html"},
+            "publisher": {"@type": "Organization", "name": "Meru Apps"},
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/speed-up-google-drive-uploads.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {"@type": "SoftwareApplication", "name": "Uploft", "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome 116 or later", "url": "https://sai-na.github.io/uploft/"}
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Uploft", "item": "https://sai-na.github.io/uploft/"},
+              {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://sai-na.github.io/uploft/blog/"},
+              {"@type": "ListItem", "position": 3, "name": "How can I make Google Drive uploads faster?"}
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#steps">Speed it up in four steps</a></li>
+              <li><a href="#several-files">Does uploading several files at once help?</a></li>
+              <li><a href="#wired">Do a cable and quiet apps help?</a></li>
+              <li><a href="#no-help">What does not help?</a></li>
+              <li><a href="#one-huge-file">What is the ceiling for one huge file?</a></li>
+              <li><a href="#drive-for-desktop">Is Drive for desktop faster?</a></li>
+              <li><a href="#how-does-uploft-help">How does Uploft help?</a></li>
+              <li><a href="#limits">Limits</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How can I make Google Drive uploads faster?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Google Drive uploads are capped by your internet upload speed, so
+              the gains come from using that speed fully. Upload several files
+              at once, use a cable instead of Wi-Fi, switch off a VPN, pause
+              other uploads and calls, and stop the computer sleeping. One file
+              cannot go faster than your upload speed.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's behaviour links to
+              Google's own pages and was checked on 29 October 2026; what the
+              extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="steps">Speed it up in four steps</h2>
+              <ol>
+                <li>
+                  <strong>Find the ceiling.</strong> Run a speed test and read
+                  the <em>upload</em> figure. Divide it by 8 to get megabytes
+                  per second: 20 Mbps ÷ 8 = 2.5 MB/s. No setting beats this
+                  number, so it tells you how much is left to gain.
+                </li>
+                <li>
+                  <strong>Send several files at once.</strong> If one upload
+                  runs well below the ceiling, add more files at the same time
+                  (see the next section).
+                </li>
+                <li>
+                  <strong>Clear the line.</strong> Use a cable, switch off the
+                  VPN and pause other uploads, backups and video calls.
+                </li>
+                <li>
+                  <strong>Keep the computer awake.</strong> A sleeping computer
+                  uploads nothing. Change the power settings or let an
+                  extension hold the computer awake.
+                </li>
+              </ol>
+              <p>
+                For the sums behind step 1, see
+                <a href="./why-is-google-drive-upload-so-slow.html">why a Drive
+                upload is slow</a>.
+              </p>
+
+              <h2 id="several-files">Does uploading several files at once help?</h2>
+              <p>
+                It helps only when one file does not fill your connection.
+                Google's guidance for the Drive API is to send a large file in
+                chunks, with each chunk as large as possible (see
+                <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Google's upload guide</a>).
+                That describes how one file is sent; it does not say how much
+                of your line one stream uses, and that varies by connection
+                and distance.
+              </p>
+              <p>
+                A worked example with made-up numbers. Three files of 4 GB each
+                are 12 GB, or 12,000 MB. Suppose one stream reaches 1 MB/s on a
+                line that can carry 2.5 MB/s. One file at a time:
+                12,000 MB ÷ 1 MB/s = 12,000 s, about 3 hours 20 minutes. Three
+                at once can fill the line: 12,000 MB ÷ 2.5 MB/s = 4,800 s,
+                about 1 hour 20 minutes. If one stream already uses all 2.5
+                MB/s, three at once take the same 4,800 s.
+              </p>
+
+              <h2 id="wired">Do a cable and quiet apps help?</h2>
+              <p>
+                They can, because everything on your network shares the same
+                upload bandwidth. Test the change with a speed test before and
+                after.
+              </p>
+              <ul>
+                <li>
+                  <strong>Cable.</strong> Plug in with Ethernet, or move next
+                  to the router, then test again.
+                </li>
+                <li>
+                  <strong>VPN.</strong> Switch it off for the upload, since it
+                  sends your data through another server first.
+                </li>
+                <li>
+                  <strong>Other traffic.</strong> Cloud backups, other uploads,
+                  video calls and streaming all take upload bandwidth.
+                </li>
+              </ul>
+
+              <h2 id="no-help">What does not help?</h2>
+              <ul>
+                <li>
+                  <strong>More files at once on a full line.</strong> Once the
+                  line is full, extra files only share it. Everything finishes
+                  later, not sooner.
+                </li>
+                <li>
+                  <strong>Looking at your download speed.</strong> Uploads use
+                  the upload figure.
+                </li>
+                <li>
+                  <strong>Retrying a stuck upload by hand over and over.</strong>
+                  A stalled upload wastes time, but the fix is a resumable
+                  upload, not speed. See
+                  <a href="./why-is-google-drive-upload-stuck.html">why uploads get stuck</a>.
+                </li>
+              </ul>
+
+              <h2 id="one-huge-file">What is the ceiling for one huge file?</h2>
+              <p>
+                Your upload speed. The pieces of a single file go in order, so
+                one 50 GB file cannot be spread over several streams. At 20 Mbps
+                (2.5 MB/s) it takes 50,000 MB ÷ 2.5 MB/s = 20,000 s, about 5
+                hours 33 minutes, with any tool. Only a faster connection, or
+                splitting the work into several files, changes that.
+              </p>
+
+              <h2 id="drive-for-desktop">Is Drive for desktop faster?</h2>
+              <p>
+                Not necessarily. It uses the same internet connection, so a
+                slow line limits it as well. Its strength is background
+                syncing that you can pause and resume, described on
+                <a href="https://support.google.com/drive/answer/10838124">Google's Drive for desktop help page</a>.
+                Google's page gives no speed comparison with the website, so
+                this guide makes none. For a long sync of a whole folder, it is
+                a sound choice.
+              </p>
+
+              <h2 id="how-does-uploft-help">How does Uploft help?</h2>
+              <p>
+                Uploft is a free Chrome extension (Chrome 116
+                or later) with its own uploader page. It cannot raise your
+                connection's speed. It helps you use all of it.
+              </p>
+              <ul>
+                <li>
+                  <strong>Several files at once.</strong> Under
+                  <strong>At a time</strong> choose 1 to 6 files. The default
+                  is 3.
+                </li>
+                <li>
+                  <strong>Pieces that adapt.</strong> Each piece starts at 8 MiB.
+                  If it finishes in under 4 seconds the next one doubles, up to
+                  64 MiB. If it takes over 20 seconds the next one halves, down
+                  to 1 MiB.
+                </li>
+                <li>
+                  <strong>No sleep, no discarded tab.</strong> While an upload
+                  runs, it asks the computer not to sleep, and Chrome is told
+                  not to discard the Drive tab to save memory.
+                </li>
+                <li>
+                  <strong>Stalls restart.</strong> A piece that moves no bytes
+                  for 60 seconds is sent again.
+                </li>
+              </ul>
+              <figure>
+                <img
+                  src="../assets/blog/uploading.webp"
+                  alt="The Uploft uploader page with four files uploading at once and a summary line reading 0 of 6 files uploaded, 16.6 GB of 75.4 GB, 106 MB/s, about 9 min left"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The uploader sending four files at a time. Screenshot from a
+                  demo account, so the files and the speed are examples.
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="../assets/blog/at-a-time-1x.webp"
+                  srcset="../assets/blog/at-a-time-1x.webp 1040w, ../assets/blog/at-a-time-2x.webp 2080w"
+                  sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+                  alt="Close-up of the uploader with At a time set to 6 files, video uploads in progress, and the bar at the bottom reading 102 MB/s, about 11 min left"
+                  width="1040"
+                  height="582"
+                  loading="lazy"
+                />
+                <figcaption>At a time set to 6, with the combined speed and time left in the bar at the bottom (demo account).</figcaption>
+              </figure>
+
+              <h2 id="limits">Limits</h2>
+              <ul>
+                <li>
+                  One file uploads at about the speed of Drive's own site,
+                  because your connection is the limit.
+                </li>
+                <li>
+                  It does not fix Wi-Fi, a VPN or other traffic on your line.
+                </li>
+                <li>
+                  It runs in Chrome on a computer, not on phones, and it is not
+                  on the Chrome Web Store yet.
+                </li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It is not on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>
+                  Google for Developers:
+                  <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Upload file data</a>
+                  (resumable uploads and chunk sizes).
+                </li>
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.
+                </li>
+                <li>
+                  Uploft:
+                  <a href="https://github.com/sai-na/uploft">source code</a>
+                  (upload engine, settings and keep-awake).
+                </li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Slow uploads and upload time">
+        <a class="series-previous" href="./why-is-google-drive-upload-so-slow.html"><span>Previous</span> Why is my Google Drive upload so slow?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-so-slow.html"><span>Guide</span> Why is my Google Drive upload so slow?</a>
+        <a class="series-next" href="./how-long-to-upload-to-google-drive.html"><span>Next</span> How long does it take to upload to Google Drive?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./why-is-google-drive-upload-so-slow.html">Why is my Google Drive upload so slow?</a></li>
+                  <li><a href="./google-drive-upload-speed-limit.html">Is there a Google Drive upload speed limit?</a></li>
+                  <li><a href="./upload-multiple-files-to-google-drive.html">How do I upload multiple files to Google Drive?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

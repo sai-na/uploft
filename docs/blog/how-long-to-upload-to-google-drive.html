@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>How long to upload to Google Drive? A worked guide</title>
+    <meta name="description" content="Upload time = file size in megabits ÷ upload speed in Mbps. 100 GB at 20 Mbps takes about 11 hours; Drive allows 750 GB a day. Table and examples." />
+    <link rel="canonical" href="https://sai-na.github.io/uploft/blog/how-long-to-upload-to-google-drive.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta property="og:title" content="How long to upload to Google Drive? A worked guide" />
+    <meta property="og:description" content="Upload time = file size in megabits ÷ upload speed in Mbps. 100 GB at 20 Mbps takes about 11 hours; Drive allows 750 GB a day. Table and examples." />
+    <meta property="og:url" content="https://sai-na.github.io/uploft/blog/how-long-to-upload-to-google-drive.html" />
+    <meta property="og:image" content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How long does it take to upload to Google Drive?",
+            "description": "Upload time = file size in megabits ÷ upload speed in Mbps. 100 GB at 20 Mbps takes about 11 hours; Drive allows 750 GB a day. Table and examples.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {"@type": "Person", "name": "Sai Nath", "url": "https://sai-na.github.io/uploft/about.html"},
+            "publisher": {"@type": "Organization", "name": "Meru Apps"},
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/how-long-to-upload-to-google-drive.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {"@type": "SoftwareApplication", "name": "Uploft", "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome 116 or later", "url": "https://sai-na.github.io/uploft/"}
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Uploft", "item": "https://sai-na.github.io/uploft/"},
+              {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://sai-na.github.io/uploft/blog/"},
+              {"@type": "ListItem", "position": 3, "name": "How long does it take to upload to Google Drive?"}
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#formula">How do you work out the upload time?</a></li>
+              <li><a href="#table">How long do 1, 10, 100 and 750 GB take?</a></li>
+              <li><a href="#per-day">Does Drive limit how much you can upload in a day?</a></li>
+              <li><a href="#changing">Why does the time left keep changing?</a></li>
+              <li><a href="#calculator">Is there an upload time calculator?</a></li>
+              <li><a href="#while-waiting">How does Uploft help on a long upload?</a></li>
+              <li><a href="#limits">What can’t it do?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How long does it take to upload to Google Drive?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Multiply the file size in gigabytes by 8,000 to get megabits,
+              then divide by your upload speed in Mbps to get seconds. 100 GB
+              at 20 Mbps is 800,000 ÷ 20 = 40,000 seconds, about 11 hours. The
+              speed that matters is the upload figure, and Drive's daily
+              ceiling can also apply.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits link to
+              Google's own pages and were checked on 29 October 2026; what the
+              extension does comes from its source code. The times are
+              arithmetic, not measured speeds.
+            </p>
+
+            <div class="prose">
+              <h2 id="formula">How do you work out the upload time?</h2>
+              <p>
+                Take three steps. Speed tests report megabits per second
+                (Mbps); file sizes are in bytes, and a byte is 8 bits. These
+                sums use decimal units, where 1 GB is 1,000 MB.
+              </p>
+              <ol>
+                <li>
+                  <strong>Read your upload speed.</strong> Run a speed test
+                  and use the <em>upload</em> figure, not the download one.
+                  Say it shows 20 Mbps.
+                </li>
+                <li>
+                  <strong>Convert the file to megabits.</strong> 100 GB is
+                  100 × 1,000 MB × 8 = 800,000 megabits.
+                </li>
+                <li>
+                  <strong>Divide by the speed.</strong> 800,000 ÷ 20 Mbps =
+                  40,000 seconds. Divided by 3,600, that is 11.1 hours, about
+                  11 hours 7 minutes.
+                </li>
+              </ol>
+              <p>
+                In one line: seconds = GB × 8,000 ÷ Mbps. Your plan's headline
+                speed is often the download figure, so use the upload line.
+                The result is the best case, because it assumes the connection
+                runs at that speed the whole time. Real uploads usually take a
+                little longer, and much longer when something else is using
+                the connection. For the causes, see
+                <a href="./why-is-google-drive-upload-so-slow.html">why a
+                Google Drive upload can be slow</a>.
+              </p>
+
+              <h2 id="table">How long do 1, 10, 100 and 750 GB take?</h2>
+              <p>
+                At 20 Mbps, 1 GB takes about 7 minutes, 10 GB about 1 hour 7
+                minutes, 100 GB about 11 hours and 750 GB about 3 days 11
+                hours. The table applies the same sum, seconds = GB × 8,000 ÷
+                Mbps, to four speeds.
+              </p>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>File size</th><th>5 Mbps</th><th>20 Mbps</th><th>100 Mbps</th><th>500 Mbps</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>1 GB</td><td>26 min 40 s</td><td>6 min 40 s</td><td>1 min 20 s</td><td>16 s</td></tr>
+                    <tr><td>10 GB</td><td>4 h 27 min</td><td>1 h 7 min</td><td>13 min</td><td>2 min 40 s</td></tr>
+                    <tr><td>100 GB</td><td>1 d 20 h</td><td>11 h 7 min</td><td>2 h 13 min</td><td>26 min 40 s</td></tr>
+                    <tr><td>750 GB</td><td>13 d 21 h</td><td>3 d 11 h</td><td>16 h 40 min</td><td>3 h 20 min</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Check one cell by hand: 10 GB at 5 Mbps is 10 × 8,000 ÷ 5 =
+                16,000 seconds, which is 4 hours 27 minutes. These are best
+                cases at a steady speed. Rounded to the nearest minute where
+                the time is over an hour.
+              </p>
+
+              <h2 id="per-day">Does Drive limit how much you can upload in a day?</h2>
+              <p>
+                Yes for Google Workspace users: 750 GB a day. Google's Drive
+                API limits page says Workspace users can upload 750 GB per day
+                between My Drive and all shared drives, that the limit also
+                applies to copies, and that a user who reaches it cannot upload
+                or copy more files until 24 hours have passed (see
+                <a href="https://developers.google.com/workspace/drive/api/guides/limits"
+                  >Google's Drive API limits page</a
+                >). Google's help page for personal accounts lists a 5 TB file
+                limit and gives no daily figure, so check your own account
+                type.
+              </p>
+              <p>
+                The arithmetic shows when the ceiling matters. To send 750 GB
+                inside 24 hours you need 750 × 8,000 ÷ 86,400 seconds = about
+                69.4 Mbps, held all day. At 20 Mbps you could send about 216
+                GB in a day (20 × 86,400 ÷ 8,000), so the connection is the
+                limit long before Drive is. The 750 GB row in the table is a
+                reason to plan a multi-day job, not to expect it to finish in
+                one go. More in the
+                <a href="./google-drive-daily-upload-limit.html">daily upload
+                limit guide</a> and the
+                <a href="./google-drive-upload-limits.html">limits
+                table</a>.
+              </p>
+
+              <h2 id="changing">Why does the time left keep changing?</h2>
+              <p>
+                Because any estimate is the remaining size divided by a recent
+                speed, and the speed moves. Uploft works it
+                out this way: the speed is the data sent over the last 5
+                seconds, and the time left is the bytes still to send divided
+                by that speed. Take 6 GB left. At 20 MB/s that reads about 5
+                minutes (6,000 ÷ 20 = 300 seconds). If the speed dips to 10
+                MB/s the same 6 GB reads about 10 minutes, and when it recovers
+                the figure shrinks again.
+              </p>
+              <p>Common reasons the speed moves:</p>
+              <ul>
+                <li>Wi-Fi signal that varies from minute to minute.</li>
+                <li>Other devices or apps sharing the upload bandwidth.</li>
+                <li>A VPN or a busy network at certain times of day.</li>
+                <li>Files finishing and the next ones starting, which briefly
+                  changes how many streams are running.</li>
+              </ul>
+              <p>
+                Treat an early estimate as rough. It settles as the upload
+                runs and the speed levels out.
+              </p>
+
+              <h2 id="calculator">Is there an upload time calculator?</h2>
+              <p>
+                You already have one: the sum in the first section. Put the
+                size in GB and the upload speed in Mbps into
+                <code>GB × 8,000 ÷ Mbps</code>, then divide by 3,600 for
+                hours. Example: 250 GB at 50 Mbps is 250 × 8,000 ÷ 50 =
+                40,000 seconds, about 11 hours 7 minutes. For a file in MB,
+                use MB × 8 ÷ Mbps instead.
+              </p>
+
+              <h2 id="while-waiting">How does Uploft help on a long upload?</h2>
+              <p>
+                Uploft is a free Chrome extension (Chrome
+                116 or later) with its own uploader page. It cannot make your
+                connection faster, so the table above still holds. It helps
+                with the waiting.
+              </p>
+              <ul>
+                <li>
+                  <strong>A live estimate.</strong> The uploader shows the
+                  speed and the time left, so you can compare them with your
+                  own sum.
+                </li>
+                <li>
+                  <strong>Notifications.</strong> It sends a notification when
+                  uploads finish and one for each file that fails, so you can
+                  leave the tab.
+                </li>
+                <li>
+                  <strong>Keep-awake.</strong> The setting <strong>Keep the
+                  computer awake while uploading</strong> is on by default, so
+                  an idle computer does not go to sleep in the middle of an
+                  11-hour upload.
+                </li>
+                <li>
+                  <strong>Resuming.</strong> Uploads continue after network
+                  drops and can be resumed after a closed tab or a restart, so
+                  a long job does not start from zero.
+                </li>
+              </ul>
+              <figure>
+                <img
+                  src="../assets/blog/uploading.webp"
+                  alt="The Uploft uploader page with four files uploading at once and a summary line reading 0 of 6 files uploaded, 16.6 GB of 75.4 GB, 106 MB/s, about 9 min left"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  The summary line shows the speed and the time left. Screenshot
+                  from a demo account, so the files and the speed are examples.
+                </figcaption>
+              </figure>
+
+              <h2 id="limits">What can’t it do?</h2>
+              <ul>
+                <li>
+                  Raise your upload speed. One file goes up at about the speed
+                  of Drive's own site, because the pieces of a single file are
+                  sent in order and your connection is the limit.
+                </li>
+                <li>
+                  Get past Drive's daily limit. When Drive reports it, the
+                  uploader stops and says so.
+                </li>
+                <li>
+                  Promise to keep a laptop awake with the lid closed. That
+                  depends on the computer's own settings, and a sleeping
+                  computer cannot upload until it wakes.
+                </li>
+                <li>
+                  It runs in Chrome on a computer, not on phones, and it isn't
+                  on the Chrome Web Store yet.
+                </li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>
+                  Google for Developers:
+                  <a href="https://developers.google.com/workspace/drive/api/guides/limits"
+                    >Google Drive API usage limits</a
+                  >
+                  (750 GB per day, copies, 24 hours).
+                </li>
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/37603"
+                    >Files you can store in Google Drive</a
+                  >
+                  (5 TB file limit).
+                </li>
+                <li>
+                  Uploft:
+                  <a href="https://github.com/sai-na/uploft"
+                    >source code</a
+                  >
+                  (speed and time-left calculation, notifications, keep-awake).
+                </li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Slow uploads and upload time">
+        <a class="series-previous" href="./speed-up-google-drive-uploads.html"><span>Previous</span> How can I make Google Drive uploads faster?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-so-slow.html"><span>Guide</span> Why is my Google Drive upload so slow?</a>
+        <a class="series-next" href="./google-drive-upload-speed-limit.html"><span>Next</span> Does Google Drive limit upload speed?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./upload-1tb-to-google-drive.html">How do I upload 1 TB to Google Drive?</a></li>
+                  <li><a href="./why-is-google-drive-upload-so-slow.html">Why is my Google Drive upload so slow?</a></li>
+                  <li><a href="./google-drive-daily-upload-limit.html">What is the Google Drive daily upload limit?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

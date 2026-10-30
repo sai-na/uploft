@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Upload a large video to Google Drive: steps and limits</title>
+    <meta
+      name="description"
+      content="Upload a large video to Google Drive: the 5 TB limit, why it says processing, what 4K does, and how to keep a long upload going without watching it."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/upload-large-video-to-google-drive.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Upload a large video to Google Drive: steps and limits"
+    />
+    <meta
+      property="og:description"
+      content="Upload a large video to Google Drive: the 5 TB limit, why it says processing, what 4K does, and how to keep a long upload going without watching it."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/upload-large-video-to-google-drive.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-dark.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How do I upload a large video to Google Drive?",
+            "description": "Upload a large video to Google Drive: the 5 TB limit, why it says processing, what 4K does, and how to keep a long upload going without watching it.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/upload-large-video-to-google-drive.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-dark.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How do I upload a large video to Google Drive?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#how-to-upload-a-large-video-from-the-browser">How to upload a large video from the browser</a></li>
+              <li><a href="#why-does-a-big-video-upload-fail-partway">Why does a big video upload fail partway?</a></li>
+              <li><a href="#does-drive-upload-4k-or-long-videos">Does Drive upload 4K or long videos?</a></li>
+              <li><a href="#why-does-it-say-processing-after-upload">Why does it say processing after upload?</a></li>
+              <li><a href="#why-is-my-mp4-not-uploading">Why is my mp4 not uploading?</a></li>
+              <li><a href="#how-do-i-leave-it-running-unattended">How do I leave it running unattended?</a></li>
+              <li><a href="#limits-to-know">Limits to know</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How do I upload a large video to Google Drive?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              On a computer, open drive.google.com, click New ▸ File upload and
+              choose the video. Drive accepts a file of up to 5 TB, so size is
+              rarely the problem; time is. A 20 GB video on a 20 Mbps upload
+              takes about 2 hours 13 minutes, so keep the tab open and the
+              computer awake until it finishes.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="how-to-upload-a-large-video-from-the-browser">How to upload a large video from the browser</h2>
+              <ol>
+                <li>On your computer, go to drive.google.com.</li>
+                <li>At the top left, click <strong>New</strong> ▸ <strong>File upload</strong>. You can also drag it into a folder in Drive.</li>
+                <li>Choose the video file. Drive shows its progress in an upload panel.</li>
+                <li>Keep the tab open, the computer awake and the connection up until the panel says the upload is done.</li>
+              </ol>
+              <p>These are the steps on <a href="https://support.google.com/drive/answer/2424368">Google's help page for uploading files and folders</a>. Work out the wait first: divide the size in megabits by your upload speed. One gigabyte is 8,000 megabits, so a 20 GB video is 20 × 8,000 = 160,000 megabits; at 20 Mbps that is 160,000 ÷ 20 = 8,000 seconds, which is 2 hours 13 minutes. Use your upload speed, not the download speed your provider advertises.</p>
+              <figure data-todo="Google Drive's own upload panel on drive.google.com while one large video (a few GB) uploads, showing the file name and the progress bar; owner capture on a real account, no personal file names"></figure>
+
+              <h2 id="why-does-a-big-video-upload-fail-partway">Why does a big video upload fail partway?</h2>
+              <p>Because the connection or the tab stopped, not because of the video. The upload runs in the browser tab, so Wi-Fi drops, a sleeping computer or a closed tab can end it, and the longer the video, the more chances for that to happen. Drive's resumable uploads exist for this: Google's upload guide has the client ask Drive how much arrived and carry on from there.</p>
+              <p>Two other causes are on Google's side. A full account stops uploads: Google says that once storage is full you won't be able to upload files to Drive. And Google Workspace accounts can upload 750 GB in 24 hours; see the <a href="./upload-large-files-to-google-drive.html">large files guide</a> for the arithmetic. How a stopped upload carries on is covered in <a href="./resume-google-drive-upload.html">Can you resume a Google Drive upload after it stops?</a></p>
+
+              <h2 id="does-drive-upload-4k-or-long-videos">Does Drive upload 4K or long videos?</h2>
+              <p>Yes. Google lists 5 TB as the limit for files kept as they are, and its video playback page says Drive can store video of any resolution. Playback is a separate matter: Google states that the maximum playback resolution is 1920 × 1080, so a 4K file uploads in full but plays back at up to 1080p in Drive's viewer. Download the file to see the original.</p>
+              <p>Length has no separate limit on those pages; the file size and your storage are the limits. Google's 30-minute figure belongs to videos made in Google Vids, not to uploads.</p>
+
+              <h2 id="why-does-it-say-processing-after-upload">Why does it say processing after upload?</h2>
+              <p>Because Drive prepares the video for playback after the upload. Google's help says the message "Video is still processing" means the video is not ready to be played, and that if the file is large it may take a while. The upload itself is finished: the file is in Drive. Google says to wait and try again later. Nothing on the uploader's side speeds this up.</p>
+
+              <h2 id="why-is-my-mp4-not-uploading">Why is my mp4 not uploading?</h2>
+              <p>Check the format first. Google's list of videos Drive supports includes MPEG4, MOV, WebM, AVI, WMV, FLV, 3GPP, MTS and OGG, and it warns that not all video types work on all devices. A file in another format can still be stored, but may not play in Drive. Then check storage space and the connection, as above. If the upload starts and stalls, the <a href="./google-drive-upload-failed.html">upload failing or stuck guide</a> lists the causes in order.</p>
+
+              <h2 id="how-do-i-leave-it-running-unattended">How do I leave it running unattended?</h2>
+              <p>Two tools carry on without you. Google's own <a href="https://support.google.com/drive/answer/10838124">Drive for desktop</a> (Windows and macOS) syncs a folder in the background. <strong>Uploft</strong> is a free Chrome extension for one-off big uploads: click its toolbar icon, then <strong>Upload files to Drive</strong>, sign in with Google and add the videos.</p>
+              <ul>
+                <li>Big files go up in pieces that start at 8 MB. A piece that finishes in under 4 seconds makes the next one twice as big, up to 64 MB; one that takes over 20 seconds halves it.</li>
+                <li>After a Wi-Fi drop, a closed tab or a restart, it continues from the last byte Drive confirmed instead of starting again.</li>
+                <li>While uploads run, it keeps the computer awake and stops Chrome from unloading the tab.</li>
+                <li>It sends 1 to 6 files at a time, 4 by default, so a folder of clips goes up together.</li>
+              </ul>
+              <figure>
+                <img src="../assets/blog/dark.webp" alt="The Uploft uploader in dark mode with four files from a wedding shoot uploading at the same time and a summary line reading 16.6 GB of 75.4 GB, about 10 min left" width="1280" height="800" loading="lazy" />
+                <figcaption>Four files at a time in the uploader, in dark mode. Screenshot from a demo account, so the files and the speed are examples.</figcaption>
+              </figure>
+              <p>One video still uploads at about the speed of Drive's own site, because a single file's pieces go up in order. The gain is that an interruption costs minutes, not the whole upload. <a href="./resume-google-drive-upload.html">How resuming works</a>.</p>
+
+              <h2 id="limits-to-know">Limits to know</h2>
+              <ul>
+                <li>The uploader runs in a Chrome tab. Closing the tab stops its uploads; they continue from where they stopped after you press <strong>Resume</strong> or choose the files again.</li>
+                <li>Drive keeps an unfinished upload for one week. After that, the file starts again from zero.</li>
+                <li>Google's 750 GB daily limit for Workspace accounts and your storage still apply.</li>
+                <li>"Skip" and "Replace" only know files the extension uploaded itself, because it uses Google's narrowest Drive permission (drive.file).</li>
+                <li>It runs in Chrome 116 or later on a computer. It isn't on the Chrome Web Store yet, and Google sign-in is limited to listed test users until the app is published.</li>
+              </ul>
+
+              <div class="try">
+                <p><strong>Uploft</strong> is free, and its source code is public. It isn't on the Chrome Web Store yet; the home page shows what it does and what it asks for.</p>
+                <p><a class="pill ink" href="../">See Uploft</a></p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/37603">Files you can store in Google Drive</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2423694">Troubleshoot video playback in Google Drive</a> (supported formats, resolution, processing message).</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your storage in Drive, Gmail &amp; Photos</a>.</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">Upload file data</a> (resumable uploads).</li>
+                <li>Google Workspace Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (upload engine).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Large files and video">
+        <a class="series-next" href="./upload-1tb-to-google-drive.html"><span>Next</span> How long does it take to upload 1 TB to Google Drive, and how do I do it?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./upload-large-files-to-google-drive.html">How do I upload large files to Google Drive?</a></li>
+                  <li><a href="./upload-1tb-to-google-drive.html">How do I upload 1 TB to Google Drive?</a></li>
+                  <li><a href="./google-drive-upload-stops-when-computer-sleeps.html">Why does a Google Drive upload stop when the computer sleeps?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

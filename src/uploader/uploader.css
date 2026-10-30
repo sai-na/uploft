@@ -1,7 +1,9 @@
-/* Upload Tracker uploader page, styled after Google Drive's Material 3 web UI */
+/* Uploft uploader page, styled after Google Drive's Material 3 web UI */
 
 :root {
   color-scheme: light;
+  --logo-light: inline;
+  --logo-dark: none;
   --bg: #f8fafd;
   --surface: #ffffff;
   --surface-variant: #f0f4f9;
@@ -33,6 +35,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     color-scheme: dark;
+    --logo-light: none;
+    --logo-dark: inline;
     --bg: #131314;
     --surface: #1e1f20;
     --surface-variant: #282a2c;
@@ -56,6 +60,8 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
+  --logo-light: none;
+  --logo-dark: inline;
   --bg: #131314;
   --surface: #1e1f20;
   --surface-variant: #282a2c;
@@ -340,7 +346,7 @@ main {
   width: 72px;
   height: 72px;
   margin: 0 auto 16px;
-  background: url('icons/icon-128.png') center / 130% no-repeat;
+  background: url('icons/balloon-carry.svg') center / contain no-repeat;
 }
 
 .benefits {
@@ -477,8 +483,8 @@ main {
 }
 
 .dropzone-icon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 72px;
   margin-bottom: 12px;
 }
 
@@ -686,4 +692,12 @@ main {
   * {
     transition: none !important;
   }
+}
+
+/* The logo has a white tile in light mode and a night tile in dark mode */
+.logo-light {
+  display: var(--logo-light);
+}
+.logo-dark {
+  display: var(--logo-dark);
 }

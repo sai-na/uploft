@@ -7,7 +7,7 @@ Copy these values into the [Chrome Web Store developer dashboard](https://chrome
 **Name** (comes from `manifest.json`)
 
 ```
-Upload Tracker for Drive
+Uploft – Uploader for Google Drive
 ```
 
 **Summary**: the store shows the `description` from `manifest.json`, which can be up to 132 characters. The current one has 118:
@@ -27,7 +27,7 @@ Reliable Google Drive uploads that resume after closed tabs, crashes and Wi-Fi d
 ```
 Start a big upload to Google Drive, walk away, and find it finished when you're back.
 
-Uploading through the Drive website is fragile. Close the tab, let the computer sleep or lose Wi-Fi for a few minutes, and the upload stops or starts over. Upload Tracker for Drive is built to keep going.
+Uploading through the Drive website is fragile. Close the tab, let the computer sleep or lose Wi-Fi for a few minutes, and the upload stops or starts over. Uploft is built to keep going.
 
 UPLOADS THAT DON'T FALL OVER
 • Survives a closed tab or a crash: reopen the uploader and it carries on from what Drive already received, not from zero.
@@ -48,14 +48,14 @@ FOR UPLOADS YOU START IN DRIVE
 PRIVATE BY DESIGN
 • Uses Google's narrowest Drive permission: it can only see files it uploaded and folders you pick, never the rest of your Drive.
 • Files go straight from your browser to Google. There is no server in between, no analytics and no tracking.
-• Source code: https://github.com/sai-na/upload-tracker-for-drive
+• Source code: https://github.com/sai-na/uploft
 
 HOW TO USE
 1. Click the toolbar icon, then "Upload files to Drive".
 2. Sign in with Google.
-3. Drop in files or folders. They go into an "Upload Tracker" folder in My Drive, or any folder you choose.
+3. Drop in files or folders. They go into an "Uploft" folder in My Drive, or any folder you choose.
 
-Privacy policy: https://sai-na.github.io/upload-tracker-for-drive/privacy.html
+Privacy policy: https://sai-na.github.io/uploft/privacy.html
 
 Free, made by Sai Nath. If it saved you a long upload, you can buy me a coffee: https://buymeacoffee.com/sai.nath
 ```
@@ -64,9 +64,9 @@ Free, made by Sai Nath. If it saved you a long upload, you can buy me a coffee: 
 
 **Language**: English
 
-**Official URL / Homepage**: `https://sai-na.github.io/upload-tracker-for-drive/`
+**Official URL / Homepage**: `https://sai-na.github.io/uploft/`
 
-**Support URL**: `https://github.com/sai-na/upload-tracker-for-drive/issues`
+**Support URL**: `https://github.com/sai-na/uploft/issues`
 
 ## Privacy practices tab
 
@@ -86,7 +86,7 @@ Upload files to Google Drive reliably and track the progress of Google Drive upl
 | `identity`                                            | Shows Google's sign-in window (chrome.identity.launchWebAuthFlow) to get a Google Drive access token with the drive.file scope.                                                                                             |
 | Host `https://drive.google.com/*`                     | The content script reads Google Drive's own upload panel to show progress and notifications, and clicks Drive's Retry button when automatic retry is on. It also keeps the Drive tab from being discarded while it uploads. |
 | Host `https://www.googleapis.com/*`                   | The uploader sends files to the Google Drive API (resumable uploads), creates folders and checks for files it already uploaded. Host access lets it read the upload's progress headers.                                     |
-| `externally_connectable` `https://sai-na.github.io/*` | Lets our hosted Google Picker page (sai-na.github.io/upload-tracker-for-drive/picker.html) ask the extension for a token and return the folder the user picked. The extension answers only that exact page.                 |
+| `externally_connectable` `https://sai-na.github.io/*` | Lets our hosted Google Picker page (sai-na.github.io/uploft/picker.html) ask the extension for a token and return the folder the user picked. The extension answers only that exact page.                                   |
 
 **Remote code**: No, I am not using remote code. All JavaScript ships in the package. The folder picker is a separate web page that the extension opens in a tab; the extension doesn't run its code.
 
@@ -110,7 +110,7 @@ Then tick all three certifications:
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose.
 - I do not use or transfer user data to determine creditworthiness or for lending purposes.
 
-**Privacy policy URL**: `https://sai-na.github.io/upload-tracker-for-drive/privacy.html`
+**Privacy policy URL**: `https://sai-na.github.io/uploft/privacy.html`
 
 ## Graphic assets
 
@@ -128,36 +128,36 @@ Then tick all three certifications:
 
 ## Google sign-in screen (Google Auth Platform)
 
-Google Cloud console, project `upload-tracker-for-drive`:
+Google Cloud console, project `uploft` (the new project in the account that owns Uploft):
 
 **Branding**
 
-| Field                      | Value                                                            |
-| -------------------------- | ---------------------------------------------------------------- |
-| App name                   | `Upload Tracker for Drive` (must match the store name)           |
-| User support email         | Your support address (pick one from the list)                    |
-| App logo                   | `icons/oauth-logo-120.png` (120×120)                             |
-| Application home page      | `https://sai-na.github.io/upload-tracker-for-drive/`             |
-| Application privacy policy | `https://sai-na.github.io/upload-tracker-for-drive/privacy.html` |
-| Authorized domains         | `sai-na.github.io`                                               |
-| Developer contact          | Your email                                                       |
+| Field                      | Value                                          |
+| -------------------------- | ---------------------------------------------- |
+| App name                   | `Uploft` (must match the store name)           |
+| User support email         | Your support address (pick one from the list)  |
+| App logo                   | `icons/oauth-logo-120.png` (120×120)           |
+| Application home page      | `https://sai-na.github.io/uploft/`             |
+| Application privacy policy | `https://sai-na.github.io/uploft/privacy.html` |
+| Authorized domains         | `sai-na.github.io`                             |
+| Developer contact          | Your email                                     |
 
 **Data Access**: only `https://www.googleapis.com/auth/drive.file`. It is non-sensitive, so Google checks the branding but does no security assessment.
 
-**Clients**: add `https://<STORE_ITEM_ID>.chromiumapp.org/` as a redirect URI on the "Upload Tracker extension" client, next to the unpacked one. The store assigns the item ID when you first upload a draft.
+**Clients**: add `https://<STORE_ITEM_ID>.chromiumapp.org/` as a redirect URI on the "Uploft extension" client, next to the unpacked one. The store assigns the item ID when you first upload a draft.
 
 **Audience**: click **Publish app** once the store listing is live. Until then, only the listed test users can sign in.
 
 ## Before you submit
 
 1. Turn on GitHub Pages: **Settings → Pages → Deploy from a branch → `main`, `/docs`**. Then check that the three pages load:
-   - `/upload-tracker-for-drive/`
+   - `/uploft/`
    - `/privacy.html`
    - `/picker.html`
 2. Prove you own `sai-na.github.io` in [Google Search Console](https://search.google.com/search-console). Google needs this before it approves the branding.
    - A domain property isn't possible on github.io. Use a URL-prefix property for `https://sai-na.github.io/` instead.
    - Its verification file or meta tag has to be at the site root, which needs a `sai-na/sai-na.github.io` repository.
-3. Run `npm run package`, then upload `release/upload-tracker-for-drive-<version>.zip`.
+3. Run `npm run package`, then upload `release/uploft-<version>.zip`.
 4. Add the store item's redirect URI to the OAuth client (see **Clients** above).
 5. Submit for review, then publish the app on the Google sign-in screen.
 

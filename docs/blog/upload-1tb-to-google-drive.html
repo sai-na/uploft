@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>How long to upload 1 TB to Google Drive, and how to do it</title>
+    <meta
+      name="description"
+      content="1 TB to Google Drive takes about 22 hours at 100 Mbps and over 4 days at 20 Mbps. Worked sums, the 750 GB daily limit, storage and keeping it running."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/upload-1tb-to-google-drive.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="How long to upload 1 TB to Google Drive, and how to do it"
+    />
+    <meta
+      property="og:description"
+      content="1 TB to Google Drive takes about 22 hours at 100 Mbps and over 4 days at 20 Mbps. Worked sums, the 750 GB daily limit, storage and keeping it running."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/upload-1tb-to-google-drive.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How long does it take to upload 1 TB to Google Drive, and how do I do it?",
+            "description": "1 TB to Google Drive takes about 22 hours at 100 Mbps and over 4 days at 20 Mbps. Worked sums, the 750 GB daily limit, storage and keeping it running.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/upload-1tb-to-google-drive.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How long does it take to upload 1 TB to Google Drive, and how do I do it?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#how-long-does-1-tb-take">How long does 1 TB take at different speeds?</a></li>
+              <li><a href="#how-to-upload-1-tb-to-google-drive">How do I upload 1 TB to Google Drive?</a></li>
+              <li><a href="#how-many-days-under-the-750-gb-daily-limit">How many days under the 750 GB daily limit?</a></li>
+              <li><a href="#do-i-need-a-bigger-storage-plan-first">Do I need a bigger storage plan first?</a></li>
+              <li><a href="#how-do-i-keep-it-running-for-days">How do I keep it running for days?</a></li>
+              <li><a href="#what-about-100-gb-or-4-tb">What about 100 GB or 4 TB?</a></li>
+              <li><a href="#when-should-i-ship-a-disk-or-use-another-route">When should I use another route?</a></li>
+              <li><a href="#what-can-t-it-do">What can&#x27;t Uploft do?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>How long does it take to upload 1 TB to Google Drive, and how do I do it?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+<p class="answer">
+At 20 Mbps, 1 TB takes about 4 days 15 hours to upload to Google Drive; at 100 Mbps, about 22 hours. The sum is 1,000 GB × 8,000 ÷ Mbps. Google Workspace users can send only 750 GB in 24 hours, so even a fast line needs two days. The account needs 1 TB of free storage too.
+</p>
+<p class="disclosure">
+This guide comes from the maker of Uploft, the Chrome extension mentioned below. Google's limits link to Google's own pages and were checked on 29 October 2026; what the extension does comes from its source code. The times are arithmetic, not measured speeds.
+</p>
+<div class="prose">
+<h2 id="how-long-does-1-tb-take">How long does 1 TB take at different speeds?</h2>
+<p>
+It depends only on your upload speed, the figure a speed test labels "upload", not the download one. These sums use decimal units, where 1 TB is 1,000 GB and 1 GB is 1,000 MB, and a byte is 8 bits.
+</p>
+<p>
+Take 20 Mbps. 1 TB is 1,000 GB × 8,000 = 8,000,000 megabits. Divide by the speed: 8,000,000 ÷ 20 = 400,000 seconds. Divide by 3,600 and that is 111.1 hours, or 4 days 15 hours.
+</p>
+<div class="table-wrap"><table>
+<caption>Best-case time to send 1 TB at a steady speed (1,000 GB × 8,000 ÷ Mbps)</caption>
+<thead><tr><th>Upload speed</th><th>Seconds</th><th>Time</th></tr></thead>
+<tbody>
+<tr><td>10 Mbps</td><td>800,000</td><td>9 days 6 hours</td></tr>
+<tr><td>20 Mbps</td><td>400,000</td><td>4 days 15 hours</td></tr>
+<tr><td>50 Mbps</td><td>160,000</td><td>1 day 20 hours</td></tr>
+<tr><td>100 Mbps</td><td>80,000</td><td>22 hours</td></tr>
+<tr><td>500 Mbps</td><td>16,000</td><td>4 hours 27 minutes</td></tr>
+</tbody>
+</table></div>
+<p>
+Check one row by hand: at 50 Mbps, 8,000,000 ÷ 50 = 160,000 seconds ÷ 3,600 = 44.4 hours, which is 1 day 20 hours. Real uploads run a little slower than the best case, and much slower when something else uses the connection. For the reasons, see <a href="./how-long-to-upload-to-google-drive.html">how long a Google Drive upload takes</a>.
+</p>
+
+<h2 id="how-to-upload-1-tb-to-google-drive">How do I upload 1 TB to Google Drive?</h2>
+<p>
+Check the storage and the daily limit first, split the data into batches, then upload each batch with something that survives a closed tab or a restart. With Uploft:
+</p>
+<ol>
+<li>Confirm the account has room. In Drive, click <strong>Storage</strong> in the left-hand menu (see the storage section below).</li>
+<li>Split the 1 TB into batches of about 700 GB or less if the account is a Google Workspace one (see the daily limit section below).</li>
+<li>Click the extension's toolbar icon, then <strong>Upload files to Drive</strong>, and sign in with Google.</li>
+<li>Click <strong>Choose folder</strong> or <strong>Choose files</strong> and pick the first batch. Uploads go to a folder called "Uploft" in My Drive.</li>
+<li>Under <strong>At a time</strong>, pick how many files go up together (1 to 6; the default is 3). Under <strong>If already in Drive</strong>, pick <strong>Skip it</strong>, <strong>Replace it</strong> or <strong>Keep both</strong>.</li>
+<li>Leave the computer on and the uploader tab open. The setting <strong>Keep the computer awake</strong> is on by default.</li>
+<li>When the batch finishes, or Drive reports the daily limit, add the next batch.</li>
+</ol>
+<figure>
+<img src="../assets/blog/uploading.webp" alt="The Uploft uploader page with four files uploading at once and a summary line reading 0 of 6 files uploaded, 16.6 GB of 75.4 GB, 106 MB/s, about 9 min left" width="1280" height="800" loading="lazy" />
+<figcaption>The uploader mid-batch, showing speed and time left. Screenshot from a demo account, so the files and the speed are examples, not a 1 TB run.</figcaption>
+</figure>
+
+<h2 id="how-many-days-under-the-750-gb-daily-limit">How many days under the 750 GB daily limit?</h2>
+<p>
+For a Google Workspace user, at least two days. Google says each user can upload and copy 750 GB to Drive within 24 hours and, after that, can't upload or copy more files until the limit refreshes, which it says happens within 24 hours. 1,000 GB ÷ 750 GB = 1.33, so round up to 2 days.
+</p>
+<p>
+Whether the cap matters depends on speed. To send 750 GB in a day you need 750 × 8,000 ÷ 86,400 = about 69.4 Mbps held all day. Below that, the connection is the limit and the cap never bites: at 20 Mbps you send about 216 GB a day (20 × 86,400 ÷ 8,000), so 1 TB takes 1,000 ÷ 216 = 4.6 days of sending. At 100 Mbps the cap decides: about 750 GB goes up in 16 hours 40 minutes, then you wait for the limit to refresh, then the last 250 GB takes about 5 hours 33 minutes. Plan on two days.
+</p>
+<p>
+Google also says only the first file that breaks the limit completes uploading, so batches a little under 750 GB leave a margin. More in the <a href="./google-drive-daily-upload-limit.html">daily upload limit guide</a>. Google's help page for personal accounts lists a 5 TB file size and gives no daily figure, so this guide states 750 GB as Google's Workspace limit and doesn't promise it for a personal account.
+</p>
+
+<h2 id="do-i-need-a-bigger-storage-plan-first">Do I need a bigger storage plan first?</h2>
+<p>
+Almost certainly, yes. A personal Google Account includes up to 15 GB, shared by Drive, Gmail and Photos, and Google says that once you reach your limit "you won't be able to upload or create files in Drive". 1 TB needs the 1,000 GB of free space, on top of whatever is already stored.
+</p>
+<p>
+Google describes Google One as a subscription that adds storage across Drive, Gmail and Photos; its own plan page lists the current sizes and prices. For Google Workspace, storage depends on the edition. Google's Workspace page lists, per user, 30 GB for Business Starter, 2 TB for Business Standard and 1 TB for Enterprise Starter, among others. A single file can be up to 5 TB, so the file size is not the problem; the free space is.
+</p>
+
+<h2 id="how-do-i-keep-it-running-for-days">How do I keep it running for days?</h2>
+<p>
+Keep the computer awake and plugged in, keep Chrome open, and use an uploader that continues from what Drive already has. Uploads you start on drive.google.com are sent by that page, so closing the tab, quitting Chrome or restarting ends them. For a job of days, that is the main risk.
+</p>
+<ul>
+<li><strong>Resumable uploads.</strong> After a dropped connection the uploader asks Drive how much of the file arrived and continues from that byte. While the computer is offline, files show "Waiting for the network", and that time doesn't count as failed tries.</li>
+<li><strong>Retries with back-off.</strong> Server errors and rate limits are retried after about 1, 2, 4 seconds and so on, up to a minute apart. A piece that moves no bytes for 60 seconds is restarted. After 20 failed tries in a row with no progress, the file is marked failed.</li>
+<li><strong>Closed tab or restart.</strong> The queue is kept in the browser. Reopen the uploader and press <strong>Resume</strong>; Chrome may ask permission to read the files again, or you choose them again. A session that Drive has expired starts that file over.</li>
+<li><strong>Keep-awake.</strong> The extension asks Chrome to stop the computer sleeping from inactivity while uploads run. Closing a laptop's lid or choosing Sleep still sleeps it.</li>
+<li><strong>Notifications.</strong> A notification arrives when uploads finish and one for each file that fails, so you don't have to watch the tab.</li>
+</ul>
+<figure data-todo="The uploader page after reopening Chrome partway through a large upload: the banner saying uploads were interrupted, the Resume button, and a row reading Interrupted at … with the file picker prompt visible, light theme, demo account, 1280x800"></figure>
+<p>
+See <a href="./resume-google-drive-upload.html">how resuming a Drive upload works</a>. Google's own background route is <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a> for Windows and macOS: you put files in its Google Drive folder and it syncs them, and Google says you can pause or resume the sync at any time.
+</p>
+
+<h2 id="what-about-100-gb-or-4-tb">What about 100 GB or 4 TB?</h2>
+<p>
+Use the same sum. At 20 Mbps, 100 GB takes 100 × 8,000 ÷ 20 = 40,000 seconds, about 11 hours 7 minutes, and the daily limit doesn't apply. 4 TB is 4,000 GB × 8,000 = 32,000,000 megabits; at 20 Mbps that is 1,600,000 seconds, about 18 days 12 hours. At 100 Mbps the same 4 TB is 320,000 seconds, about 3 days 17 hours of sending, but the cap makes it 4,000 ÷ 750 = 5.3, so about 6 days on Workspace. The account needs 4 TB of free storage too.
+</p>
+
+<h2 id="when-should-i-ship-a-disk-or-use-another-route">When should I use another route?</h2>
+<p>
+When the sum comes out at more than a couple of weeks, or the connection is not steady. A 10 Mbps line needs 9 days of unbroken uploading for 1 TB. Options: take the data on a disk to somewhere with a faster upload connection, such as an office, and upload from there; or use Google Drive for desktop, which syncs in the background. Neither skips the daily limit or the storage requirement.
+</p>
+
+<h2 id="what-can-t-it-do">What can't Uploft do?</h2>
+<ul>
+<li>Raise your upload speed. One file goes up at about the speed of Drive's own site, because your connection is the limit. The table above still holds.</li>
+<li>Get past Drive's daily limit or add storage. When Drive reports the limit, the uploader stops that file and says "Drive daily upload limit reached (750 GB). Try again tomorrow"; queued files stay in the uploader.</li>
+<li>Keep a laptop awake with the lid closed.</li>
+<li>Run on phones. It needs Chrome 116 or later on a computer and a Google account, and it isn't on the Chrome Web Store yet.</li>
+</ul>
+<div class="try">
+<p><strong>Uploft</strong> is free, and its source code is public. It isn't on the Chrome Web Store yet; the home page shows what it does and what it asks for.</p>
+<p><a class="pill ink" href="../">See Uploft</a></p>
+</div>
+
+<h2 id="sources">Sources</h2>
+<p><strong>Checked on 29 October 2026.</strong></p>
+<ul class="sources">
+<li>Google Workspace Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a> (750 GB in 24 hours, refresh, storage by edition).</li>
+<li>Google for Developers: <a href="https://developers.google.com/workspace/drive/api/guides/limits">Google Drive API usage limits</a>.</li>
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your storage in Drive, Gmail &amp; Photos</a> (15 GB, storage limit, Google One).</li>
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/37603">Files you can store in Google Drive</a> (5 TB file size).</li>
+<li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+<li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (upload engine, resume, keep-awake).</li>
+</ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Large files and video">
+        <a class="series-previous" href="./upload-large-video-to-google-drive.html"><span>Previous</span> How do I upload a large video to Google Drive?</a>
+        <a class="series-hub" href="./upload-large-video-to-google-drive.html"><span>Guide</span> How do I upload a large video to Google Drive?</a>
+      </nav>
+      <!-- series:end -->
+<section class="related">
+<h2>Related</h2>
+<ul>
+<li><a href="./google-drive-daily-upload-limit.html">What is the Google Drive daily upload limit?</a></li>
+<li><a href="./how-long-to-upload-to-google-drive.html">How long does it take to upload to Google Drive?</a></li>
+<li><a href="./upload-large-video-to-google-drive.html">How do I upload a large video to Google Drive?</a></li>
+<li><a href="./">All Google Drive upload guides</a></li>
+</ul>
+</section>
+</div>
+
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

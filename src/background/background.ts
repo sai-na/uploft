@@ -1,5 +1,5 @@
 /**
- * Background service worker for Upload Tracker for Drive
+ * Background service worker for Uploft
  * Handles extension lifecycle and Chrome API interactions
  */
 

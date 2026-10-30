@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Upload Tracker for Drive",
+  "name": "Uploft – Uploader for Google Drive",
+  "short_name": "Uploft",
   "version": "1.1.0",
   "minimum_chrome_version": "116",
   "description": "Upload to Google Drive several files at a time, resume after network drops, and track Drive uploads with notifications",
@@ -14,6 +15,7 @@
   },
   "action": {
     "default_popup": "popup.html",
+    "default_title": "Uploft",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",

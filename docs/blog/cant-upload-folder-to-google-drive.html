@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Can't upload a folder to Google Drive: causes and fixes</title>
+    <meta name="description" content="Folder won't upload to Google Drive? Check storage, extensions, folder limits and huge folders, and retry only the files that failed." />
+    <link rel="canonical" href="https://sai-na.github.io/uploft/blog/cant-upload-folder-to-google-drive.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta property="og:title" content="Can't upload a folder to Google Drive: causes and fixes" />
+    <meta property="og:description" content="Folder won't upload to Google Drive? Check storage, extensions, folder limits and huge folders, and retry only the files that failed." />
+    <meta property="og:url" content="https://sai-na.github.io/uploft/blog/cant-upload-folder-to-google-drive.html" />
+    <meta property="og:image" content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Why can't I upload a folder to Google Drive?",
+            "description": "Folder won't upload to Google Drive? Check storage, extensions, folder limits and huge folders, and retry only the files that failed.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {"@type": "Person", "name": "Sai Nath", "url": "https://sai-na.github.io/uploft/about.html"},
+            "publisher": {"@type": "Organization", "name": "Meru Apps"},
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/cant-upload-folder-to-google-drive.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+            "about": {"@type": "SoftwareApplication", "name": "Uploft", "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome 116 or later", "url": "https://sai-na.github.io/uploft/"}
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Uploft", "item": "https://sai-na.github.io/uploft/"},
+              {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://sai-na.github.io/uploft/blog/"},
+              {"@type": "ListItem", "position": 3, "name": "Why can't I upload a folder to Google Drive?"}
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#storage-full">Is your storage full?</a></li>
+              <li><a href="#nothing-happens">Folder upload does nothing or never starts</a></li>
+              <li><a href="#huge-folders">Is the folder too big?</a></li>
+              <li><a href="#zip-or-not">Should you zip the folder first?</a></li>
+              <li><a href="#browser-support">Does it depend on the browser?</a></li>
+              <li><a href="#fails-partway">The folder keeps failing partway: how to continue without duplicates</a></li>
+              <li><a href="#limits">Limits to know</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Why can't I upload a folder to Google Drive?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+<p class="answer">
+  A folder upload most often stops because Drive storage is full, a browser
+  extension or session is interfering, or the folder runs into a Drive limit:
+  500,000 items in one folder, 100 levels of nesting or 750 GB uploaded in 24
+  hours. Check storage first, then retry in an incognito window with
+  extensions off.
+</p>
+
+<p class="disclosure">
+  This guide comes from the maker of Uploft, the Chrome
+  extension mentioned below. Google's limits link to Google's own pages and
+  were checked on 29 October 2026; what the extension does comes from its
+  source code.
+</p>
+
+<div class="prose">
+<h2 id="storage-full">Is your storage full?</h2>
+<p>
+  Check this first. Google's storage help says that when your storage is full,
+  you won't be able to upload or create files in Drive. Storage is shared by
+  Drive, Gmail and Google Photos, so a full inbox can block a folder upload.
+  Open <strong>Storage</strong> in the left-hand menu of Drive to see what is
+  used, then free space or buy more.
+</p>
+<p>
+  In Uploft, the file that hits the wall fails with
+  "Your Google storage is full". Files the extension had already uploaded stay
+  in Drive.
+</p>
+
+<h2 id="nothing-happens">Folder upload does nothing or never starts</h2>
+<p>
+  If New ▸ Folder upload opens nothing, or the upload panel never appears, rule
+  out the browser before the folder. Google's Drive help lists these steps for
+  uploads that fail in the browser: check your internet connection, retry in a
+  new incognito window, turn off browser extensions temporarily, switch
+  browsers or clear the cache and cookies, check for browser updates, and sign
+  out of your Google Account and back in. That list sits under Google's video
+  troubleshooting, but the causes it names (cookies, extensions, an old
+  browser) are not specific to video.
+</p>
+<ol>
+  <li>Open an incognito window and go to drive.google.com.</li>
+  <li>Click <strong>New</strong>, then <strong>Folder upload</strong>, and choose the folder.</li>
+  <li>If that works, a browser extension or old cookies were in the way: turn extensions off and back on one at a time to find which.</li>
+  <li>If it still doesn't, try another browser, or drag the folder into an open Drive folder instead.</li>
+</ol>
+<p>
+  Google's upload page also lists a third route: Google Drive for desktop,
+  where you drag the folder into the "Google Drive" folder on your computer
+  and it uploads without a browser tab. Its own page,
+  <a href="https://support.google.com/drive/answer/2565956">Fix problems in Drive for desktop</a>,
+  says the app needs read and write permission on the folder it syncs.
+</p>
+<figure>
+  <img
+    src="../assets/blog/folder-photos-1x.webp"
+    srcset="../assets/blog/folder-photos-1x.webp 1280w, ../assets/blog/folder-photos-2x.webp 2560w"
+    sizes="(max-width: 860px) calc(100vw - 32px), 720px"
+    alt="The Uploft uploader after choosing a Photos folder: Upload to shows Uploft, At a time is set to 6 files and If already in Drive to Skip it; six photos such as IMG_4198.HEIC · Photos/2023 are uploading and the rest are waiting, with 0 of 32 files uploaded in the bar at the bottom"
+    width="1280"
+    height="1180"
+    loading="lazy"
+  />
+  <figcaption>Choosing a folder keeps each file's path, shown after its name, so its subfolders are made again in Drive (demo account).</figcaption>
+</figure>
+
+<h2 id="huge-folders">Is the folder too big?</h2>
+<p>
+  Size alone rarely stops a folder, but a count can. Google's Workspace
+  limits page says a folder that isn't in a shared drive can have up to 500,000
+  items directly in it, and folders nest up to 100 levels deep. In the 100th
+  folder you can add files and shortcuts but not more folders. Each user can
+  upload and copy 750 GB to Drive in 24 hours; once that is reached, uploads
+  stop until the limit refreshes, and only the first file that breaks the limit
+  completes uploading. A single file can be up to 5 TB.
+</p>
+<p>
+  Large folders are also slow, and a slow upload looks like a stuck one. A
+  100 GB folder on a 20 Mbps upload is 100 × 8,000 = 800,000 megabits, and
+  800,000 ÷ 20 = 40,000 seconds, which is 11 hours 7 minutes. Read
+  <a href="./how-long-to-upload-to-google-drive.html">how long an upload takes</a>
+  before deciding it has failed, and keep the computer awake.
+</p>
+<p>
+  In Uploft, every file in the folder is its own item in the
+  queue. One file that cannot be sent does not block the others: it is marked
+  failed and the rest carry on. A file is marked failed after 20 failed tries in
+  a row without progress, about 15 minutes, and time spent offline doesn't
+  count. The summary then reads "N uploads failed", and each failed file has a
+  <strong>Retry</strong> button.
+</p>
+
+<h2 id="zip-or-not">Should you zip the folder first?</h2>
+<p>
+  Not as a fix. A zip file is one file, so one interruption affects the whole
+  archive, Drive shows a single .zip instead of the folders and files inside,
+  and anything you want from it must be downloaded and unzipped. A zip can be
+  up to the 5 TB file limit like any other file. It helps in one case: a
+  folder with so many items that it nears the 500,000-item limit. Keep the
+  folder as folders otherwise; a per-file queue can then retry just the
+  files that failed.
+</p>
+
+<h2 id="browser-support">Does it depend on the browser?</h2>
+<p>
+  Folder upload on drive.google.com is a browser feature, so a browser or
+  profile that blocks it, or an extension that interferes, produces the "does
+  nothing" symptom above. Google's pages used for this guide don't list which
+  browsers support folder upload, so the safest check is the incognito test.
+</p>
+<p>
+  Uploft needs Chrome 116 or later on a computer. Its
+  <strong>Choose folder</strong> button opens Chrome's folder picker; if that
+  picker isn't available, it falls back to an ordinary folder input. Hidden
+  system files (<code>.DS_Store</code>, <code>Thumbs.db</code> and
+  <code>desktop.ini</code>) are left out.
+</p>
+
+<h2 id="fails-partway">The folder keeps failing partway: how to continue without duplicates</h2>
+<p>
+  Choose the same folder again. The extension's <strong>If already in
+  Drive</strong> setting is <strong>Skip it</strong> by default, so files it
+  already uploaded are not sent again and only the missing ones go up. Files
+  that match an interrupted upload (same path, size and modified time) carry on
+  from the last byte Drive confirmed. Folders are looked up by path, so the
+  folders it made earlier are reused, not copied.
+</p>
+<p>
+  After a closed tab or a restart, the uploader shows an interrupted banner
+  with <strong>Resume</strong>; Chrome may ask permission to read the folder
+  again. Files that can't be reopened say "Choose the file again to continue".
+  <a href="./resume-google-drive-upload.html">How resuming works</a>.
+</p>
+<p>
+  On Drive's own site, an upload runs in the tab, so closing it ends the
+  upload. Check what already arrived in Drive before uploading the same folder
+  again, so you know which files are missing.
+</p>
+<p>
+  Other errors the extension shows in a failed row include "No access to the
+  destination folder. Choose it again" and "No permission to add files to this
+  folder", which mean the Drive folder you chose isn't one you can add to.
+</p>
+
+<h2 id="limits">Limits to know</h2>
+<ul>
+  <li>The extension can't fix a full Drive, a folder at its item limit or the 750 GB daily cap; it reports them.</li>
+  <li>"Skip it" and "Replace it" only know files the extension uploaded, because it uses Google's narrowest Drive permission (drive.file). Files you uploaded with Drive's own site are not detected, so they can be duplicated.</li>
+  <li>Empty folders are not recreated: a folder is created in Drive when a file needs it.</li>
+  <li>It runs in Chrome 116 or later on a computer, it isn't on the Chrome Web Store yet, and the Google sign-in is in testing, so only listed test users can sign in for now.</li>
+</ul>
+
+<div class="try">
+  <p>
+    <strong>Uploft</strong> is free, and its source code is
+    public. It isn't on the Chrome Web Store yet; the home page shows what it
+    does and what it asks for.
+  </p>
+  <p><a class="pill ink" href="../">See Uploft</a></p>
+</div>
+
+<h2 id="sources">Sources</h2>
+<p><strong>Checked on 29 October 2026.</strong></p>
+<ul class="sources">
+  <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2424368">Upload files &amp; folders to Google Drive</a>.</li>
+  <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2423694">Store &amp; play video in Google Drive</a> (Limits &amp; errors: upload troubleshooting steps).</li>
+  <li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your Google storage</a> (full storage blocks uploads).</li>
+  <li>Google Drive Help: <a href="https://support.google.com/drive/answer/2565956">Fix problems in Drive for desktop</a>.</li>
+  <li>Google Workspace Admin Help: <a href="https://knowledge.workspace.google.com/admin/drive/storage-and-upload-limits-for-google-workspace">Storage and upload limits for Google Workspace</a>.</li>
+  <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (uploader and upload engine).</li>
+</ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Many files and folders">
+        <a class="series-previous" href="./upload-folder-to-google-drive.html"><span>Previous</span> How do I upload a whole folder to Google Drive?</a>
+        <a class="series-hub" href="./upload-folder-to-google-drive.html"><span>Guide</span> How do I upload a whole folder to Google Drive?</a>
+        <a class="series-next" href="./upload-multiple-files-to-google-drive.html"><span>Next</span> How do I upload multiple files to Google Drive at once?</a>
+      </nav>
+      <!-- series:end -->
+<section class="related">
+  <h2>Related</h2>
+  <ul>
+    <li><a href="./upload-folder-to-google-drive.html">How do I upload a whole folder to Google Drive?</a></li>
+    <li><a href="./google-drive-preparing-upload-stuck.html">Why is Google Drive stuck on preparing to upload?</a></li>
+    <li><a href="./google-drive-error-accessing-folder-contents.html">Google Drive "error accessing folder contents": what it means</a></li>
+    <li><a href="./">All Google Drive upload guides</a></li>
+  </ul>
+</section>
+</div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

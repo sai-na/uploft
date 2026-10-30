@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive upload keeps restarting? How to resume it</title>
+    <meta
+      name="description"
+      content="Why Google Drive uploads start over after a closed tab, sleep or Wi-Fi drop, and how Drive&#x27;s resumable uploads carry on from the last byte received."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/resume-google-drive-upload.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive upload keeps restarting? How to resume it"
+    />
+    <meta
+      property="og:description"
+      content="Why Google Drive uploads start over after a closed tab, sleep or Wi-Fi drop, and how Drive&#x27;s resumable uploads carry on from the last byte received."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/resume-google-drive-upload.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-resume.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Can you resume a Google Drive upload after it stops?",
+            "description": "Why Google Drive uploads start over after a closed tab, sleep or Wi-Fi drop, and how Drive's resumable uploads carry on from the last byte received.",
+            "datePublished": "2026-10-29",
+            "dateModified": "2026-10-29",
+            "inLanguage": "en-GB",
+            "author": {
+              "@type": "Person",
+              "name": "Sai Nath",
+              "url": "https://sai-na.github.io/uploft/about.html"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Meru Apps"
+            },
+            "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/resume-google-drive-upload.html",
+            "image": "https://sai-na.github.io/uploft/assets/blog/og-resume.png",
+            "about": {
+              "@type": "SoftwareApplication",
+              "name": "Uploft",
+              "applicationCategory": "BrowserApplication",
+              "operatingSystem": "Chrome 116 or later",
+              "url": "https://sai-na.github.io/uploft/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Uploft",
+                "item": "https://sai-na.github.io/uploft/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Guides",
+                "item": "https://sai-na.github.io/uploft/blog/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Can you resume a Google Drive upload after it stops?"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#why-does-my-upload-start-again-from-zero">Why does my upload start again from zero?</a></li>
+              <li><a href="#how-does-google-drive-resume-an-upload">How does Google Drive resume an upload?</a></li>
+              <li><a href="#what-happens-if-i-close-the-tab">What happens if I close the tab?</a></li>
+              <li><a href="#what-if-the-wi-fi-drops-or-the-computer-sleeps">What if the Wi-Fi drops or the computer sleeps?</a></li>
+              <li><a href="#what-if-chrome-crashes-or-the-computer-restarts">What if Chrome crashes or the computer restarts?</a></li>
+              <li><a href="#how-much-is-sent-twice-after-a-drop">How much is sent twice after a drop?</a></li>
+              <li><a href="#can-it-resume-uploads-i-started-on-drive-google-com">Can it resume uploads I started on drive.google.com?</a></li>
+              <li><a href="#what-are-the-limits">What are the limits?</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Can you resume a Google Drive upload after it stops?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              Not from Drive's website once the tab is gone: an upload there
+              lives in its tab, so after the tab closes or Chrome restarts you
+              upload the file again. Drive itself can resume: its resumable
+              uploads continue from the last byte received, for up to a week,
+              and uploaders built on them, such as Uploft,
+              carry on.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="why-does-my-upload-start-again-from-zero">
+                Why does my upload start again from zero?
+              </h2>
+              <p>
+                Because the page that was sending it went away. An upload you
+                start on drive.google.com is sent by that tab. If the tab is
+                closed, Chrome quits or crashes, the computer restarts, or
+                Chrome unloads the tab to save memory, nothing is left to carry
+                it on, and the next try starts from the first byte. Chrome's
+                help says Memory Saver "deactivates tabs that you aren't
+                currently using" and reloads them when you return. Big files are
+                hit hardest, because they need the tab for hours.
+              </p>
+
+              <h2 id="how-does-google-drive-resume-an-upload">
+                How does Google Drive resume an upload?
+              </h2>
+              <p>
+                With resumable uploads, a feature of the Google Drive API.
+                Google recommends them "for large files (greater than 5 MB) and
+                when there's a high chance of network interruption". They work
+                like this:
+              </p>
+              <ol>
+                <li>
+                  The uploader opens an upload session, and Drive gives it a
+                  session address.
+                </li>
+                <li>It sends the file in pieces, each a multiple of 256 KB.</li>
+                <li>
+                  After an interruption, it sends an empty request to the
+                  session address. Drive replies "308 Resume Incomplete" with
+                  the range of bytes it already has.
+                </li>
+                <li>It sends the rest, starting from the next byte.</li>
+              </ol>
+              <p>
+                A session lasts one week: Google says "A resumable session URI
+                expires after one week". After that, Drive replies "404 Not
+                Found" and the upload has to start again from the beginning.
+              </p>
+
+              <h2 id="what-happens-if-i-close-the-tab">
+                What happens if I close the tab?
+              </h2>
+              <p>
+                On Drive's website, the upload ends and you start it again
+                later. In Uploft's uploader, uploads stop too,
+                and the page asks before you leave while they are running. But
+                each file's place is saved on your computer. Reopen the uploader
+                with the extension's toolbar icon ▸
+                <strong>Upload files to Drive</strong>, and a banner says how
+                many uploads were interrupted and how much is already in Drive.
+                Then:
+              </p>
+              <ul>
+                <li>
+                  <strong>If Chrome kept access to the files</strong> (you used
+                  <strong>Choose files</strong>,
+                  <strong>Choose folder</strong> or drag and drop), press
+                  <strong>Resume</strong> in the banner. Chrome asks for
+                  permission to read the files again, one prompt for a whole
+                  folder, and each file continues from the byte Drive confirmed.
+                </li>
+                <li>
+                  <strong>Otherwise</strong>, choose or drop the same files
+                  again into the same destination folder. A file with the same
+                  name, folder path, size and modified time as an interrupted
+                  upload continues it instead of starting a new one.
+                </li>
+              </ul>
+              <figure>
+                <img
+                  src="../assets/blog/resume.webp"
+                  alt="The uploader after being reopened: a banner reads 6 uploads were interrupted with 16.1 GB already in Drive, and each file row says Interrupted at, for example, 4.0 GB of 29.7 GB, choose the file again to continue"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  Reopening the uploader after it was closed mid-upload. Here
+                  the files have to be chosen again; when Chrome kept access to
+                  them, the banner has a Resume button instead. Screenshot from
+                  a demo account.
+                </figcaption>
+              </figure>
+
+              <h2 id="what-if-the-wi-fi-drops-or-the-computer-sleeps">
+                What if the Wi-Fi drops or the computer sleeps?
+              </h2>
+              <p>
+                The uploader waits and then continues. While the computer is
+                offline, each file shows "Waiting for the network", and that
+                time doesn't count against its retries. When the connection is
+                back, it asks Drive how much arrived and goes on from there.
+              </p>
+              <p>
+                While uploads run, it also asks Chrome to stop the computer
+                sleeping from inactivity. If the computer sleeps anyway, for
+                example because the lid was closed, the interrupted piece is
+                sent again after it wakes and the file continues from Drive's
+                last confirmed byte.
+              </p>
+
+              <h2 id="what-if-chrome-crashes-or-the-computer-restarts">
+                What if Chrome crashes or the computer restarts?
+              </h2>
+              <p>
+                It works the same as a closed tab. The upload list is kept in
+                the browser's own storage, so after a restart the uploader shows
+                the interrupted files when you open it. Resume within a week.
+                After that Drive has dropped the session, and when you resume,
+                the uploader starts that file again from zero.
+              </p>
+
+              <h2 id="how-much-is-sent-twice-after-a-drop">
+                How much is sent twice after a drop?
+              </h2>
+              <p>
+                At most the piece that was on its way. Pieces start at 8 MB and
+                grow up to 64 MB on fast connections, and Drive says exactly
+                which bytes it stored, so the uploader goes on from the next
+                one. Worked example: a whole 64 MB piece is 64 × 8 = 512
+                megabits, and at 20 Mbps sending it again takes 512 ÷ 20 = 25.6
+                seconds. Starting a 50 GB file again from zero at the same speed
+                would take 5 hours 33 minutes.
+              </p>
+
+              <h2 id="can-it-resume-uploads-i-started-on-drive-google-com">
+                Can it resume uploads I started on drive.google.com?
+              </h2>
+              <p>
+                No. Those uploads belong to Drive's own page, and only Drive can
+                carry them on. On drive.google.com the extension presses Drive's
+                <strong>Retry</strong> button for you, keeps the computer awake
+                and stops Chrome unloading the tab, which removes two common
+                reasons for a restart. If that tab is closed, though, the upload
+                is gone. For uploads that must survive a closed tab, start them
+                in the uploader. See
+                <a href="./google-drive-upload-failed.html"
+                  >why Drive uploads fail or get stuck</a
+                >
+                for the rest.
+              </p>
+
+              <h2 id="what-are-the-limits">What are the limits?</h2>
+              <ul>
+                <li>
+                  Resuming needs the same file, unchanged. If its size or
+                  modified time changed, it is treated as a new upload.
+                </li>
+                <li>Resume within a week, while Drive keeps the session.</li>
+                <li>
+                  The uploader has to be open for uploads to run. It doesn't
+                  upload in the background after its tab is closed.
+                </li>
+                <li>
+                  For a folder you want kept in sync all the time,
+                  <a href="https://support.google.com/drive/answer/10838124"
+                    >Google Drive for desktop</a
+                  >
+                  is Google's own answer; Google says its sync can be paused and
+                  resumed at any time.
+                </li>
+                <li>
+                  It runs in Chrome 116 or later on a computer, and it isn't on
+                  the Chrome Web Store yet.
+                </li>
+              </ul>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../"
+                    >See Uploft</a
+                  >
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>
+                  Google for Developers:
+                  <a
+                    href="https://developers.google.com/workspace/drive/api/guides/manage-uploads"
+                    >Upload file data</a
+                  >
+                  (resumable uploads, session expiry, resuming).
+                </li>
+                <li>
+                  Google Chrome Help:
+                  <a href="https://support.google.com/chrome/answer/12929150"
+                    >Personalize Chrome performance</a
+                  >
+                  (Memory Saver).
+                </li>
+                <li>
+                  Chrome for Developers:
+                  <a
+                    href="https://developer.chrome.com/docs/extensions/reference/api/power"
+                    >chrome.power API</a
+                  >.
+                </li>
+                <li>
+                  Google Drive Help:
+                  <a href="https://support.google.com/drive/answer/10838124"
+                    >Use Google Drive for desktop</a
+                  >.
+                </li>
+                <li>
+                  Uploft:
+                  <a href="https://github.com/sai-na/uploft"
+                    >source code</a
+                  >
+                  (upload engine and saved queue) and
+                  <a href="../privacy.html">privacy policy</a> (what is stored
+                  on your computer).
+                </li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Google Drive uploads">
+        <a class="series-previous" href="./google-drive-upload-failed.html"><span>Previous</span> Why is my Google Drive upload failing or stuck?</a>
+        <a class="series-hub" href="./upload-to-google-drive-from-computer.html"><span>Guide</span> How do I upload files and folders to Google Drive from a computer?</a>
+        <a class="series-next" href="./upload-large-files-to-google-drive.html"><span>Next</span> How do I upload large files to Google Drive?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li>
+                    <a href="./google-drive-upload-failed.html"
+                      >Why is my Google Drive upload failing or stuck?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="./upload-large-files-to-google-drive.html"
+                      >How do I upload large files to Google Drive?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="./replace-file-google-drive-keep-link.html"
+                      >How do I replace a file in Google Drive without changing
+                      the link?</a
+                    >
+                  </li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

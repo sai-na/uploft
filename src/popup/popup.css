@@ -2,6 +2,8 @@
 
 :root {
   color-scheme: light;
+  --logo-light: inline;
+  --logo-dark: none;
   --bg: #f8fafd;
   --surface: #ffffff;
   --on-surface: #1f1f1f;
@@ -27,6 +29,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     color-scheme: dark;
+    --logo-light: none;
+    --logo-dark: inline;
     --bg: #131314;
     --surface: #1e1f20;
     --on-surface: #e3e3e3;
@@ -45,6 +49,8 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
+  --logo-light: none;
+  --logo-dark: inline;
   --bg: #131314;
   --surface: #1e1f20;
   --on-surface: #e3e3e3;
@@ -419,4 +425,12 @@ footer a:hover {
 .version {
   margin-left: auto;
   color: var(--subtle);
+}
+
+/* The logo has a white tile in light mode and a night tile in dark mode */
+.logo-light {
+  display: var(--logo-light);
+}
+.logo-dark {
+  display: var(--logo-dark);
 }

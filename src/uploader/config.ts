@@ -14,8 +14,7 @@ export const GOOGLE_API_KEY: string = 'AIzaSyBtFzvCOAwgh8316bmvk_aK9jXXcVRDZas';
 export const GOOGLE_APP_ID: string = '88124285227';
 
 /** Hosted page that shows the Google Picker; must match externally_connectable */
-export const PICKER_URL =
-  'https://sai-na.github.io/upload-tracker-for-drive/picker.html';
+export const PICKER_URL = 'https://sai-na.github.io/uploft/picker.html';
 
 export function isUploaderConfigured(): boolean {
   return GOOGLE_CLIENT_ID !== '';

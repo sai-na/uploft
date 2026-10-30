@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Google Drive upload stuck on waiting: causes and fixes</title>
+    <meta
+      name="description"
+      content="A Google Drive upload stuck on 'Waiting' is usually queued, offline or paused. How to tell a queue from a hang, and what to try first."
+    />
+    <link
+      rel="canonical"
+      href="https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-on-waiting.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Uploft" />
+    <meta
+      property="og:title"
+      content="Google Drive upload stuck on waiting: causes and fixes"
+    />
+    <meta
+      property="og:description"
+      content="A Google Drive upload stuck on 'Waiting' is usually queued, offline or paused. How to tell a queue from a hang, and what to try first."
+    />
+    <meta
+      property="og:url"
+      content="https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-on-waiting.html"
+    />
+    <meta
+      property="og:image"
+      content="https://sai-na.github.io/uploft/assets/blog/og-uploading.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2212 12 104 104%22%3E%3Cdefs%3E%3ClinearGradient id=%22t%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23EEF5FF%22/%3E%3Cstop offset=%221%22 stop-color=%22%23CFE3FF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%2216%22 y=%2216%22 width=%2296%22 height=%2296%22 rx=%2222%22 fill=%22url(%23t)%22/%3E%3Cg transform=%22translate(16 16) scale(.857142857) translate(-8 -8)%22%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z%22 fill=%22%23FFBA00%22/%3E%3Cpath d=%22M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z%22 fill=%22%232684FC%22/%3E%3Cpath d=%22M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z%22 fill=%22%2300AC47%22/%3E%3Cpath d=%22M56 89 58 97M72 89 70 97%22 stroke=%22%235F6368%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Crect x=%2255%22 y=%2296%22 width=%2218%22 height=%2213%22 rx=%223.5%22 fill=%22%235F6368%22/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <link rel="stylesheet" href="../blog/blog.css" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Why does my Google Drive upload say 'Waiting' and never start?",
+      "description": "A Google Drive upload stuck on 'Waiting' is usually queued, offline or paused. How to tell a queue from a hang, and what to try first.",
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "inLanguage": "en-GB",
+      "author": {
+        "@type": "Person",
+        "name": "Sai Nath",
+        "url": "https://sai-na.github.io/uploft/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Meru Apps"
+      },
+      "mainEntityOfPage": "https://sai-na.github.io/uploft/blog/google-drive-upload-stuck-on-waiting.html",
+      "image": "https://sai-na.github.io/uploft/assets/blog/og-uploading.png",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Uploft",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome 116 or later",
+        "url": "https://sai-na.github.io/uploft/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Uploft",
+          "item": "https://sai-na.github.io/uploft/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://sai-na.github.io/uploft/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Why does my Google Drive upload say 'Waiting' and never start?"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  </head>
+  <body class="blog">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="drive-rule" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="../" aria-label="Uploft, home">
+          <svg viewBox="12 12 104 104" aria-hidden="true"><defs><linearGradient id="uploft-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5FF"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs><rect x="16" y="16" width="96" height="96" rx="22" fill="url(#uploft-tile)"/><g transform="translate(16 16) scale(.857142857) translate(-8 -8)"><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h20c11-10 24-20 24-36 0-17-13-32-34-32Z" fill="#FFBA00"/><path d="M64 20C43 20 30 35 30 52c0 16 13 26 24 36h10V20Z" fill="#2684FC"/><path d="M64 20C55 32 52 44 53 58c1 12 3 22 5 30h12c2-8 4-18 5-30 1-14-2-26-11-38Z" fill="#00AC47"/><path d="M56 89 58 97M72 89 70 97" stroke="#5F6368" stroke-width="3.5" stroke-linecap="round"/><rect x="55" y="96" width="18" height="13" rx="3.5" fill="#5F6368"/><ellipse cx="54.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><ellipse cx="73.5" cy="53" rx="3.6" ry="4.6" fill="#1F2A37"/><path d="M59.5 61c2.6 2.8 6.4 2.8 9 0" fill="none" stroke="#1F2A37" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="46" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/><ellipse cx="82" cy="61" rx="5" ry="3.2" fill="#FF7A93" opacity=".75"/></g></svg>
+          <span>Uploft</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="../#features">Features</a>
+          <a href="../#compare">Compare</a>
+          <a href="./" aria-current="page">Guides</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >GitHub</a
+          >
+        </nav>
+        <a class="pill ink" href="../#install">Add to Chrome</a>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <article class="post">
+        <div class="post-grid has-toc">
+          <!-- toc:start -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc-title">On this page</p>
+            <ol>
+              <li><a href="#queue-or-hang">Is it a queue or a hang?</a></li>
+              <li><a href="#waiting-for-hours">Waiting to upload for hours</a></li>
+              <li><a href="#browser-limit">Is it a browser limit on files at once?</a></li>
+              <li><a href="#how-the-uploader-shows-state">How the uploader shows each file&#x27;s state</a></li>
+              <li><a href="#what-the-extension-fixes">What the extension fixes and what it can&#x27;t</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <script src="../assets/blog/toc.js" defer></script>
+          </nav>
+          <!-- toc:end -->
+          <div class="prose-card">
+            <header class="post-head">
+              <nav class="crumbs" aria-label="Breadcrumb">
+                <a href="../">Uploft</a> ›
+                <a href="./">Guides</a>
+              </nav>
+              <h1>Why does my Google Drive upload say 'Waiting' and never start?</h1>
+              <p class="updated">
+                Published <time datetime="2026-10-29">29 October 2026</time> ·
+                Updated <time datetime="2026-10-29">29 October 2026</time> · By
+                <a href="../about.html" rel="author">Sai Nath</a>
+              </p>
+            </header>
+
+            <p class="answer">
+              An upload that says Waiting has not started sending yet. Most
+              often it is queued behind other files, because uploaders send only
+              a few at a time. If nothing in the list is moving, the cause is
+              the connection, a paused upload or a sign-in that needs renewing.
+              Check whether any file is moving, then the network.
+            </p>
+
+            <p class="disclosure">
+              This guide comes from the maker of Uploft, the
+              Chrome extension mentioned below. Google's limits and steps link
+              to Google's own pages and were checked on 29 October 2026; what
+              the extension does comes from its source code.
+            </p>
+
+            <div class="prose">
+              <h2 id="queue-or-hang">Is it a queue or a hang?</h2>
+              <p>
+                Look at the other files first. If at least one file in the list
+                is moving, the waiting ones are in line and will start when a
+                place frees up. If nothing is moving, nothing is in line: the
+                upload is stalled, and the next sections list why. Google does
+                not publish what each label on drive.google.com's upload panel
+                means, so the table gives likely causes from how uploads work,
+                not from a Google list.
+              </p>
+              <div class="table-wrap"><table>
+                <thead>
+                  <tr><th>What you see</th><th>Likely cause</th><th>Try first</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Some files moving, others waiting</td>
+                    <td>A queue: only some files upload at a time</td>
+                    <td>Wait; nothing is wrong</td>
+                  </tr>
+                  <tr>
+                    <td>Nothing moving, no file shows progress</td>
+                    <td>No connection, a blocked network or a closed or unloaded tab</td>
+                    <td>Open another site, then reload the Drive tab</td>
+                  </tr>
+                  <tr>
+                    <td>Waiting for hours with the tab left open</td>
+                    <td>The computer slept, Chrome unloaded the tab, or the session expired</td>
+                    <td>Keep the computer awake; add the file again</td>
+                  </tr>
+                  <tr>
+                    <td>Waiting for the network</td>
+                    <td>The connection dropped</td>
+                    <td>See <a href="./google-drive-upload-paused-waiting-for-network.html">Paused, waiting for network</a></td>
+                  </tr>
+                  <tr>
+                    <td>Stuck at 0% after it starts</td>
+                    <td>Storage full or the upload never began</td>
+                    <td>See <a href="./google-drive-upload-stuck-at-0.html">Stuck at 0%</a></td>
+                  </tr>
+                </tbody>
+              </table></div>
+
+              <h2 id="waiting-for-hours">Waiting to upload for hours</h2>
+              <p>
+                A file that waits for hours is not in a normal queue. A queue
+                moves as files finish, so a long wait means the files ahead are
+                stalled, or the page sending them has stopped. Work through
+                these in order.
+              </p>
+              <ol>
+                <li>Check the connection. Open any other page to confirm the internet works, and switch from a weak Wi-Fi signal to a cable if you can.</li>
+                <li>Check <strong>Storage</strong> in Drive's left-hand menu. Google says that when an account reaches its storage limit, "you won't be able to upload or create files in Drive", and no retry fixes that.</li>
+                <li>Keep the drive.google.com tab open. Closing it, quitting Chrome or restarting the computer is likely to end an upload started there.</li>
+                <li>Stop Chrome unloading the tab. Open <strong>Settings</strong> ▸ <strong>Performance</strong>, click <strong>Add</strong> next to "Always keep these sites active" and add drive.google.com. Google says Memory Saver "deactivates tabs that you aren't currently using", and its list of tabs it leaves active does not mention uploads.</li>
+                <li>Keep the computer awake. A laptop that sleeps stops the transfer; plug it in and change the sleep setting while the upload runs.</li>
+                <li>If nothing has moved after all of this, reload the page and add the file again. Google does not document resuming a stalled upload on Drive's website after a reload, so expect it to start over.</li>
+              </ol>
+              <figure data-todo="Screenshot of drive.google.com's own upload panel with several files, some uploading and one or more labelled as waiting, taken by the owner on a demo account. Show the whole panel and the file names; no real account details."></figure>
+
+              <h2 id="browser-limit">Is it a browser limit on files at once?</h2>
+              <p>
+                Probably partly, but Google does not say. Google does not
+                document how many files Drive's website uploads at once, so any
+                exact number quoted for it is a guess. What is certain is that
+                a queue exists: the Waiting label is that queue, and a very
+                large batch spends a long time in it. Splitting a big batch
+                into smaller ones, or uploading the biggest files on their own,
+                may shorten the line.
+              </p>
+              <p>
+                Uploft sets its own limit and shows it: its
+                uploader sends 1 to 6 files at a time (4 by default), set with
+                <strong>At a time</strong> on the uploader page. The files over
+                that number show <strong>Waiting</strong> until a place frees up.
+                Lowering the number sends the extra uploads back to Waiting
+                without losing what they have already sent.
+              </p>
+
+              <h2 id="how-the-uploader-shows-state">How the uploader shows each file's state</h2>
+              <p>
+                In the extension's uploader, every file has one status line, so
+                a queue can be told from a stall at a glance. These are the
+                words it uses:
+              </p>
+              <div class="table-wrap"><table>
+                <thead>
+                  <tr><th>It says</th><th>It means</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Waiting</strong></td><td>Queued: the file will start when a place frees up under the "At a time" limit. After an interruption it adds how much is already in Drive</td></tr>
+                  <tr><td><strong>Starting</strong> or <strong>Reconnecting</strong></td><td>The upload is being set up, or picking up a file that already has part in Drive</td></tr>
+                  <tr><td><strong>Waiting for the network</strong></td><td>The computer is offline; the file carries on when the connection returns, and the wait does not use up retries</td></tr>
+                  <tr><td><strong>Retrying in N s</strong></td><td>A connection problem; it tries again, with longer pauses, and marks the file failed after 20 failures in a row with no progress</td></tr>
+                  <tr><td><strong>Paused</strong></td><td>Paused by you, with <strong>Pause all</strong> or the file's own button; <strong>Resume</strong> restarts it</td></tr>
+                  <tr><td><strong>Interrupted at … Choose the file again to continue</strong></td><td>The uploader was restarted and needs the file picked again; Drive still holds the part already sent</td></tr>
+                </tbody>
+              </table></div>
+              <figure>
+                <img
+                  src="../assets/blog/uploading.webp"
+                  alt="The Uploft uploader page with four files uploading at once while two more wait their turn"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>
+                  A queue in the extension's own uploader: four files going, two waiting. Screenshot from a demo account, so the files and
+                  speeds are examples.
+                </figcaption>
+              </figure>
+
+              <h2 id="what-the-extension-fixes">What the extension fixes and what it can't</h2>
+              <p>
+                Uploft is a free Chrome extension (Chrome 116
+                or later, on a computer) that targets the causes above.
+              </p>
+              <ul>
+                <li><strong>A visible queue.</strong> Its uploader shows which files are going and which are waiting, and its limit of 1 to 6 at a time is yours to set.</li>
+                <li><strong>Auto-retry.</strong> On drive.google.com it clicks Drive's own <strong>Retry</strong> button after 5, 20 and 60 seconds, and waits for the network if the computer is offline.</li>
+                <li><strong>Keep-awake and no tab discarding.</strong> It asks Chrome to keep the computer awake from inactivity while uploads run, and marks the uploading tab so Chrome does not discard it automatically.</li>
+                <li><strong>A stalled-piece restart</strong> in its own uploader: a piece that moves no bytes for 60 seconds is restarted, and the upload continues from what Drive already has.</li>
+              </ul>
+              <p>
+                It cannot fix a full Google storage, and it
+                cannot change how Drive's own website queues files. Keep-awake
+                does not stop a closed laptop lid or <strong>Sleep</strong> from
+                sleeping the computer. For uploading from a folder on the computer rather than a browser tab, Google makes
+                <a href="https://support.google.com/drive/answer/10838124">Google Drive for desktop</a>
+                for Windows and macOS. Uploft is not on the
+                Chrome Web Store yet.
+              </p>
+
+              <div class="try">
+                <p>
+                  <strong>Uploft</strong> is free, and its
+                  source code is public. It isn't on the Chrome Web Store yet;
+                  the home page shows what it does and what it asks for.
+                </p>
+                <p>
+                  <a class="pill ink" href="../">See Uploft</a>
+                </p>
+              </div>
+
+              <h2 id="sources">Sources</h2>
+              <p><strong>Checked on 29 October 2026.</strong></p>
+              <ul class="sources">
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/6374270">Manage your storage in Drive, Gmail &amp; Photos</a>.</li>
+                <li>Google Chrome Help: <a href="https://support.google.com/chrome/answer/12929150">Personalize Chrome performance</a> (Memory Saver).</li>
+                <li>Google Drive Help: <a href="https://support.google.com/drive/answer/10838124">Use Google Drive for desktop</a>.</li>
+                <li>Uploft: <a href="https://github.com/sai-na/uploft">source code</a> (upload engine, uploader status text, retry and keep-awake).</li>
+              </ul>
+
+      <!-- series:start -->
+      <nav class="series" aria-label="More in Stuck uploads">
+        <a class="series-previous" href="./google-drive-upload-stuck-at-100.html"><span>Previous</span> Why is my Google Drive upload stuck at 100%?</a>
+        <a class="series-hub" href="./why-is-google-drive-upload-stuck.html"><span>Guide</span> Why is my Google Drive upload stuck, and what do I do?</a>
+        <a class="series-next" href="./google-drive-upload-paused-waiting-for-network.html"><span>Next</span> Why does my Google Drive upload say &quot;paused&quot; or &quot;waiting for network&quot;?</a>
+      </nav>
+      <!-- series:end -->
+              <section class="related">
+                <h2>Related</h2>
+                <ul>
+                  <li><a href="./why-is-google-drive-upload-stuck.html">Why is my Google Drive upload stuck, and what do I do?</a></li>
+                  <li><a href="./google-drive-upload-paused-waiting-for-network.html">Google Drive upload paused, waiting for network</a></li>
+                  <li><a href="./google-drive-upload-stuck-at-0.html">Why is my Google Drive upload stuck at 0%?</a></li>
+                  <li><a href="./">All Google Drive upload guides</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <!-- rail:start -->
+          <aside class="rail" aria-label="Uploft">
+  <div class="rail-card">
+    <p class="rail-head">Uploft</p>
+    <p>
+      A free Chrome extension with public source code: uploads to Google Drive
+      that resume after closed tabs, restarts and Wi-Fi drops, 1 to 6 files at a
+      time. Not on the Chrome Web Store yet.
+    </p>
+    <p>
+      <a href="../">What it does</a> · <a href="../privacy.html">Privacy</a>
+    </p>
+  </div>
+  <div class="rail-card">
+    <p class="rail-head">Guides</p>
+    <ul>
+      <li>
+        <a href="./google-drive-upload-failed.html">Upload failing or stuck</a>
+      </li>
+      <li><a href="./resume-google-drive-upload.html">Resume an upload</a></li>
+      <li>
+        <a href="./upload-large-files-to-google-drive.html"
+          >Upload large files</a
+        >
+      </li>
+      <li>
+        <a href="./replace-file-google-drive-keep-link.html"
+          >Replace a file, keep the link</a
+        >
+      </li>
+    </ul>
+  </div>
+</aside>
+          <!-- rail:end -->
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Uploft</span>
+        <nav aria-label="Footer">
+          <a href="./">Guides</a>
+          <a href="../about.html">About</a>
+          <a href="../privacy.html">Privacy policy</a>
+          <a href="https://github.com/sai-na/uploft"
+            >Source code</a
+          >
+          <a href="https://github.com/sai-na/uploft/issues"
+            >Report a problem</a
+          >
+          <a href="https://buymeacoffee.com/sai.nath">Buy me a coffee</a>
+        </nav>
+        <p class="note">
+          Not made by or affiliated with Google. Google Drive and Chrome are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
