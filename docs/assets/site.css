@@ -171,6 +171,23 @@ html {
 .topbar nav a[aria-current='page'] {
   color: var(--on-surface);
 }
+.topbar-bmc {
+  display: inline-flex;
+  flex: none;
+  border-radius: 8px;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+}
+.topbar-bmc img {
+  display: block;
+  width: auto;
+  height: 36px;
+}
+.topbar-bmc:hover {
+  box-shadow: 0 2px 8px rgb(0 0 0 / 18%);
+  transform: translateY(-1px);
+}
 
 /* Buttons */
 .pill {
@@ -620,6 +637,27 @@ h3 {
   transform: translateY(-1px);
 }
 
+/* Below 900 px the coffee button shrinks to its cup, cropped from the same image */
+@media (max-width: 900px) {
+  .topbar .wrap {
+    gap: 16px;
+  }
+  .topbar nav {
+    gap: 18px;
+  }
+  .topbar-bmc {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    background: #ffdd00;
+  }
+  .topbar-bmc img {
+    max-width: none;
+    height: 46px;
+    margin: -4.8px 0 0 -6.75px;
+  }
+}
+
 /* Narrow screens */
 @media (max-width: 480px) {
   .topbar .wrap {
@@ -663,7 +701,7 @@ h3 {
   .topbar nav {
     display: none;
   }
-  .topbar .pill {
+  .topbar-bmc {
     margin-left: auto;
   }
   .perms {

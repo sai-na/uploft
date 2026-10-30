@@ -66,6 +66,37 @@
     </header>
 
     <main>
+      <!-- Shown while the page gets ready, and after sign-in while the Drive folder is set up -->
+      <section class="empty-state loading-state" id="view-loading">
+        <div class="loading-art" aria-hidden="true">
+          <picture class="logo-light">
+            <source
+              srcset="icons/balloon-loading-still.svg"
+              media="(prefers-reduced-motion: reduce)"
+            />
+            <img
+              src="icons/balloon-loading.svg"
+              alt=""
+              width="168"
+              height="168"
+            />
+          </picture>
+          <picture class="logo-dark">
+            <source
+              srcset="icons/balloon-loading-still-dark.svg"
+              media="(prefers-reduced-motion: reduce)"
+            />
+            <img
+              src="icons/balloon-loading-dark.svg"
+              alt=""
+              width="168"
+              height="168"
+            />
+          </picture>
+        </div>
+        <p id="loading-text" role="status">Getting your uploads ready…</p>
+      </section>
+
       <!-- Shown when the build has no OAuth client ID -->
       <section class="empty-state" id="view-setup" hidden>
         <h1>Uploader isn't set up yet</h1>

@@ -44,10 +44,30 @@
       .error {
         color: var(--error);
       }
+      #loading-art img {
+        display: block;
+        margin: 0 auto 8px;
+      }
     </style>
   </head>
   <body>
     <main>
+      <!-- The Uploft balloon packing files while Google Drive opens -->
+      <picture id="loading-art">
+        <source
+          srcset="assets/balloon-loading-still-dark.svg"
+          media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)"
+        />
+        <source
+          srcset="assets/balloon-loading-still.svg"
+          media="(prefers-reduced-motion: reduce)"
+        />
+        <source
+          srcset="assets/balloon-loading-dark.svg"
+          media="(prefers-color-scheme: dark)"
+        />
+        <img src="assets/balloon-loading.svg" alt="" width="160" height="160" />
+      </picture>
       <p id="status">Opening Google Drive…</p>
     </main>
 
@@ -63,8 +83,10 @@
       const extensionId = params.get('ext');
       const focusId = params.get('folder');
       const status = document.getElementById('status');
+      const loadingArt = document.getElementById('loading-art');
 
       function fail(message) {
+        loadingArt.hidden = true;
         status.textContent = message;
         status.className = 'error';
       }
@@ -97,8 +119,7 @@
         const init = await send({ type: 'PICKER_INIT' });
         if (!init?.ok) {
           fail(
-            init?.error ??
-              'Uploft did not respond. Is the extension installed?'
+            init?.error ?? 'Uploft did not respond. Is the extension installed?'
           );
           return;
         }
@@ -161,6 +182,7 @@
           })
           .build()
           .setVisible(true);
+        loadingArt.hidden = true;
         status.textContent = '';
       }
 

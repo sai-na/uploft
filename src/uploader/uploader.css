@@ -349,6 +349,35 @@ main {
   background: url('icons/balloon-carry.svg') center / contain no-repeat;
 }
 
+/* The loading balloon. On page open it fades in late, so a quick open never flashes it */
+.loading-state {
+  animation: loading-in 0.3s ease-out 0.4s both;
+}
+.loading-state.now {
+  animation: none;
+}
+.loading-art {
+  height: 168px;
+  margin-bottom: 12px;
+}
+.loading-art img {
+  display: block;
+  margin: 0 auto;
+}
+.loading-state p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+@keyframes loading-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .benefits {
   display: grid;
   gap: 8px;

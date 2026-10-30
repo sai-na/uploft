@@ -56,10 +56,18 @@ const byId = <T extends HTMLElement = HTMLElement>(id: string): T =>
 /** Folder ID of the Drive tab the uploader was opened from */
 const openedFolderId = new URLSearchParams(location.search).get('folder');
 
-function showView(view: 'setup' | 'signin' | 'main'): void {
+function showView(view: 'loading' | 'setup' | 'signin' | 'main'): void {
+  byId('view-loading').hidden = view !== 'loading';
   byId('view-setup').hidden = view !== 'setup';
   byId('view-signin').hidden = view !== 'signin';
   byId('view-main').hidden = view !== 'main';
+}
+
+/** The balloon packing files, shown at once (on page open it fades in late instead) */
+function showLoading(text: string): void {
+  byId('loading-text').textContent = text;
+  byId('view-loading').classList.add('now');
+  showView('loading');
 }
 
 function showAccount(account: DriveAccount | null): void {
@@ -142,14 +150,24 @@ async function loadAccount(): Promise<void> {
 async function signIn(): Promise<void> {
   const error = byId('sign-in-error');
   error.hidden = true;
+  // Signing in again from the banner keeps the queue on screen
+  const fromSignInView = !byId('view-signin').hidden;
+  let signedIn = false;
   try {
     await auth.signIn();
+    if (fromSignInView) {
+      showLoading('Setting up your Uploft folder in Drive…');
+    }
     await loadAccount();
+    signedIn = true;
     byId('reauth-banner').hidden = true;
-    showView('main');
     await ensureDestination();
+    showView('main');
     offerOpenedFolder();
   } catch (failure) {
+    if (fromSignInView) {
+      showView(signedIn ? 'main' : 'signin');
+    }
     error.textContent = (failure as Error).message;
     error.hidden = false;
   }
